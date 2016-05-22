@@ -1,0 +1,59 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+<	/home/ns3/workspace/dotfiles/vimrc-cc	/^vnoremap < <gv  " better indentation$/;"	m	language:Vim
+<	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^vnoremap < <gv  " - indentation$/;"	m	language:Vim
+<c-h>	/home/ns3/workspace/dotfiles/vimrc-cc	/^map <c-h> <c-w>h$/;"	m	language:Vim
+<c-h>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^map <c-h> <c-w>h$/;"	m	language:Vim
+<c-j>	/home/ns3/workspace/dotfiles/vimrc-cc	/^map <c-j> <c-w>j$/;"	m	language:Vim
+<c-j>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^map <c-j> <c-w>j$/;"	m	language:Vim
+<c-k>	/home/ns3/workspace/dotfiles/vimrc-cc	/^map <c-k> <c-w>k$/;"	m	language:Vim
+<c-k>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^map <c-k> <c-w>k$/;"	m	language:Vim
+<c-l>	/home/ns3/workspace/dotfiles/vimrc-cc	/^map <c-l> <c-w>l$/;"	m	language:Vim
+<c-l>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^map <c-l> <c-w>l$/;"	m	language:Vim
+<C-n>	/home/ns3/workspace/dotfiles/vimrc-cc	/^inoremap <C-n> :nohl<CR>$/;"	m	language:Vim
+<C-n>	/home/ns3/workspace/dotfiles/vimrc-cc	/^noremap <C-n> :nohl<CR>$/;"	m	language:Vim
+<C-n>	/home/ns3/workspace/dotfiles/vimrc-cc	/^vnoremap <C-n> :nohl<CR>$/;"	m	language:Vim
+<C-n>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^inoremap <C-n> :nohl<CR>$/;"	m	language:Vim
+<C-n>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^noremap <C-n> :nohl<CR>$/;"	m	language:Vim
+<C-n>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^vnoremap <C-n> :nohl<CR>$/;"	m	language:Vim
+<C-Z>	/home/ns3/workspace/dotfiles/vimrc-cc	/^inoremap <C-Z> <C-O>:update<CR>$/;"	m	language:Vim
+<C-Z>	/home/ns3/workspace/dotfiles/vimrc-cc	/^noremap <C-Z> :update<CR>$/;"	m	language:Vim
+<C-Z>	/home/ns3/workspace/dotfiles/vimrc-cc	/^vnoremap <C-Z> <C-C>:update<CR>$/;"	m	language:Vim
+<C-Z>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^inoremap <C-Z> <C-O>:update<CR>$/;"	m	language:Vim
+<C-Z>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^noremap <C-Z> :update<CR>$/;"	m	language:Vim
+<C-Z>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^vnoremap <C-Z> <C-C>:update<CR>$/;"	m	language:Vim
+<leader>b	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^nmap <silent> <leader>b :TagbarToggle<CR>$/;"	m	language:Vim
+<Leader>E	/home/ns3/workspace/dotfiles/vimrc-cc	/^noremap <Leader>E :qa!<CR>   " Quit all windows$/;"	m	language:Vim
+<Leader>e	/home/ns3/workspace/dotfiles/vimrc-cc	/^noremap <Leader>e :quit<CR>  " Quit current window$/;"	m	language:Vim
+<Leader>E	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^noremap <Leader>E :qa!<CR>   " Quit all windows$/;"	m	language:Vim
+<Leader>e	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^noremap <Leader>e :quit<CR>  " Quit current window$/;"	m	language:Vim
+<Leader>m	/home/ns3/workspace/dotfiles/vimrc-cc	/^map <Leader>m <esc>:tabnext<CR>$/;"	m	language:Vim
+<Leader>m	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^map <Leader>m <esc>:tabnext<CR>$/;"	m	language:Vim
+<Leader>n	/home/ns3/workspace/dotfiles/vimrc-cc	/^map <Leader>n <esc>:tabprevious<CR>$/;"	m	language:Vim
+<Leader>n	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^map <Leader>n <esc>:tabprevious<CR>$/;"	m	language:Vim
+<Leader>s	/home/ns3/workspace/dotfiles/vimrc-cc	/^vnoremap <Leader>s :sort<CR>$/;"	m	language:Vim
+<leader>t	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^nmap <silent> <leader>t :NERDTreeTabsToggle<CR>$/;"	m	language:Vim
+>	/home/ns3/workspace/dotfiles/vimrc-cc	/^vnoremap > >gv  " better indentation$/;"	m	language:Vim
+>	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^vnoremap > >gv  " + indentation$/;"	m	language:Vim
+g:airline#extensions#hunks#non_zero_only	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:airline#extensions#hunks#non_zero_only = 1$/;"	v	language:Vim
+g:airline#extensions#tabline#enabled	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:airline#extensions#tabline#enabled = 1$/;"	v	language:Vim
+g:airline#extensions#tabline#left_alt_sep	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:airline#extensions#tabline#left_alt_sep = '|'$/;"	v	language:Vim
+g:airline#extensions#tabline#left_sep	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:airline#extensions#tabline#left_sep = ' '$/;"	v	language:Vim
+g:airline_detect_paste	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:airline_detect_paste=1$/;"	v	language:Vim
+g:airline_powerline_fonts	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:airline_powerline_fonts = 1$/;"	v	language:Vim
+g:easytags_async	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:easytags_async = 1$/;"	v	language:Vim
+g:easytags_dynamic_files	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:easytags_dynamic_files = 2$/;"	v	language:Vim
+g:easytags_events	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:easytags_events = ['BufReadPost', 'BufWritePost']$/;"	v	language:Vim
+g:easytags_resolve_links	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:easytags_resolve_links = 1$/;"	v	language:Vim
+g:easytags_suppress_ctags_warning	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:easytags_suppress_ctags_warning = 1$/;"	v	language:Vim
+g:nerdtree_tabs_open_on_console_startup	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:nerdtree_tabs_open_on_console_startup = 0$/;"	v	language:Vim
+g:syntastic_always_populate_loc_list	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:syntastic_always_populate_loc_list = 1$/;"	v	language:Vim
+g:syntastic_auto_loc_list	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:syntastic_auto_loc_list = 1$/;"	v	language:Vim
+g:syntastic_check_on_open	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:syntastic_check_on_open = 1$/;"	v	language:Vim
+g:syntastic_check_on_wq	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:syntastic_check_on_wq = 0$/;"	v	language:Vim
+g:syntastic_error_symbol	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:syntastic_error_symbol = '✘'$/;"	v	language:Vim
+g:syntastic_warning_symbol	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let g:syntastic_warning_symbol = "▲"$/;"	v	language:Vim
+mapleader	/home/ns3/workspace/dotfiles/vimrc-cc	/^let mapleader = ","$/;"	v	language:Vim
+mapleader	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^let mapleader = ","$/;"	v	language:Vim
+mySyntastic	/home/ns3/workspace/dotfiles/vimrc-gen-ide	/^augroup mySyntastic$/;"	a	language:Vim
+Q	/home/ns3/workspace/dotfiles/vimrc-cc	/^nmap Q gqap$/;"	m	language:Vim
+Q	/home/ns3/workspace/dotfiles/vimrc-cc	/^vmap Q gq$/;"	m	language:Vim
