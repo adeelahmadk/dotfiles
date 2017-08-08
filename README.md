@@ -45,5 +45,5 @@ ownership of db files to *vnstat* user:group pair.
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png ".conkyrc_minH")
 
    **minimal# Helium**
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png ".conkyrc_minHe")
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minHe_shot.png ".conkyrc_minHe")
 
