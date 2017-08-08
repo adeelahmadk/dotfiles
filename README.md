@@ -22,8 +22,8 @@ A collection of config files used to setup and maintain a uniform development en
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/shell-shot.png "Bash prompt")
 
 2. ### conky 1.10+
-   Depends on *conky*, *curl*, *jq*, *vnstat*  
-   To setup *vnstat* on Debian/Ubuntu, install from default repo:
+   Depends on: *conky*, *curl*, *jq*, *vnstat*  
+   To setup *vnstat* on Debian/Ubuntu, install from default repo:  
    ```bash
    sudo apt-get install vnstat
    ```
