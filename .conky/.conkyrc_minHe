@@ -1,0 +1,158 @@
+--[[
+Name:			minimalHash
+Code Name:		Helium (He)
+Designer:		Codegenki
+Description: 	minimal#, a minimalist configuration for Conky system monitor with low battery indicator.
+]]
+
+conky.config = {
+    update_interval = 1,
+    no_buffers = true,
+    double_buffer = true,
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+
+    alignment = 'top_middle',
+    background = true,
+    gap_x = 0,
+    gap_y = 1,
+    minimum_height = 40,
+    --minimum_width = 1100,
+    border_width = 0,
+    default_color = 'D0D5DE',
+    default_outline_color = 'C0C5CE',
+    default_shade_color = 'C0C5CE',
+    draw_borders = true,
+    draw_graph_borders = false,
+    draw_outline = false,
+    draw_shades = false,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'normal',
+    own_window_transparent = false,
+    own_window_colour = '000000',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_argb_visual = true,
+    own_window_argb_value = 190,
+
+    stippled_borders = 0,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false,
+
+    use_xft = true,
+	xftalpha = 1,
+    font = 'Roboto Regular:size=7',
+	--text_buffer_size = 256,
+	override_utf8_locale = true,
+	pad_percents=2,
+
+	--[[ # normal text, light grey ]]
+	color1 = 'D0D5DE',
+	--[[ # caution text, tomato ]]
+	color2 = 'BF616A',
+	--[[ # stat text, mint ]]
+	color3 = '3eb489',
+	--[[ # highlight, lemon yellow ]]
+	color4 = 'fff44f',
+	--[[ # heading text, smokey grey ]]
+	color5 = '8FA1B3',
+	--[[ # graph color, Cannonical Aubergine ]]
+	color6 = '772953',
+	--[[ # special, ubuntu orange ]]
+	color7 = 'E95420',
+	color8 = 'DC143C',
+
+-------------------------------------
+--  API Key
+-------------------------------------
+	template6="b59117c083dfa1d4e6cc3186a568fd26",
+
+-------------------------------------
+--  City ID
+-------------------------------------
+	template7="1816670",
+
+-------------------------------------
+--  Temp Unit (default, metric, imperial)
+-------------------------------------
+	template8="metric",
+
+-------------------------------------
+--  Locale (e.g. "es_ES.UTF-8")
+--  Leave empty for default
+-------------------------------------
+	template9=""
+}
+
+conky.text = [[
+${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast/daily?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/forecast.json}\
+${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/weather.json}\
+${execi 300 cp -f ~/.conky/conky_minHash/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}${image ~/.cache/weather-0.png -p 175,0 -s 20x20 -f 150}\
+${voffset 5}\
+${goto 8}${color3}${USER}${color}@${color3}${nodename}${color} \
+${goto 115}${color5}${exec jq .name ~/.cache/weather.json | sed -e 's/^"//' -e 's/"$//'} ${color}${execi 300 jq -r .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}\
+${if_match "$template8" == "metric"}°C\
+${else}${if_match "$template8" == "imperial"}°F\
+${else}${if_match "$template8" == "default"} K\
+${endif}\
+${endif}\
+${endif} \
+${goto 215}${color5}Uptime ${color}$uptime\
+${goto 325}${color5}BAT ${color}\
+${if_match ${battery_percent BAT0}<=15}${color8}${blink ${battery_percent BAT0}}${color}\
+${else}${if_match ${battery_percent BAT0}<=25}${color8}${battery_percent BAT0}\
+${else}${if_match ${battery_percent BAT0}>25}${color}${battery_percent BAT0}\
+${endif}\
+${endif}\
+${endif}%\
+${goto 380}${color5}CPU ${color}$freq_g GHz\
+${goto 465}${color5}Load ${color}${cpu cpu0}% \
+${goto 515}${cpugraph cpu0 7,40 004C99 3399FF -l} \
+${goto 575}${color5}RAM ${color}$mem/$memmax ${memgraph cpu0 7,30 004C99 3399FF -l}\
+${goto 730}${color5}HDD${color4}  root   ${color}${fs_used /}/${fs_size /} \
+${goto 890}${color5}Net \
+${if_existing /proc/net/route wlp4s0}\
+${color4}⬇${color}${downspeed wlp4s0} ${color4}⬆${color}${upspeed wlp4s0}\
+${else}\
+${color}disconnected\
+${image ~/.conky/conky_minHash/misc/offline.png -p 975,2 -s 16x16}\
+${endif} \
+${goto 1020}${color5}Tx/Rx ${time %b}${color} ${color}${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}/month
+${voffset 2}${font DejaVu Sans:size=6}\
+${goto 15}${color7}${execi 3600 lsb_release -si} ${execi 3600 lsb_release -sc}${color}\
+${font DejaVu Sans:size=5}\
+${voffset 5}\
+${goto 115}${color}${execi 300 LANG=${template9} LC_TIME=${template9} date +%^a}${color} \
+${execi 300 jq -r .list[0].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif} / ${execi 300 jq -r .list[0].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif}${color}\
+${voffset -5}\
+${goto 488}${color4}+${color}${cpu cpu1}%\
+${goto 515}└ ${top name 1}\
+${goto 595} └ ${top_mem name 1} \
+${goto 757}${font}${color4}home ${color}${fs_used /home}/${fs_size /home}
+${voffset 8}${font DejaVu Sans:size=5}\
+${goto 115}${execi 300 LANG=${template9} LC_TIME=${template9} date -d +1day +%^a}${color} \
+${execi 300 jq -r .list[1].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif} / ${execi 300 jq -r .list[1].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif}${color}\
+${voffset -7}\
+${goto 488}${color4}+${color}${cpu cpu2}%\
+${goto 515}   ${top name 2}\
+${goto 595}    ${top_mem name 2}
+${voffset 12}\
+${goto 115}${color}${execi 300 LANG=${template9} LC_TIME=${template9} date -d +2day +%^a}${color} \
+${execi 300 jq -r .list[2].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif} / ${execi 300 jq -r .list[2].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif}${color}\
+${voffset -11}\
+${goto 488}${color4}+${color}${cpu cpu3}%\
+${goto 515}   ${top name 3}\
+${goto 595}    ${top_mem name 3}
+${goto 488}${color4}+${color}${cpu cpu4}%\
+${goto 515}   ${top name 4}\
+${goto 595}    ${top_mem name 4}${font}
+${execi 300 cp -f ~/.conky/conky_minHash/icons/#dcdcdc__32/$(jq .list[0].weather[0].id ~/.cache/forecast.json).png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 175,18 -s 16x16}\
+${execi 300 cp -f ~/.conky/conky_minHash/icons/#dcdcdc__32/$(jq .list[1].weather[0].id ~/.cache/forecast.json).png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 175,33 -s 16x16}\
+${execi 300 cp -f ~/.conky/conky_minHash/icons/#dcdcdc__32/$(jq .list[2].weather[0].id ~/.cache/forecast.json).png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 175,46 -s 16x16}
+#${color5}BAT ${color}${if_match ${battery_percent BAT0}<=15}${color8}${blink ${battery BAT0}}${color}${else}${if_match ${battery_percent BAT0}<=25}${color8}${battery BAT0}${else}${if_match ${battery_percent BAT0}>25}${color}${battery BAT0}${endif}${endif}${endif}
+]]
