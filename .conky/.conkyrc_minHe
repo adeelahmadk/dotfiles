@@ -2,7 +2,12 @@
 Name:			minimalHash
 Code Name:		Helium (He)
 Designer:		Codegenki
-Description: 	minimal#, a minimalist configuration for Conky system monitor with low battery indicator.
+Description:	minimal#, a minimalist configuration for Conky system monitor
+                (with added battery indicator & openweathermap.org api).
+Dependencies:	conky, curl, jq, vnstat,
+		        API Key (http://openweathermap.org/) and
+                city id (http://openweathermap.org/help/city_list.txt)
+                from OpenWeatherMap
 ]]
 
 conky.config = {
@@ -18,7 +23,7 @@ conky.config = {
     alignment = 'top_middle',
     background = true,
     gap_x = 0,
-    gap_y = 1,
+    gap_y = 5,
     minimum_height = 40,
     --minimum_width = 1100,
     border_width = 0,
@@ -70,12 +75,12 @@ conky.config = {
 -------------------------------------
 --  API Key
 -------------------------------------
-	template6="b59117c083dfa1d4e6cc3186a568fd26",
+	template6="",
 
 -------------------------------------
 --  City ID
 -------------------------------------
-	template7="1816670",
+	template7="",
 
 -------------------------------------
 --  Temp Unit (default, metric, imperial)
