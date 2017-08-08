@@ -22,7 +22,7 @@ A collection of config files used to setup and maintain a uniform development en
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/shell-shot.png "Bash prompt")
 
 2. ### conky 1.10+
-   Depends on: conky, curl, jq, vnstat 
+   Depends on *conky*, *curl*, *jq*, *vnstat*
    To setup *vnstat* on Debian/Ubuntu, install from default repo:
    ```bash
    sudo apt-get install vnstat
@@ -37,4 +37,13 @@ ownership of db files to *vnstat* user:group pair.
    ```bash
    sudo chown vnstat:vnstat /var/lib/vnstat/*
    ```
+   After setting up dependencies, move .conky directory to your home. Add
+   ```.conky/conky-startup.sh``` as a autostart application from system settings.
+
+   #### Screenshots
+   **minimal# Hydrogen**
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png ".conkyrc_minH")
+
+   **minimal# Helium**
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png ".conkyrc_minHe")
 
