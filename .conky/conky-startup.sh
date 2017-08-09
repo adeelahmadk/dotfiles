@@ -3,6 +3,4 @@
 sleep 15s
 killall conky
 
-conky -c "~/.conky/.conkyrc_minH" &
-
-
+conky -c "$HOME/.conky/.conkyrc_minH" &

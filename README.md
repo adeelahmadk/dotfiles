@@ -1,7 +1,7 @@
 # dotfiles
-## Development environmet config files
+## Development environment config files
 
-A collection of config files used to setup and maintain a uniform development environment accross different machines.
+A collection of config files used to setup and maintain a uniform development environment across different machines.
 
 ## Contents
 - bashrc script
@@ -9,7 +9,7 @@ A collection of config files used to setup and maintain a uniform development en
 - i3 tiling WM config
 
 ## Requirements & Dependencies
-1. ### bashrc
+### 1. bashrc
    copy bashrc script file to your home directory and add a source line in
 .bshrc file:
    ```bash
@@ -17,12 +17,13 @@ A collection of config files used to setup and maintain a uniform development en
    ```
    For changes to take effect either run ```source ~/.bashrc``` from terminal or logout and login.
 
-   #### Screenshot
+   ##### Screenshot
 
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/shell-shot.png "Bash prompt")
 
-2. ### conky 1.10+
-   Depends on: *conky*, *curl*, *jq*, *vnstat*  
+### 2. Conky 1.10+
+   Depends on: *conky*, *curl*, *jq*, *vnstat*
+
    To setup *vnstat* on Debian/Ubuntu, install from default repo:  
    ```bash
    sudo apt-get install vnstat
@@ -37,8 +38,8 @@ ownership of db files to *vnstat* user:group pair.
    ```bash
    sudo chown vnstat:vnstat /var/lib/vnstat/*
    ```
-   For weather updates and forcasts get an API key from [OpenWeatherMap](https://openweathermap.org "OpenWeatherMap's Homepage") 
-   and find id for your city of choice. Substitute these values against 
+   For weather updates and forcasts get an API key from [OpenWeatherMap](https://openweathermap.org "OpenWeatherMap's Homepage")
+   and find id for your city of choice. Substitute these values against
    *template1* and *template2* variables in conkyrc file.
 
    Edit ```.conky/conky-startup.sh``` file and substitute name of the config
@@ -46,10 +47,9 @@ ownership of db files to *vnstat* user:group pair.
    After setting up dependencies, move .conky directory to your home. Add
    ```.conky/conky-startup.sh``` as a autostart application from system settings.
 
-   #### Screenshots
-   **minimal# Hydrogen**
+   ##### Screenshots
+   ###### minimal# Hydrogen
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png ".conkyrc_minH")
 
-   **minimal# Helium**
+   ###### minimal# Helium
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minHe_shot.png ".conkyrc_minHe")
-
