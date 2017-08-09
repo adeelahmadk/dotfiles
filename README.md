@@ -39,7 +39,7 @@ ownership of db files to *vnstat* user:group pair.
    ```
    For weather updates and forcasts get an API key from [OpenWeatherMap](https://openweathermap.org "OpenWeatherMap's Homepage") and find id for your city of choice. Substitute these values against *template1* and *template2* variables in conkyrc file.
    Edit ```.conky/conky-startup.sh``` file and substitute name of the config
-   file of your choice.
+   file of your choice.  
    After setting up dependencies, move .conky directory to your home. Add
    ```.conky/conky-startup.sh``` as a autostart application from system settings.
 
