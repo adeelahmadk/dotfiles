@@ -39,7 +39,7 @@ ownership of db files to *vnstat* user:group pair.
    sudo chown vnstat:vnstat /var/lib/vnstat/*
    ```
    For weather updates and forcasts get an API key from [OpenWeatherMap](https://openweathermap.org "OpenWeatherMap's Homepage")
-   and find id for your city of choice. Substitute these values against
+   and find [city id](http://openweathermap.org/help/city_list.txt "City ID List")  for city of your choice. Substitute these values against
    *template1* and *template2* variables in conkyrc file.
 
    Edit ```.conky/conky-startup.sh``` file and substitute name of the config
