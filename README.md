@@ -53,3 +53,6 @@ ownership of db files to *vnstat* user:group pair.
 
    ###### minimal# Helium
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minHe_shot.png ".conkyrc_minHe")
+
+   ###### minimal# Hydrogen Icon Mix
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_mix_shot.png ".conkyrc_minH_mix")
