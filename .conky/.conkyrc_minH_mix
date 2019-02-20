@@ -1,12 +1,13 @@
 --[[
-Name:		    minimalHash Icon Mix
-Code Name:	    Hydrogen (H)
-Designer:	    Codegenki
-Description:	minimal#, a minimalist configuration for Conky system monitor 
-                (with added battery indicator & openweathermap.org api).
-Dependencies:	conky, curl, jq, vnstat, API Key (http://openweathermap.org/) 
+Name:           minimalHash Icon Mix
+Code Name:      Hydrogen (H)
+Designer:       Codegenki
+Description:    minimal#, a minimalist configuration for Conky system monitor 
+                (with added battery indicator & openweathermap.org api) with 
+                icons.
+Dependencies:   conky, curl, jq, vnstat, API Key (http://openweathermap.org/) 
                 and city id (http://openweathermap.org/help/city_list.txt)
-		        from OpenWeatherMap
+                from OpenWeatherMap
 ]]
 
 conky.config = {
