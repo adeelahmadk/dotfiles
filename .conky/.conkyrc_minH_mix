@@ -1,0 +1,131 @@
+--[[
+Name:		    minimalHash Icon Mix
+Code Name:	    Hydrogen (H)
+Designer:	    Codegenki
+Description:	minimal#, a minimalist configuration for Conky system monitor 
+                (with added battery indicator & openweathermap.org api).
+Dependencies:	conky, curl, jq, vnstat, API Key (http://openweathermap.org/) 
+                and city id (http://openweathermap.org/help/city_list.txt)
+		        from OpenWeatherMap
+]]
+
+conky.config = {
+    update_interval = 1,
+    no_buffers = true,
+    double_buffer = true,
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+
+    alignment = 'top_middle',
+    background = true,
+    gap_x = 0,
+    gap_y = 5,
+    minimum_height = 20,
+    minimum_width = 1000,
+    maximum_width = 1280,
+    border_width = 0,
+    default_color = 'D0D5DE',
+    default_outline_color = 'C0C5CE',
+    default_shade_color = 'C0C5CE',
+    draw_borders = true,
+    draw_graph_borders = false,
+    draw_outline = false,
+    draw_shades = false,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'normal',
+    own_window_transparent = false,
+    own_window_colour = '000000',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_argb_visual = true,
+    own_window_argb_value = 180,
+
+    stippled_borders = 0,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false,
+
+    use_xft = true,
+	xftalpha = 1,
+    font = 'Roboto Regular:size=7',
+	--text_buffer_size = 256,
+	override_utf8_locale = true,
+	pad_percents=2,
+
+	--[[ # normal text, light grey ]]
+	color1 = 'D0D5DE',
+	--[[ # caution text, tomato ]]
+	color2 = 'BF616A',
+	--[[ # stat text, mint ]]
+	color3 = '3eb489',
+	--[[ # highlight, lemon yellow ]]
+	color4 = 'fff44f',
+	--[[ # heading text, smokey grey ]]
+	color5 = '8FA1B3',
+	--[[ # graph color, Cannonical Aubergine ]]
+	color6 = '772953',
+	--[[ # special, ubuntu orange ]]
+	color7 = 'E95420',
+	color8 = 'DC143C',
+
+-------------------------------------
+--  API Key
+-------------------------------------
+	template1="b59117c083dfa1d4e6cc3186a568fd26",
+
+-------------------------------------
+--  City ID
+-------------------------------------
+	template2="1172451",
+
+-------------------------------------
+--  Temp Unit (default, metric, imperial)
+-------------------------------------
+	template3="metric",
+
+-------------------------------------
+--  Locale (e.g. "es_ES.UTF-8")
+--  Leave empty for default
+-------------------------------------
+	template4=""
+}
+
+conky.text = [[
+${execi 300 l=${template4}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template1}&id=${template2}&cnt=5&units=${template3}&lang=$l" -o ~/.cache/weather.json}\
+${execi 300 cp -f ~/.conky/conky_minHash/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}${image ~/.cache/weather-0.png -p 250,0 -s 19x19 -f 150}\
+${voffset 4}\
+${goto 8}${font Roboto Regular:size=7}${color3}${USER}${color} @ ${color3}${nodename}${font}${color}\
+${goto 95}${font Roboto Regular:size=5}${color7} ${execi 3600 lsb_release -si} ${execi 3600 lsb_release -sc}${color}${font}\
+${image ~/.conky/conky_minHash/misc/forecast.png -p 165,2 -s 14x14}${goto 190}${color5}${exec jq .name ~/.cache/weather.json | sed -e 's/^"//' -e 's/"$//'} ${color}${execi 300 jq -r .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}\
+${if_match "$template3" == "metric"}°C\
+${else}${if_match "$template3" == "imperial"}°F\
+${else}${if_match "$template3" == "default"} K\
+${endif}\
+${endif}\
+${endif}\
+${image ~/.conky/conky_minHash/misc/uptime.png -p 290,2 -s 12x12}${goto 315}${color}$uptime\
+${image ~/.conky/conky_minHash/misc/battery.png -p 380,2 -s 12x12}${goto 405}${color}\
+${if_match ${battery_percent BAT0}<=15}${color8}${blink ${battery_percent BAT0}}\
+${else}${if_match ${battery_percent BAT0}<=25}${color8}${battery_percent BAT0}\
+${else}${if_match ${battery_percent BAT0}>25}${color}${battery_percent BAT0}${endif}${endif}${endif}${color}%\
+${image ~/.conky/conky_minHash/misc/cpu.png -p 445,2 -s 12x12}${goto 470}${color}$freq_g GHz\
+${image ~/.conky/conky_minHash/misc/cpu-busy.png -p 530,2 -s 12x12}${goto 555}${color}${cpu cpu0}%\
+${image ~/.conky/conky_minHash/misc/ram-memory.png -p 590,2 -s 12x12}${goto 615}${color}$mem${color5} / ${color}$memmax\
+${image ~/.conky/conky_minHash/misc/hard-drive.png -p 710,2 -s 12x12}${goto 735}${color4}/${color} ${fs_used_perc /}%  ${color4}~ ${color}${fs_used_perc /home}%\
+${image ~/.conky/conky_minHash/misc/network.png -p 820,2 -s 12x12}\
+${if_existing /proc/net/route wlp4s0}\
+${goto 845}${color4}⬇${color}${downspeed wlp4s0} ${color4}⬆${color}${upspeed wlp4s0}\
+${else}${if_existing /proc/net/route enp5s0}\
+${goto 845}${color4}⬇${color}${downspeed enp5s0} ${color4}⬆${color}${upspeed enp5s0}\
+${else}\
+${goto 845}${color}disconnected\
+${image ~/.conky/conky_minHash/misc/offline.png -p 895,2 -s 13x13}\
+${endif}\
+${endif}\
+${image ~/.conky/conky_minHash/misc/data-stat.png -p 955,3 -s 12x12}${goto 980}${color5}${time %b}${color}  ${color}${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 " " $10}'} 
+${voffset 1}${goto 5}${font Roboto Regular:size=2}${color} 
+]]

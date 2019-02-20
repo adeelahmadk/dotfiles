@@ -1,0 +1,114 @@
+--[[
+Name:		minimalHash
+Code Name:	Silicon (Si)
+Designer:	Codegenki
+Description:	minimal#, a minimalist configuration for Conky system monitor (RSS reader).
+Dependencies:	conky
+]]
+
+conky.config = {
+    update_interval = 1,
+    no_buffers = true,
+    double_buffer = true,
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+
+    alignment = 'top_right',
+    background = true,
+    gap_x = 5,
+    gap_y = 50,
+    minimum_height = 120,
+    maximum_width = 450,
+    border_width = 0,
+    default_color = 'D0D5DE',
+    default_outline_color = 'C0C5CE',
+    default_shade_color = 'C0C5CE',
+    draw_borders = true,
+    draw_graph_borders = false,
+    draw_outline = false,
+    draw_shades = false,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'normal',
+    own_window_transparent = false,
+    own_window_colour = '000000',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_argb_visual = true,
+    own_window_argb_value = 180,
+
+    stippled_borders = 0,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false,
+
+    use_xft = true,
+	  xftalpha = 1,
+    font = 'Roboto Regular:size=8',
+	--text_buffer_size = 256,
+	override_utf8_locale = true,
+	pad_percents=2,
+
+	--[[ # normal text, light grey ]]
+	color1 = 'D0D5DE',
+	--[[ # caution text, tomato ]]
+	color2 = 'BF616A',
+	--[[ # stat text, mint ]]
+	color3 = '3eb489',
+	--[[ # highlight, lemon yellow ]]
+	color4 = 'fff44f',
+	--[[ # heading text, smokey grey ]]
+	color5 = '8FA1B3',
+	--[[ # brand, Science Daily ]]
+  color7 = '014176',
+	--[[ # caution, low battery red ]]
+	color8 = 'DC143C',
+	--[[ # brand, arstechinca ]]
+	color9 = 'FF4E00'
+}
+
+conky.text = [[
+
+${color9}${font Roboto Regular:size=10}arsTECHNICA${font}
+$hr${color}
+ ${color5}Science${color}
+ ${color5}1${color} ${rss http://feeds.arstechnica.com/arstechnica/science 30 item_title 0}
+ ${color5}2${color} ${rss http://feeds.arstechnica.com/arstechnica/science 30 item_title 1}
+ ${color5}3${color} ${rss http://feeds.arstechnica.com/arstechnica/science 30 item_title 2}
+ ${color5}4${color} ${rss http://feeds.arstechnica.com/arstechnica/science 30 item_title 3}
+ ${color5}5${color} ${rss http://feeds.arstechnica.com/arstechnica/science 30 item_title 4}
+
+ ${color5}FOSS${color}
+ ${color5}1${color} ${rss http://feeds.arstechnica.com/arstechnica/open-source 30 item_title 0}
+ ${color5}2${color} ${rss http://feeds.arstechnica.com/arstechnica/open-source 30 item_title 1}
+ ${color5}3${color} ${rss http://feeds.arstechnica.com/arstechnica/open-source 30 item_title 2}
+ ${color5}4${color} ${rss http://feeds.arstechnica.com/arstechnica/open-source 30 item_title 3}
+ ${color5}5${color} ${rss http://feeds.arstechnica.com/arstechnica/open-source 30 item_title 4}
+
+ ${color5}Hacktivism${color}
+ ${color5}1${color} ${rss http://feeds.arstechnica.com/arstechnica/security 30 item_title 0}
+ ${color5}2${color} ${rss http://feeds.arstechnica.com/arstechnica/security 30 item_title 1}
+ ${color5}3${color} ${rss http://feeds.arstechnica.com/arstechnica/security 30 item_title 2}
+ ${color5}4${color} ${rss http://feeds.arstechnica.com/arstechnica/security 30 item_title 3}
+ ${color5}5${color} ${rss http://feeds.arstechnica.com/arstechnica/security 30 item_title 4}
+
+ ${image ~/.conky/scidaily.png -p 0,310 -s 95x18 -f 600}
+ ${goto 3}${color7}$hr${color}
+ ${color5}Electronics${color}
+ ${color5}1${color} ${rss https://www.sciencedaily.com/rss/matter_energy/electronics.xml 30 item_title 0}
+ ${color5}2${color} ${rss https://www.sciencedaily.com/rss/matter_energy/electronics.xml 30 item_title 1}
+ ${color5}3${color} ${rss https://www.sciencedaily.com/rss/matter_energy/electronics.xml 30 item_title 2}
+ ${color5}4${color} ${rss https://www.sciencedaily.com/rss/matter_energy/electronics.xml 30 item_title 3}
+ ${color5}5${color} ${rss https://www.sciencedaily.com/rss/matter_energy/electronics.xml 30 item_title 4}
+
+ ${color5}Encryption${color}
+ ${color5}1${color} ${rss https://www.sciencedaily.com/rss/computers_math/encryption.xml 30 item_title 0}
+ ${color5}2${color} ${rss https://www.sciencedaily.com/rss/computers_math/encryption.xml 30 item_title 1}
+ ${color5}3${color} ${rss https://www.sciencedaily.com/rss/computers_math/encryption.xml 30 item_title 2}
+ ${color5}4${color} ${rss https://www.sciencedaily.com/rss/computers_math/encryption.xml 30 item_title 3}
+ ${color5}5${color} ${rss https://www.sciencedaily.com/rss/computers_math/encryption.xml 30 item_title 4}
+
+]]

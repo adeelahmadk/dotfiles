@@ -2,9 +2,11 @@ shopt -s checkwinsize
 
 bash_prompt_command() {
     tinfo="$(basename $SHELL):pts$(basename $(tty))"
-    local gfxlen=11
-    local spchar=19
-    # How many characters of the $PWD should be kept
+    # number of graphic characters
+    local gfxlen=15
+    # number of spaces
+    local spchar=6
+    # limit on the length of $PWD
     local pwdmaxlen=${COLUMNS}-${#tinfo}-${gfxlen}-${#USER}-${#HOSTNAME}-${spchar}
     # Indicate that there has been dir truncation
     local trunc_symbol=".."
@@ -17,8 +19,7 @@ bash_prompt_command() {
         NEW_PWD=${NEW_PWD:$pwdoffset:$pwdmaxlen}
         NEW_PWD=${trunc_symbol}/${NEW_PWD#*/}
     fi
-
-    # Fill width with - characters
+    # fill remaining spaces with graphic characters
     #local pfillsize=0
     #let pfillsize=${COLUMNS}-${#tinfo}-${gfxlen}-${#NEW_PWD}-${#USER}-${#HOSTNAME}-${spchar}
     #local pfchar="━"
@@ -51,7 +52,7 @@ bash_prompt() {
     local C="\[\033[0;36m\]"    # cyan
     local W="\[\033[0;37m\]"    # white
 
-    # emphasized (bolded) colors
+    # emphasized (bold) colors
     local EMK="\[\033[1;30m\]"
     local EMR="\[\033[1;31m\]"
     local EMG="\[\033[1;32m\]"
@@ -74,8 +75,8 @@ bash_prompt() {
     local UC=$G                 # user's color
     [ $UID -eq "0" ] && UC=$R   # root's color
 
-    PS1="${EMK}╭─[${UC}\u${EMW} on ${UC}\h${EMK}]${EMW} in ${EMK}[${C}\${NEW_PWD}${EMK}] ${EMW}using ${EMK}[${B}\${tinfo}${EMK}]${NONE}
-${EMK}╰─[${NONE}$TITLEBAR\${debian_chroot:+($debian_chroot)} ${UC}\\$ ${EMK}]${NONE} "
+    PS1="${EMK}[${UC}\u${EMW} at ${UC}\h${EMK}]${EMW} in ${EMK}[${C}\${NEW_PWD}${EMK}] ${EMW}using ${EMK}[${B}\${tinfo}${EMK}]${NONE}
+${EMK}[${NONE}$TITLEBAR\${debian_chroot:+($debian_chroot)} ${UC}\\$ ${EMK}]${NONE} "
 
     #PS1="╭─[\u@\h:\${NEW_PWD}]──[\${tinfo}]
 #╰─[$TITLEBAR\${debian_chroot:+($debian_chroot)} \$ ] "
@@ -87,13 +88,16 @@ PROMPT_COMMAND=bash_prompt_command
 bash_prompt
 unset bash_prompt
 
+# define aliases for frequently used commands
 alias ls='ls --color=auto'
-#alias ll='ls -alF'
-#alias la='ls -A'
+alias ll='ls -lh'
+alias la='ls -A'
+alias lla='ls -Alh'
 alias aptud='sudo apt-get update'
-alias aptug='sudo apt-get update && sudo apt-get upgrade'
+alias aptug='sudo apt-get upgrade'
 alias aptrm='sudo apt-get remove'
 alias aptarm='sudo apt-get autoremove'
 alias aptin='sudo apt-get install'
 alias apts='apt search'
-
+alias lshosts='sudo nmap -sP -PB'
+alias pingg='ping -c 4 8.8.8.8'
