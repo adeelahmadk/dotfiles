@@ -3,7 +3,7 @@ shopt -s checkwinsize
 bash_prompt_command() {
     tinfo="$(basename $SHELL):pts$(basename $(tty))"
     # number of graphic characters
-    local gfxlen=15
+    local gfxlen=18
     # number of spaces
     local spchar=6
     # limit on the length of $PWD
@@ -72,17 +72,22 @@ bash_prompt() {
     local BGC="\[\033[46m\]"
     local BGW="\[\033[47m\]"
 
+    MOODS=(😃 😄 😌 😌 😓 😜)
+    RANDOM=$$$(date +%s)
+    FACE=${MOODS[$RANDOM % ${#MOODS[@]}]}
+
     local UC=$G                 # user's color
     [ $UID -eq "0" ] && UC=$R   # root's color
 
-    PS1="${EMK}[${UC}\u${EMW} at ${UC}\h${EMK}]${EMW} in ${EMK}[${C}\${NEW_PWD}${EMK}] ${EMW}using ${EMK}[${B}\${tinfo}${EMK}]${NONE}
-${EMK}[${NONE}$TITLEBAR\${debian_chroot:+($debian_chroot)} ${UC}\\$ ${EMK}]${NONE} "
+    PS1="${EMK}[${UC}\u${EMW} at ${UC}\h${EMK}]${EMW} in ${B}\${NEW_PWD} ${EMW}using ${B}\${tinfo}${NONE}
+${NONE}$TITLEBAR\${debian_chroot:+($debian_chroot)}${UC}↠ ${NONE} "
 
     #PS1="╭─[\u@\h:\${NEW_PWD}]──[\${tinfo}]
 #╰─[$TITLEBAR\${debian_chroot:+($debian_chroot)} \$ ] "
     # without colors: PS1="[\u@\h \${NEW_PWD}]\\$ "
     # extra backslash in front of \$ to make bash colorize the prompt
 }
+
 # init it by setting PROMPT_COMMAND
 PROMPT_COMMAND=bash_prompt_command
 bash_prompt
@@ -93,11 +98,19 @@ alias ls='ls --color=auto'
 alias ll='ls -lh'
 alias la='ls -A'
 alias lla='ls -Alh'
+alias lsd='ls -d */'
+alias lsf='ls -lh | egrep -v "^d"'
 alias aptud='sudo apt-get update'
 alias aptug='sudo apt-get upgrade'
 alias aptrm='sudo apt-get remove'
 alias aptarm='sudo apt-get autoremove'
 alias aptin='sudo apt-get install'
 alias apts='apt search'
-alias lshosts='sudo nmap -sP -PB'
-alias pingg='ping -c 4 8.8.8.8'
+alias lsproc='ps -ef | grep'
+alias lsdsz='du -hxd1'
+alias lshosts='fping -aAqgn -r 0'
+alias scansub='sudo nmap -sP -PB'
+alias pingg='ping 8.8.8.8 -c'
+alias intip="ifconfig `route -n | grep -m1 -e ^'0\.0\.0\.0' |awk '{print \$NF}'` | grep 'inet ' | awk '{print \$2}' | sed 's/addr://1'"
+alias pubip='wget http://ipecho.net/plain -O - -q ; echo'
+alias filesfx='echo `date "+%F"`_`date "+%s"`'
