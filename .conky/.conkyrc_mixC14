@@ -1,0 +1,148 @@
+--[[
+Name:		    Carbon Mix
+Code Name:	    Carbon 14 (C14: Network Resource Monitor)
+Designer:	    Codegenki
+Description:	minimal#, a minimalist configuration for Conky system monitor 
+                (with added battery indicator & openweathermap.org api).
+Dependencies:	conky, curl, jq, vnstat, API Key (http://openweathermap.org/) 
+                and city id (http://openweathermap.org/help/city_list.txt)
+		        from OpenWeatherMap
+]]
+
+conky.config = {
+    update_interval = 1,
+    no_buffers = true,
+    double_buffer = true,
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+    draw_borders = true,
+    draw_graph_borders = false,
+    draw_outline = false,
+    draw_shades = false,
+
+    alignment = 'bottom_right',
+    background = true,
+    gap_x = 10,
+    gap_y = 10,
+    minimum_height = 130,
+    minimum_width = 190,
+    maximum_width = 190,
+    border_width = 0,
+    default_color = 'D0D5DE',
+    default_outline_color = 'C0C5CE',
+    default_shade_color = 'C0C5CE',
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'normal',
+    own_window_transparent = false,
+    own_window_colour = '000000',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_argb_visual = true,
+    own_window_argb_value = 200,
+
+    stippled_borders = 0,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false,
+
+    use_xft = true,
+	xftalpha = 1,
+    font = 'Roboto Regular:size=7',
+	--text_buffer_size = 256,
+	override_utf8_locale = true,
+	pad_percents=2,
+
+	--[[ # normal text, light grey ]]
+	color1 = 'D0D5DE',
+	--[[ # caution text, tomato ]]
+	color2 = 'BF616A',
+	--[[ # stat text, mint ]]
+	color3 = '3eb489',
+	--[[ # highlight, lemon yellow ]]
+	color4 = 'fff44f',
+	--[[ # heading text, smokey grey ]]
+	color5 = '8FA1B3',
+	--[[ # graph color, Cannonical Aubergine ]]
+	color6 = '772953',
+	--[[ # special, ubuntu orange ]]
+	color7 = 'E95420',
+	color8 = 'DC143C',
+
+-------------------------------------
+--  API Key
+-------------------------------------
+	template1="b59117c083dfa1d4e6cc3186a568fd26",
+
+-------------------------------------
+--  City ID
+-------------------------------------
+	template2="1172451",
+
+-------------------------------------
+--  Temp Unit (default, metric, imperial)
+-------------------------------------
+	template3="metric",
+
+-------------------------------------
+--  Locale (e.g. "es_ES.UTF-8")
+--  Leave empty for default
+-------------------------------------
+	template4=""
+}
+
+conky.text = [[
+${voffset 10}\
+\
+${if_existing /proc/net/route enp5s0}\
+\
+${image ~/.conky/conky_minHash/misc/ethernet.png -p 10,9 -s 12x12}\
+${goto 35}${color3}Ethernet\
+${image ~/.conky/conky_minHash/misc/data-stat.png -p 103,9 -s 12x12}${goto 130}${color3}${time %b}  ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}\
+\
+${if_existing /proc/net/route wlp4s0}\
+\
+${voffset 17}\
+${image ~/.conky/conky_minHash/misc/signal-symbol.png -p 10,26 -s 12x12}\
+${goto 35}${color3}${wireless_essid wlp4s0}${color}\
+\
+${endif}\
+\
+${voffset 25}\
+${goto 15}${color5}Up: ${color}${upspeed enp5s0}${color5}${goto 105}Down: ${color}${downspeed enp5s0}
+${voffset 5}\
+${goto 25}${upspeedgraph enp5s0 20,60 FFFFFF FFFFFF}${goto 120}${downspeedgraph enp5s0 20,60 FFFFFF FFFFFF}
+${voffset 9}\
+${goto 15}${color5}Sent: ${color}${totalup enp5s0}${color5}${goto 105}Received: ${color}${totaldown enp5s0}
+\
+${else}\
+\
+${if_existing /proc/net/route wlp4s0}\
+\
+${image ~/.conky/conky_minHash/misc/signal-symbol.png -p 10,9 -s 12x12}\
+${goto 35}${color3}${wireless_essid wlp4s0}${color}\
+${image ~/.conky/conky_minHash/misc/data-stat.png -p 103,9 -s 12x12}${goto 130}${color3}${time %b}  ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}${color}\
+${voffset 25}\
+${goto 15}${color5}Up: ${color}${upspeed wlp4s0}${color5}${goto 105}Down: ${color}${downspeed wlp4s0}
+${voffset 5}\
+${goto 25}${upspeedgraph wlp4s0 20,60 FFFFFF FFFFFF}${goto 120}${downspeedgraph wlp4s0 20,60 FFFFFF FFFFFF}
+${voffset 2}\
+${goto 15}${color5}Sent: ${color}${totalup wlp4s0}${color5}${goto 105}Received: ${color}${totaldown wlp4s0}
+\
+${else}\
+\
+${image ~/.conky/conky_minHash/misc/network.png -p 10,5 -s 12x12}\
+${goto 35}${color}disconnected\
+${image ~/.conky/conky_minHash/misc/offline.png -p 100,5 -s 12x12}\
+\
+${endif}\
+\
+${endif}\
+\
+\
+\
+\
+]]
