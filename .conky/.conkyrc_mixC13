@@ -26,7 +26,7 @@ conky.config = {
     alignment = 'top_right',
     background = true,
     gap_x = 10,
-    gap_y = 45,
+    gap_y = 40,
     minimum_height = 320,
     minimum_width = 190,
     maximum_width = 190,
@@ -96,9 +96,9 @@ conky.config = {
 
 conky.text = [[
 ${voffset 4}\
-${goto 60}${font Roboto Regular:size=8}${color3}${USER}${color} @ ${color3}${nodename}${font}${color}\
+${goto 55}${font Roboto Regular:size=8}${color3}${USER}${color} @ ${color3}${nodename}${font}${color}\
 ${voffset 15}\
-${goto 35}${font Roboto Regular:size=6}${color7}${execi 3600 lsb_release -sd} (${execi 3600 lsb_release -si} ${execi 3600 lsb_release -sc})${color}
+${goto 40}${font Roboto Regular:size=6}${color7}${execi 3600 lsb_release -sd} (${execi 3600 lsb_release -si} ${execi 3600 lsb_release -sc})${color}
 ${font}\
 \
 \
