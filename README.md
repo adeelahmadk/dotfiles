@@ -10,16 +10,33 @@ A collection of config files used to setup and maintain a uniform development en
 
 ## Requirements & Dependencies
 ### 1. bashrc
-   copy bashrc script file to your home directory and add a source line in
-.bshrc file:
+   copy either of the two `bashrc` script files to your home directory and add a source line in `~/.bashrc` file:
    ```bash
-source .bashrc.cpwd.sh
+source .bashrc.env.sh
    ```
    For changes to take effect either run ```source ~/.bashrc``` from terminal or logout and login.
 
-   ##### Screenshot
+​	Both files, in addition to custom aliases and functions, print a custom prompt and are differentiated as follows:
 
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/shell-shot.png "Bash prompt")
+
+- `.bashrc.cpwd.sh` prints a shell script based simple prompt
+
+![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/shell-shot.png "Bash prompt")
+
+- `.bashrc.env.sh` prints a `powerline-shell` based prompt that can be installed via terminal by the command:
+
+    ```bash
+    pip install powerline-shell
+    ```
+
+    
+
+![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/powershell-shot.png "Bash prompt")
+##### Screenshots
+
+![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/shell-shot.png "Bash prompt")
+
+
 
 ### 2. Conky 1.10+
    Depends on: *conky*, *curl*, *jq*, *vnstat*
