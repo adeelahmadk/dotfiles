@@ -1,6 +1,7 @@
 #!/bin/bash
 
-sleep 15s
+sleep 10s
 killall conky
 
-conky -c "$HOME/.conky/.conkyrc_minH_mix" &
+$HOME/.conky/spacex-start.sh &
+

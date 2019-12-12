@@ -26,10 +26,10 @@ conky.config = {
     alignment = 'bottom_right',
     background = true,
     gap_x = 10,
-    gap_y = 10,
+    gap_y = 50,
     minimum_height = 130,
-    minimum_width = 190,
-    maximum_width = 190,
+    minimum_width = 200,
+    maximum_width = 200,
     border_width = 0,
     default_color = 'D0D5DE',
     default_outline_color = 'C0C5CE',
@@ -100,8 +100,8 @@ ${voffset 10}\
 ${if_existing /proc/net/route enp5s0}\
 \
 ${image ~/.conky/conky_minHash/misc/ethernet.png -p 10,9 -s 12x12}\
-${goto 35}${color3}Ethernet\
-${image ~/.conky/conky_minHash/misc/data-stat.png -p 103,9 -s 12x12}${goto 130}${color3}${time %b}  ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}\
+${goto 32}${color3}Ethernet\
+${image ~/.conky/conky_minHash/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}\
 \
 ${if_existing /proc/net/route wlp4s0}\
 \
@@ -123,12 +123,12 @@ ${else}\
 ${if_existing /proc/net/route wlp4s0}\
 \
 ${image ~/.conky/conky_minHash/misc/signal-symbol.png -p 10,9 -s 12x12}\
-${goto 35}${color3}${wireless_essid wlp4s0}${color}\
-${image ~/.conky/conky_minHash/misc/data-stat.png -p 103,9 -s 12x12}${goto 130}${color3}${time %b}  ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}${color}\
+${goto 32}${color3}${wireless_essid wlp4s0}${color}\
+${image ~/.conky/conky_minHash/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}${color}\
 ${voffset 25}\
 ${goto 15}${color5}Up: ${color}${upspeed wlp4s0}${color5}${goto 105}Down: ${color}${downspeed wlp4s0}
 ${voffset 5}\
-${goto 25}${upspeedgraph wlp4s0 20,60 FFFFFF FFFFFF}${goto 120}${downspeedgraph wlp4s0 20,60 FFFFFF FFFFFF}
+${goto 18}${upspeedgraph wlp4s0 20,70 FFFFFF FFFFFF}${goto 110}${downspeedgraph wlp4s0 20,70 FFFFFF FFFFFF}
 ${voffset 2}\
 ${goto 15}${color5}Sent: ${color}${totalup wlp4s0}${color5}${goto 105}Received: ${color}${totaldown wlp4s0}
 \

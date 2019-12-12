@@ -71,7 +71,8 @@ conky.config = {
 	--[[ # special, ubuntu orange ]]
 	color7 = 'E95420',
 	color8 = 'DC143C',
-
+	--[[ # special, Pop OS cyan ]]
+    color9 = '94EBEB',
 -------------------------------------
 --  API Key
 -------------------------------------
@@ -124,7 +125,7 @@ ${image ~/.conky/conky_minHash/misc/cpu-busy.png -p 110,80 -s 12x12}${goto 135}$
 \
 \
 ${voffset 20}\
-${goto 25}${loadgraph 20,150 FFFFFF FFFFFF -l}
+${goto 25}${cpugraph 20,150 A5FCFC 94EBEB -t -l}
 \
 \
 \
@@ -132,14 +133,15 @@ ${goto 25}${loadgraph 20,150 FFFFFF FFFFFF -l}
 ${voffset 3}\
 ${image ~/.conky/conky_minHash/misc/ram-memory.png -p 10,135 -s 12x12}${goto 35}${color}$mem${color5} / ${color}$memmax\
 \
-${voffset 25}\
-${image ~/.conky/conky_minHash/misc/hard-drive.png -p 10,160 -s 12x12}${goto 35}${color4}/${color} ${fs_used_perc /}% ${color4}~ ${color}${fs_used_perc /home}%\
-${voffset 25}\
-${image ~/.conky/conky_minHash/misc/usb-port.png -p 10,185 -s 14x14}\
+${voffset 23}\
+${image ~/.conky/conky_minHash/misc/hard-drive.png -p 10,160 -s 14x14}\
+${goto 35}${font Roboto Regular:size=6}${color4}/${color} ${fs_used /} /${fs_size /}${goto 120}${fs_bar 5,60 /}\
+${voffset 15}${goto 35}${color4}~${color} ${fs_used /home} / ${fs_size /home}${font}${goto 120}${fs_bar 5,60 /home}\
 \
 \
 \
 \
+${voffset 10}\
 ${voffset 40}${goto 10}${color1}${top_mem name 1}${color}
 ${voffset 4}${goto 10}${color1}${top_mem name 2}${color}
 ${voffset 4}${goto 10}${color1}${top_mem name 3}${color}
