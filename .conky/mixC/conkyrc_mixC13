@@ -106,9 +106,9 @@ ${font}\
 \
 \
 ${voffset 25}\
-${image ~/.conky/conky_minHash/misc/uptime.png -p 10,55 -s 12x12}${goto 35}${color}$uptime\
+${image ~/.conky/assets/misc/uptime.png -p 10,55 -s 12x12}${goto 35}${color}$uptime\
 \
-${image ~/.conky/conky_minHash/misc/battery.png -p 110,55 -s 12x12}${goto 135}${color}\
+${image ~/.conky/assets/misc/battery.png -p 110,55 -s 12x12}${goto 135}${color}\
 ${if_match ${battery_percent BAT0}<=15}${color8}${blink ${battery_percent BAT0}}\
 ${else}${if_match ${battery_percent BAT0}<=25}${color8}${battery_percent BAT0}\
 ${else}${if_match ${battery_percent BAT0}>25}${color}${battery_percent BAT0}${endif}${endif}${endif}${color}%\
@@ -117,9 +117,9 @@ ${else}${if_match ${battery_percent BAT0}>25}${color}${battery_percent BAT0}${en
 \
 \
 ${voffset 25}\
-${image ~/.conky/conky_minHash/misc/cpu.png -p 10,80 -s 12x12}${goto 35}${color}$freq_g GHz  \
+${image ~/.conky/assets/misc/cpu.png -p 10,80 -s 12x12}${goto 35}${color}$freq_g GHz  \
 \
-${image ~/.conky/conky_minHash/misc/cpu-busy.png -p 110,80 -s 12x12}${goto 135}${color}${cpu cpu0}% \
+${image ~/.conky/assets/misc/cpu-busy.png -p 110,80 -s 12x12}${goto 135}${color}${cpu cpu0}% \
 \
 \
 \
@@ -131,10 +131,10 @@ ${goto 25}${cpugraph 20,150 A5FCFC 94EBEB -t -l}
 \
 \
 ${voffset 3}\
-${image ~/.conky/conky_minHash/misc/ram-memory.png -p 10,135 -s 12x12}${goto 35}${color}$mem${color5} / ${color}$memmax\
+${image ~/.conky/assets/misc/ram-memory.png -p 10,135 -s 12x12}${goto 35}${color}$mem${color5} / ${color}$memmax\
 \
 ${voffset 23}\
-${image ~/.conky/conky_minHash/misc/hard-drive.png -p 10,160 -s 14x14}\
+${image ~/.conky/assets/misc/hard-drive.png -p 10,160 -s 14x14}\
 ${goto 35}${font Roboto Regular:size=6}${color4}/${color} ${fs_used /} /${fs_size /}${goto 120}${fs_bar 5,60 /}\
 ${voffset 15}${goto 35}${color4}~${color} ${fs_used /home} / ${fs_size /home}${font}${goto 120}${fs_bar 5,60 /home}\
 \

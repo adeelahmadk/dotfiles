@@ -97,7 +97,7 @@ conky.config = {
 conky.text = [[
 ${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast/daily?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/forecast.json}\
 ${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/weather.json}\
-${execi 300 cp -f ~/.conky/conky_minHash/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}${image ~/.cache/weather-0.png -p 175,0 -s 20x20 -f 150}\
+${execi 300 cp -f ~/.conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}${image ~/.cache/weather-0.png -p 175,0 -s 20x20 -f 150}\
 ${voffset 5}\
 ${goto 8}${color3}${USER}${color}@${color3}${nodename}${color} \
 ${goto 115}${color5}${exec jq .name ~/.cache/weather.json | sed -e 's/^"//' -e 's/"$//'} ${color}${execi 300 jq -r .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}\
@@ -125,7 +125,7 @@ ${if_existing /proc/net/route wlp4s0}\
 ${color4}⬇${color}${downspeed wlp4s0} ${color4}⬆${color}${upspeed wlp4s0}\
 ${else}\
 ${color}disconnected\
-${image ~/.conky/conky_minHash/misc/offline.png -p 975,2 -s 16x16}\
+${image ~/.conky/assets/misc/offline.png -p 975,2 -s 16x16}\
 ${endif} \
 ${goto 1020}${color5}Tx/Rx ${time %b}${color} ${color}${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}/month
 ${voffset 2}${font DejaVu Sans:size=6}\
@@ -156,8 +156,8 @@ ${goto 595}    ${top_mem name 3}
 ${goto 488}${color4}+${color}${cpu cpu4}%\
 ${goto 515}   ${top name 4}\
 ${goto 595}    ${top_mem name 4}${font}
-${execi 300 cp -f ~/.conky/conky_minHash/icons/#dcdcdc__32/$(jq .list[0].weather[0].id ~/.cache/forecast.json).png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 175,18 -s 16x16}\
-${execi 300 cp -f ~/.conky/conky_minHash/icons/#dcdcdc__32/$(jq .list[1].weather[0].id ~/.cache/forecast.json).png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 175,33 -s 16x16}\
-${execi 300 cp -f ~/.conky/conky_minHash/icons/#dcdcdc__32/$(jq .list[2].weather[0].id ~/.cache/forecast.json).png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 175,46 -s 16x16}
+${execi 300 cp -f ~/.conky/assets/icons/#dcdcdc__32/$(jq .list[0].weather[0].id ~/.cache/forecast.json).png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 175,18 -s 16x16}\
+${execi 300 cp -f ~/.conky/assets/icons/#dcdcdc__32/$(jq .list[1].weather[0].id ~/.cache/forecast.json).png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 175,33 -s 16x16}\
+${execi 300 cp -f ~/.conky/assets/icons/#dcdcdc__32/$(jq .list[2].weather[0].id ~/.cache/forecast.json).png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 175,46 -s 16x16}
 #${color5}BAT ${color}${if_match ${battery_percent BAT0}<=15}${color8}${blink ${battery BAT0}}${color}${else}${if_match ${battery_percent BAT0}<=25}${color8}${battery BAT0}${else}${if_match ${battery_percent BAT0}>25}${color}${battery BAT0}${endif}${endif}${endif}
 ]]

@@ -99,14 +99,14 @@ ${voffset 10}\
 \
 ${if_existing /proc/net/route enp5s0}\
 \
-${image ~/.conky/conky_minHash/misc/ethernet.png -p 10,9 -s 12x12}\
+${image ~/.conky/assets/misc/ethernet.png -p 10,9 -s 12x12}\
 ${goto 32}${color3}Ethernet\
-${image ~/.conky/conky_minHash/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}\
+${image ~/.conky/assets/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}\
 \
 ${if_existing /proc/net/route wlp4s0}\
 \
 ${voffset 17}\
-${image ~/.conky/conky_minHash/misc/signal-symbol.png -p 10,26 -s 12x12}\
+${image ~/.conky/assets/misc/signal-symbol.png -p 10,26 -s 12x12}\
 ${goto 35}${color3}${wireless_essid wlp4s0}${color}\
 \
 ${endif}\
@@ -122,9 +122,9 @@ ${else}\
 \
 ${if_existing /proc/net/route wlp4s0}\
 \
-${image ~/.conky/conky_minHash/misc/signal-symbol.png -p 10,9 -s 12x12}\
+${image ~/.conky/assets/misc/signal-symbol.png -p 10,9 -s 12x12}\
 ${goto 32}${color3}${wireless_essid wlp4s0}${color}\
-${image ~/.conky/conky_minHash/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}${color}\
+${image ~/.conky/assets/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}${color}\
 ${voffset 25}\
 ${goto 15}${color5}Up: ${color}${upspeed wlp4s0}${color5}${goto 105}Down: ${color}${downspeed wlp4s0}
 ${voffset 5}\
@@ -134,9 +134,9 @@ ${goto 15}${color5}Sent: ${color}${totalup wlp4s0}${color5}${goto 105}Received: 
 \
 ${else}\
 \
-${image ~/.conky/conky_minHash/misc/network.png -p 10,5 -s 12x12}\
+${image ~/.conky/assets/misc/network.png -p 10,5 -s 12x12}\
 ${goto 35}${color}disconnected\
-${image ~/.conky/conky_minHash/misc/offline.png -p 100,5 -s 12x12}\
+${image ~/.conky/assets/misc/offline.png -p 100,5 -s 12x12}\
 \
 ${endif}\
 \

@@ -7,7 +7,7 @@ Dependencies:	conky
 ]]
 
 conky.config = {
-    update_interval = 1,
+    update_interval = 300,
     no_buffers = true,
     double_buffer = true,
     cpu_avg_samples = 2,
