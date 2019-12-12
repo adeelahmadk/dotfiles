@@ -29,17 +29,13 @@ source .bashrc.env.sh
     pip install powerline-shell
     ```
 
-    
-
 ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/powershell-shot.png "Bash prompt")
-##### Screenshots
 
-![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/shell-shot.png "Bash prompt")
+### 2. Conky Config
 
+#### minimal# X, mixCxx
 
-
-### 2. Conky 1.10+
-   Depends on: *conky*, *curl*, *jq*, *vnstat*
+   Depends on: *conky* (>= 1.10), *curl*, *jq*, *vnstat*
 
    To setup *vnstat* on Debian/Ubuntu, install from default repo:  
    ```bash
@@ -60,25 +56,35 @@ sudo chown vnstat:vnstat /var/lib/vnstat/*
    and find [city id](http://openweathermap.org/help/city_list.txt "City ID List")  for city of your choice. Substitute these values against
    *template1* and *template2* variables in conkyrc file.
 
-   Edit ```.conky/conky-startup.sh``` file and substitute name of the config
-   file of your choice.
-   After setting up dependencies, move .conky directory to your home. Add
-   ```.conky/conky-startup.sh``` as a autostart application from system settings.
+#### SpaceX
+
+   Depends on: *conky* (>= 1.10), *Python 3* (for optional `apt` script)
+
+After setting up dependencies, move conky configuration directory (e.g. spacex) to `~/.conky`. Edit `.conky/conky-startup.sh` file and substitute name of the script that launches configuration file of your choice. Add ```.conky/conky-startup.sh``` as a autostart application from system settings.
 
    ##### Screenshots
    ###### minimal# Hydrogen
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png ".conkyrc_minH")
+
+   ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png "conkyrc_minH")
 
    ###### minimal# Helium
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minHe_shot.png ".conkyrc_minHe")
+
+   ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minHe_shot.png "conkyrc_minHe")
 
    ###### minimal# Hydrogen Icon Mix
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_mix_shot.png ".conkyrc_minH_mix")
+
+   ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_mix_shot.png "conkyrc_minH_mix")
 
    ###### minimal# Carbon
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC12_shot.png ".conkyrc_mixC12")
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC12_shot.png "conkyrc_mixC12")
 
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC13_shot.png ".conkyrc_mixC13")
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC13_shot.png "conkyrc_mixC13")
 
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC14_shot.png ".conkyrc_mixC14")
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC14_shot.png "conkyrc_mixC14")
+
+   ###### SpaceX
+
+   ######    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/spacex_sys.png "spacex_sys")
+
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/spacex_os.png "spacex_os")
 
