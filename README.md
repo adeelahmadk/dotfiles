@@ -37,6 +37,15 @@ source .bashrc.env.sh
 
    Depends on: *conky* (>= 1.10), *curl*, *jq*, *vnstat*
 
+#### SpaceX
+
+   Depends on: *conky* (>= 1.10), *Python 3* (for optional `apt` script)
+
+#### StarWarp
+
+   Depends on: *conky* (>= 1.10), *curl*, *jq*, *vnstat*, *Python 3* (for optional `apt` script)
+
+##### Setup dependencies
    To setup *vnstat* on Debian/Ubuntu, install from default repo:  
    ```bash
 sudo apt-get install vnstat
@@ -56,13 +65,11 @@ sudo chown vnstat:vnstat /var/lib/vnstat/*
    and find [city id](http://openweathermap.org/help/city_list.txt "City ID List")  for city of your choice. Substitute these values against
    *template1* and *template2* variables in conkyrc file.
 
-#### SpaceX
-
-   Depends on: *conky* (>= 1.10), *Python 3* (for optional `apt` script)
+##### Autostart conky on startup
 
 After setting up dependencies, move conky configuration directory (e.g. spacex) to `~/.conky`. Edit `.conky/conky-startup.sh` file and substitute name of the script that launches configuration file of your choice. Add ```.conky/conky-startup.sh``` as a autostart application from system settings.
 
-   ##### Screenshots
+   ##### Screenshot Gallery
    ###### minimal# Hydrogen
 
    ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png "conkyrc_minH")
@@ -84,7 +91,11 @@ After setting up dependencies, move conky configuration directory (e.g. spacex) 
 
    ###### SpaceX
 
-   ######    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/spacex_sys.png "spacex_sys")
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/spacex_sys.png "spacex_sys")
 
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/spacex_os.png "spacex_os")
+
+   ##### StarWarp
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/starwarp-loaded00.png "starwarp desktop")
+   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/starwarp-loaded02.png "starwarp desktop")
 
