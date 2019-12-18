@@ -1,18 +1,11 @@
 --[[
-Series Name:    SpaceX
-Code Name:	    The adventure begins
-Designer:	    Codegenki
-Description:	SpaceX, a minimalist futuristic configuration for Conky system monitor 
-Dependencies:	1- Font 'Neuropolitical' is used, download it or change to a 
-                font of your liking.
-                2- Run following command to find CPU monitor on your system: 
-                ls /sys/class/hwmon/*/temp* | grep -Po --regexp ".*(label)$"
-                Correct dir 'hwmonX' has files named tempY_label (Y: 1,2,3,...)
-                which total 'number of cores + 1' (Cores, not threads):
-                /sys/class/hwmon/hwmonX/tempY_label
-                and content of 'temp1_label' are 'Package id 0', 
-                substitute X from hwmonX & Y from tempY_label in temperature tag
-                as  ${hwmon X temp Y}
+Series Name:    Star Warp
+Code Name:      A new hope
+Designer:       Codegenki
+Description:	StarWarp, a minimalist futuristic configuration for Conky 
+                system monitor (with added lua script for CPU temperature 
+                indicator).
+Dependencies:	conky (>= 1.10), Font: Neuropolitical
 ]]
 
 conky.config = {
@@ -63,6 +56,9 @@ conky.config = {
 	override_utf8_locale = true,
 	pad_percents=2,
 
+    lua_load = '~/.conky/starwarp/scripts/sys_info.lua',
+    lua_draw_hook_post = 'main',
+
 	--[[ # normal text, light grey ]]
 	color1 = 'D0D5DE',
 	--[[ # caution text, tomato ]]
@@ -92,23 +88,23 @@ conky.text = [[
 \
 \
 ${voffset 7}\
-${goto 15}${color6}CPU${color}${offset 10}$freq_g${goto 82}GHz\
-${goto 110}${color6}/${color}${offset 10}${cpu cpu0}${goto 140}%\
+${goto 15}${color6}CPU${color}${offset 10}$freq_g${goto 90}GHz\
+${goto 120}${color6}/${color}${offset 5}${cpu cpu0}${goto 150}%\
 \
-${goto 170}${color6}Temp${color}${offset 10}${hwmon 4 temp 1}${goto 240}°C\
+${goto 180}${color6}Temp${color}${offset 10}${lua_parse cpu_temp}${goto 250}°C\
 \
-${goto 275}${color6}RAM${color}${offset 10}$mem${color6} / ${color}$memmax\
+${goto 285}${color6}RAM${color}${offset 10}$mem${color6} / ${color}$memmax\
 \
-${goto 465}${color6}HDD${color4}${offset 10}/${color}${offset 10}${fs_used /}${color6} / ${color}${fs_size /}\
+${goto 475}${color6}HDD${color4}${offset 10}/${color}${offset 10}${fs_used /}${color6} / ${color}${fs_size /}\
 \
 ${offset 10}${color4}/home${color}${offset 10}${fs_used /home}${color6} / ${color}${fs_size /home}\
 \
-${goto 840}${color6}BAT${color}${offset 10}\
-${if_match ${battery_percent BAT0}<=15}${color9}${blink ${battery_percent BAT0}${color}${goto 900}%}\
-${else}${if_match ${battery_percent BAT0}<=25}${color9}${battery_percent BAT0}${color}${goto 900}%\
-${else}${if_match ${battery_percent BAT0}>25}${color}${battery_percent BAT0}${color}${goto 900}%${endif}${endif}${endif}\
+${goto 855}${color6}BAT${color}${offset 10}\
+${if_match ${battery_percent BAT0}<=15}${color9}${blink ${battery_percent BAT0}${color}${goto 915}%}\
+${else}${if_match ${battery_percent BAT0}<=25}${color9}${battery_percent BAT0}${color}${goto 915}%\
+${else}${if_match ${battery_percent BAT0}>25}${color}${battery_percent BAT0}${color}${goto 915}%${endif}${endif}${endif}\
 \
-${goto 935}${color6}UPTIME${color}${offset 10}$uptime
+${goto 945}${color6}UPTIME${color}${offset 10}$uptime
 \
 \
 ]]

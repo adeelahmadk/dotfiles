@@ -116,7 +116,7 @@ ${font}\
 \
 \
 ${voffset 20}\
-${execi 300 cp -f ~/.conky/asstes/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}${image ~/.cache/weather-0.png -p 10,23 -s 20x20 -f 150}\
+${execi 300 cp -f ~/.conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}${image ~/.cache/weather-0.png -p 10,23 -s 20x20 -f 150}\
 ${goto 40}${font Roboto Regular:size=8}${color5}${execi 300 jq -r .weather[0].description ~/.cache/weather.json | sed "s|\<.|\U&|g"}  ${color}\
 ${font}\
 \

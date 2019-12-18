@@ -1,0 +1,39 @@
+#!/bin/sh
+set -eu
+
+earthquake=~/.cache/earthquake.json
+
+get_earthquake_list() {
+    local MsgDate=""
+    local Mag=0
+    local Place=0
+    local Tsunami=0
+    local idx=0
+    local DateRaw=0
+    local total_items=$(jq ".metadata.count" "$earthquake")
+    local Alert=0
+
+    [ $total_items -gt 10 ] && total_items=10
+
+    while [ $idx -lt $total_items ]; do
+        Alert=""
+        DateRaw=$(jq ".features[$idx].properties.time" "$earthquake")
+        Mag=$(jq ".features[$idx].properties.mag" "$earthquake")
+        Place=$(jq ".features[$idx].properties.place" "$earthquake")
+        Tsunami=$(jq ".features[$idx].properties.tsunami" "$earthquake")
+        [ $Tsunami != 0 ] && Alert="(Tsunami Alert)"
+        #MsgDate=$(date -d "@${DateRaw::-3}" +"%d %b - %-0H:%M")        #BASH specific
+        MsgDate=$(date -d "@$((DateRaw / 1000))" +"%d %b - %-0H:%M")    #portable
+        echo "   $MsgDate - $Mag - $Place$Alert"
+        idx=$(( idx + 1 ))
+    done
+}
+
+main () {
+#    MaxOccurences="$1"
+#    Magnitude="$2"
+
+    get_earthquake_list
+}
+
+[ -r $earthquake ] && main "$@"
