@@ -48,6 +48,7 @@ alias la='ls -A'
 alias lla='ls -Alh'
 alias llt='ls -lts'
 alias lsd='ls -d */'
+alias lld='ls -d */ | awk 'BEGIN { FS="/" } { print $1 }''
 alias lsf='ls -lh | egrep -v "^d"'
 
 # custom application functions
