@@ -1,0 +1,98 @@
+--[[
+Series Name:    Star Warp
+Code Name:      A new hope
+Designer:       Codegenki
+Description:	  StarWarp, a minimalist futuristic configuration for Conky
+                system monitor (with added scripts for meters & dials).
+Dependencies:	  conky (>= 1.10), curl, Fonts (FontAwesome, Neuropolitical,
+                Neuropol X)
+--]]
+
+conky.config = {
+  update_interval = 1,
+  no_buffers = true,
+  double_buffer = true,
+  cpu_avg_samples = 4,
+  net_avg_samples = 1,
+  out_to_console = false,
+  out_to_stderr = false,
+  extra_newline = false,
+  draw_borders = true,
+  draw_graph_borders = true,
+  draw_outline = false,
+  draw_shades = false,
+
+  alignment = 'middle_right',
+  background = true,
+  gap_x = 10,
+  gap_y = 0,
+  minimum_height = 100,
+  maximum_height = 350,
+  minimum_width = 260,
+  maximum_width = 400,
+  border_width = 0,
+  border_inner_margin = 10,
+  border_outer_margin = 0,
+
+  default_color = 'D0D5DE',
+  default_outline_color = 'C0C5CE',
+  default_shade_color = 'C0C5CE',
+
+  own_window = true,
+  own_window_class = 'Conky',
+  own_window_type = 'normal',
+  own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+  own_window_colour = '000000',
+  own_window_transparent = false,
+  own_window_argb_visual = true,
+  own_window_argb_value = 0,
+
+  stippled_borders = 0,
+  uppercase = false,
+  use_spacer = 'none',
+  show_graph_scale = false,
+  show_graph_range = false,
+
+  use_xft = true,
+  xftalpha = .3,
+  font = 'Neuropolitical:size=8',
+  text_buffer_size = 2048,
+  override_utf8_locale = true,
+  pad_percents=2,
+
+  lua_load = '~/.config/conky/starwarp/scripts/graph_viz.lua',
+  lua_draw_hook_post = 'main',
+
+  --[[ # normal text, light grey ]]
+  color1 = 'D0D5DE',
+  --[[ # caution text, tomato ]]
+  color2 = 'BF616A',
+  --[[ # stat text, mint ]]
+  color3 = '3EB489',
+  --[[ # highlight, lemon yellow ]]
+  color4 = 'FFF44F',
+  --[[ # heading text, smokey grey ]]
+  color5 = '8FA1B3',
+  --[[ # graph color, Cyanogen light ]]
+  color6 = '2BB5C9',
+  --[[ # special, Cyanogen dark ]]
+  color7 = '0C3247',
+  --[[ # special, Pop OS cyan ]]
+  color8 = '94EBEB',
+  color9 = 'DC143C'
+}
+
+conky.text = [[
+\
+\
+${goto 5}${color6}${execi 3600 lsb_release -sd | cut -d' ' -f1}${color}${goto 70}${font Neuropol X:size=7}${execi 3600 uname -rm}${font}
+\
+${voffset 5}\
+${goto 5}${color6}APT ${color}${goto 65}${font Neuropolitical:size=7}${execpi 120 $HOME/.config/conky/starwarp/scripts/apt-updates.py}${font}
+\
+${voffset 3}${color #222222}${hr 2}
+\
+${voffset 5}\
+\
+\
+]]

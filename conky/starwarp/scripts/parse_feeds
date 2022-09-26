@@ -1,0 +1,58 @@
+#!/usr/bin/env sh
+
+# ###################################################
+# Script:       parse_feeds                         #
+# Version:      0.20                                #
+# Author:       Adeel Ahmad (codegenki)             #
+# Date Crated:  Mar 25, 2020                        #
+# Date Updated: Apr 15, 2020                        #
+# Usage:        reader FILE [count]                 #
+# Description:  Feed parser script to read and      #
+#               print feeds from the given file     #
+# ###################################################
+
+set -eu
+
+feedfile=
+print_count=5
+
+get_feed_list() {
+  local INIT_SKIPS=1
+  local FeedTitle=""
+  local idx=0
+  local total_items="$(((`wc -l $feedfile | cut -d' ' -f1`-2)/2))"
+  local Item=""
+
+  [ "$total_items" -gt "$print_count" ] && total_items="$print_count"
+
+  FeedTitle="$(head -n 1 $feedfile)"
+  echo "$FeedTitle"
+  while IFS= read line
+  do
+    if [ -z "$line" ]; then
+      idx=$(( idx + 1 ))
+    elif [ "$idx" -ge "$INIT_SKIPS" -a "$idx" -le "$total_items" ]; then
+      echo "   $line"
+    fi
+  done < $feedfile
+}
+
+main () {
+  #$1: feed directory
+  if [ "$#" -eq 2 ]; then
+    print_count="$2"
+  fi
+#   echo "Path to .feed file expected!" 1>&2
+  feedpath="$1/*.feed"
+
+  for file in $feedpath
+  do
+    #echo "$file" 1>&2
+    if [ -f "$file" ]; then
+      feedfile="${file}"
+      get_feed_list
+    fi
+  done
+}
+
+[ "$#" -ge 1 -a -d "$1" ] && main "$@"

@@ -1,0 +1,66 @@
+--[[
+Series Name:  Star Warp
+Code Name:    A new hope
+Designer:     Codegenki
+Description:	StarWarp, a minimalist futuristic configuration for Conky
+              system monitor(with added rss feed reader).
+Dependencies:	conky (>= 1.10), curl & jq (for accompanying bash scripts to
+              scrape & parse JSON API).
+]]
+conky.config = {
+  background = false,
+  update_interval = 1,
+  double_buffer = true,
+  no_buffers = true,
+
+  own_window = true,
+  own_window_type = 'normal',
+  own_window_class = 'Conky',
+  own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+  own_window_title = '',
+  own_window_argb_visual = true,
+  own_window_transparent = flase,
+  own_window_colour = '000000',
+  own_window_argb_value = 100,
+
+  alignment = 'top_left',
+  gap_x = 15,
+  gap_y = 50,
+  minimum_height = 180,
+  minimum_width = 260,
+  maximum_width = 420,
+  border_inner_margin = 10,
+  border_outer_margin = 0,
+
+  draw_shades = false,
+  draw_outline = false,
+  draw_borders = false,
+  draw_graph_borders = false,
+
+  use_xft = true,
+  xftalpha = 0,
+  font = 'Neuropol X:size=8',
+  override_utf8_locale = true,
+
+  default_color = 'grey',
+  -- Orange
+  color1 = '#EF5A29',
+  -- Grey
+  color2 = 'grey',
+  color3 = '2BB5C9',
+  color4 = 'fff44f'
+};
+
+conky.text = [[
+\
+${execi 1800 ~/.config/conky/starwarp/scripts/reader.sh ~/.config/conky/starwarp/scripts/feed_uri}\
+${font Neuropolitical:size=10:bold}${color3}\
+Top RSS Feeds
+${font Neuropolitical:size=7:normal}in the last 24h \
+${hr 2}${font}
+\
+${font Open Sans Light:size=8}${color2}${execi 600 ~/.config/conky/starwarp/scripts/parse_feeds ~/.cache/conky}
+\
+${font Open Sans Light:size=6}${color4}Updated: ${execi 600 date -r "$HOME/.cache/conky/"$(ls -p ~/.cache/conky/ | grep -v / | egrep -m1 "*.feed")}\
+${alignr}Next update: ${execi 600 date -d "$(date -r "$HOME/.cache/conky/"$(ls -p ~/.cache/conky/ | grep -v / | egrep -m1 "*.feed"))+1800 seconds"}${font}
+]];
