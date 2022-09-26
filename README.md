@@ -29,7 +29,7 @@ Both files, in addition to custom aliases and functions, print a custom prompt a
 
 - `.bashrc.cpwd.sh` prints a shell script based simple prompt
 
-![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/shell-shot.png "Bash prompt")
+![alt text](.assets/shell-shot.png "Bash prompt")
 
 - `.bashrc.env.sh` prints a `powerline-shell` based prompt that can be installed using pip (python package manager):
 
@@ -37,7 +37,7 @@ Both files, in addition to custom aliases and functions, print a custom prompt a
     pip install powerline-shell
     ```
 
-![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/powershell-shot.png "Bash prompt")
+![alt text](.assets/powershell-shot.png "Bash prompt")
 
 ## Conky
 
@@ -89,32 +89,33 @@ bash -c '/home/user/.config/conky/conky-startup.sh'
    ### Screenshots
    #### minimal# Hydrogen
 
-   ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png "conkyrc_minH")
+   ###### ![alt text](.assets/conkyrc_minH_shot.png "conkyrc_minH")
 
    #### minimal# Helium
 
-   ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minHe_shot.png "conkyrc_minHe")
+   ###### ![alt text](.assets/conkyrc_minHe_shot.png "conkyrc_minHe")
 
    #### minimal# Hydrogen Icon Mix
 
-   ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_mix_shot.png "conkyrc_minH_mix")
+   ###### ![alt text](.assets/conkyrc_minH_mix_shot.png "conkyrc_minH_mix")
 
    #### minimal# Carbon
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC12_shot.png "conkyrc_mixC12")
+   ![alt text](.assets/conkyrc_mixC12_shot.png "conkyrc_mixC12")
 
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC13_shot.png "conkyrc_mixC13")
+   ![alt text](.assets/conkyrc_mixC13_shot.png "conkyrc_mixC13")
 
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC14_shot.png "conkyrc_mixC14")
+   ![alt text](.assets/conkyrc_mixC14_shot.png "conkyrc_mixC14")
 
    #### SpaceX
 
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/spacex_sys.png "spacex_sys")
+   ![alt text](.assets/spacex_sys.png "spacex_sys")
 
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/spacex_os.png "spacex_os")
+   ![alt text](.assets/spacex_os.png "spacex_os")
 
    #### StarWarp
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/starwarp-loaded00.png "starwarp desktop")
-   ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/starwarp-loaded02.png "starwarp desktop")
+   ![alt text](.assets/starwarp-loaded00.png "starwarp desktop")
+
+![alt text](.assets/starwarp-loaded02.png "starwarp desktop")
 
 
 

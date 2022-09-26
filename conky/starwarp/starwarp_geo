@@ -76,7 +76,7 @@ template2=5
 };
 
 conky.text = [[
-${execi 1800 ~/.config/conky/starwarp/scripts/get_earthquake ${template2}}
+${execi 1800 ~/.config/conky/starwarp/scripts/get_earthquake}
 ${goto 10}${font Neuropolitical:size=8:bold}${color3}\
 ${execi 900 jq -r .metadata.count ~/.cache/earthquake.json} significant earthquakes ${font}in the last 24h ${hr 2}
 \
