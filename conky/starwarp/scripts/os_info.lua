@@ -4,7 +4,7 @@ Code Name:      A new hope
 Author:         Codegenki
 Description:    Supporting script for OS mudule
 Usage:          Add to your conkyrc config block:
-                lua_load = '~/.conky/scripts/script.lua',
+                lua_load = '~/.config/conky/scripts/script.lua',
                 lua_draw_hook_post = 'main',
                 lua_draw_hook_pre = 'some_function'
 ]]
@@ -90,13 +90,14 @@ function conky_draw_nics()
                         iface_stats = iface_stats .. '\n'
                     end
                     iface_stats = iface_stats
-                                  .. '${goto 5}${color6}'.. v .. '${goto 70}${color5}'
+                                  .. '${goto 10}${color6}'.. v .. '${goto 70}${color5}'
+                                  .. '${voffset -1}'
                                   .. '${font Neuropol X:size=6}Up: ${color #FFFFFF}'
                                   .. '${upspeed ' .. v .. '}${color5}'
                                   .. '${goto 170}Down: ${color #FFFFFF}'
                                   .. '${downspeed ' .. v .. '}'
                                   .. '\n'
-                                  .. '${voffset -2}'
+                                  .. '${voffset -1}'
                                   .. '${goto 70}${upspeedgraph '.. v .. ' 20,80 FFFFFF 3EB489}'
                                   .. '${goto 170}${downspeedgraph ' .. v .. ' 20,80 FFFFFF 3EB489}'
                                   .. '\n'

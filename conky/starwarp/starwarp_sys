@@ -56,7 +56,7 @@ conky.config = {
 	override_utf8_locale = true,
 	pad_percents=2,
 
-    lua_load = '~/.conky/starwarp/scripts/sys_info.lua',
+    lua_load = '~/.config/conky/starwarp/scripts/sys_info.lua',
     lua_draw_hook_post = 'main',
 
 	--[[ # normal text, light grey ]]

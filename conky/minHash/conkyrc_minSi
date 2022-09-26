@@ -95,7 +95,7 @@ $hr${color}
  ${color5}4${color} ${rss http://feeds.arstechnica.com/arstechnica/security 30 item_title 3}
  ${color5}5${color} ${rss http://feeds.arstechnica.com/arstechnica/security 30 item_title 4}
 
- ${image ~/.conky/scidaily.png -p 0,310 -s 95x18 -f 600}
+ ${image ~/.config/conky/assets/scidaily.png -p 0,310 -s 95x18 -f 600}
  ${goto 3}${color7}$hr${color}
  ${color5}Electronics${color}
  ${color5}1${color} ${rss https://www.sciencedaily.com/rss/matter_energy/electronics.xml 30 item_title 0}

@@ -80,7 +80,7 @@ bash_prompt() {
     [ $UID -eq "0" ] && UC=$R   # root's color
 
     PS1="${EMK}[${UC}\u${EMW} at ${UC}\h${EMK}]${EMW} in ${B}\${NEW_PWD} ${EMW}using ${B}\${tinfo}${NONE}
-${NONE}$TITLEBAR\${debian_chroot:+($debian_chroot)}${UC}↠ ${NONE} "
+${NONE}$TITLEBAR\${debian_chroot:+($debian_chroot)}${UC}\\$ ${NONE} "
 
     #PS1="╭─[\u@\h:\${NEW_PWD}]──[\${tinfo}]
 #╰─[$TITLEBAR\${debian_chroot:+($debian_chroot)} \$ ] "

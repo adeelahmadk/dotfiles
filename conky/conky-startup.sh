@@ -3,5 +3,5 @@
 sleep 10s
 killall conky
 
-$HOME/.conky/spacex-start.sh &
+$HOME/.config/conky/starwarp-start.sh &
 

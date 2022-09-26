@@ -1,29 +1,37 @@
-# dotfiles
-## Development environment config files
-
+# Linux Desktop Environment config files
 A collection of config files used to setup and maintain a uniform development environment across different machines.
 
 ## Contents
-- bashrc script
-- Conky config
-- i3 tiling WM config
+1. [bashrc](#bashrc)
+2. [Conky](#Conky)
+    1. [Setup dependencies](#setup-dependencies)
+    2. [Autostart conky on startup](#autostart-conky-on-startup)
+    3. [Screenshots](#screenshots)
 
-## Requirements & Dependencies
-### 1. bashrc
-   copy either of the two `bashrc` script files to your home directory and add a source line in `~/.bashrc` file:
+3. [i3 tiling WM config](#i3-tiling-wm-config)
+
+
+
+## bashrc
+
+You can either copy one of the two script files to your home directory or soft link it there and add a source line in your `~/.bashrc` file:
    ```bash
+# assuming you cloned this repo in ~/.config/dotfiles
+ln -s ~/.config/dotfiles/.bashrc.env.sh ~/.bashrc.env.sh
 source .bashrc.env.sh
    ```
-   For changes to take effect either run ```source ~/.bashrc``` from terminal or logout and login.
 
-​	Both files, in addition to custom aliases and functions, print a custom prompt and are differentiated as follows:
+
+For changes to take effect either run ```source ~/.bashrc``` from terminal or logout and login.
+
+Both files, in addition to custom aliases and functions, print a custom prompt and are differentiated as follows:
 
 
 - `.bashrc.cpwd.sh` prints a shell script based simple prompt
 
 ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/shell-shot.png "Bash prompt")
 
-- `.bashrc.env.sh` prints a `powerline-shell` based prompt that can be installed via terminal by the command:
+- `.bashrc.env.sh` prints a `powerline-shell` based prompt that can be installed using pip (python package manager):
 
     ```bash
     pip install powerline-shell
@@ -31,71 +39,89 @@ source .bashrc.env.sh
 
 ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/powershell-shot.png "Bash prompt")
 
-### 2. Conky Config
+## Conky
 
-#### minimal# X, mixCxx
+First clone the repo in a directory (say `dotfiles`) inside `~/.config`. Then install and setup all the dependencies for a config of your choice as listed in the following table.
 
-   Depends on: *conky* (>= 1.10), *curl*, *jq*, *vnstat*
+| Configuration | Dependencies                                                 |
+| ------------- | ------------------------------------------------------------ |
+| minimal# X    | *conky* (>= 1.10), *curl*, *jq*, *vnstat*                    |
+| mixCxx        | *conky* (>= 1.10), *curl*, *jq*, *vnstat*                    |
+| SpaceX        | *conky* (>= 1.10), *Python 3* (for optional `apt` script)    |
+| StarWarp      | *conky* (>= 1.10), *curl*, *jq*, *vnstat*, Fonts (FontAwesome, Neuropolitical, Neuropol X) |
 
-#### SpaceX
+After setting up dependencies, soft link `conky` directory in `~/.config`.
 
-   Depends on: *conky* (>= 1.10), *Python 3* (for optional `apt` script)
+```sh
+# assuming you cloned this repo in ~/.config/dotfiles
+ln -s ~/.config/dotfiles/conky ~/.config/conky
+```
 
-#### StarWarp
 
-   Depends on: *conky* (>= 1.10), *curl*, *jq*, *vnstat*, *Python 3* (for optional `apt` script)
 
-##### Setup dependencies
-   To setup *vnstat* on Debian/Ubuntu, install from default repo:  
+### Setup dependencies
+
+To setup the dependencies on a Debian/Ubuntu based distro, install from upstream repo:
    ```bash
-sudo apt-get install vnstat
+sudo apt-get install conky curl jq vnstat
    ```
-   *vnstat* initializes a db, for each network interface, in
-   ```/var/lib/vnstat```. To monitor an interface (say eth0), create a new db for it as:
+`vnstat` initializes a db, for each network interface, in `/var/lib/vnstat`. To monitor an interface (say eth0), create a new db for it as:
 
    ```bash
 vnstat --create -i eth0
    ```
-   To avoid *Permission denied* errors while querying vnstat data, change
-ownership of db files to *vnstat* user:group pair.  
+To avoid *Permission denied* errors while querying `vnstat` data, change ownership of db files to `vnstat` `user:group` pair.  
    ```bash
 sudo chown vnstat:vnstat /var/lib/vnstat/*
    ```
-   For weather updates and forcasts get an API key from [OpenWeatherMap](https://openweathermap.org "OpenWeatherMap's Homepage")
-   and find [city id](http://openweathermap.org/help/city_list.txt "City ID List")  for city of your choice. Substitute these values against
-   *template1* and *template2* variables in conkyrc file.
+For weather updates and forcasts get an API key from [OpenWeatherMap](https://openweathermap.org "OpenWeatherMap's Homepage") and find [city id](http://openweathermap.org/help/city_list.txt "City ID List")  for city of your choice. Substitute these values against *template1* and *template2* variables in the config file.
 
-##### Autostart conky on startup
+### Autostart conky on startup
 
-After setting up dependencies, move conky configuration directory (e.g. spacex) to `~/.conky`. Edit `.conky/conky-startup.sh` file and substitute name of the script that launches configuration file of your choice. Add ```.conky/conky-startup.sh``` as a autostart application from system settings.
+Edit `.conky/conky-startup.sh` file and substitute name of the script that launches configuration file of your choice. Add ```.conky/conky-startup.sh``` as a autostart application from system settings.
 
-   ##### Screenshot Gallery
-   ###### minimal# Hydrogen
+```sh
+bash -c '/home/user/.config/conky/conky-startup.sh'
+```
+
+
+
+   ### Screenshots
+   #### minimal# Hydrogen
 
    ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_shot.png "conkyrc_minH")
 
-   ###### minimal# Helium
+   #### minimal# Helium
 
    ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minHe_shot.png "conkyrc_minHe")
 
-   ###### minimal# Hydrogen Icon Mix
+   #### minimal# Hydrogen Icon Mix
 
    ###### ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_minH_mix_shot.png "conkyrc_minH_mix")
 
-   ###### minimal# Carbon
+   #### minimal# Carbon
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC12_shot.png "conkyrc_mixC12")
 
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC13_shot.png "conkyrc_mixC13")
 
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/conkyrc_mixC14_shot.png "conkyrc_mixC14")
 
-   ###### SpaceX
+   #### SpaceX
 
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/spacex_sys.png "spacex_sys")
 
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/spacex_os.png "spacex_os")
 
-   ##### StarWarp
+   #### StarWarp
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/starwarp-loaded00.png "starwarp desktop")
    ![alt text](https://github.com/cod3g3nki/dotfiles/raw/master/starwarp-loaded02.png "starwarp desktop")
 
+
+
+## i3 tiling WM config
+
+This contains config files for my i3 WM setup.
+
+
+
+[Top](#contents)

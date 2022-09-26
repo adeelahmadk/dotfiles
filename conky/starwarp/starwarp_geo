@@ -8,32 +8,44 @@ Dependencies:	conky (>= 1.10), curl & jq (for accompanying bash scripts to
                 scrape & parse JSON API).
 ]]
 conky.config = {
-	background = false,
 	update_interval = 30,
 	double_buffer = true,
 	no_buffers = true,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+    draw_borders = true,
+    draw_graph_borders = false,
+    draw_outline = false,
+    draw_shades = false,
 
+	alignment = 'bottom_right',
+	gap_x = 10,
+	gap_y = 60,
+    background = true,
+    minimum_width = 380,
+
+    border_width = 0,
+	border_inner_margin = 10,   
+	border_outer_margin = 0,
+    default_color = 'D0D5DE',
+    default_outline_color = 'C0C5CE',
+    default_shade_color = 'C0C5CE',
+    
 	own_window = true,
 	own_window_type = 'normal',
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	own_window_title = '',
+	own_window_transparent = false,
 	own_window_argb_visual = true,
-    --own_window_colour = '000000',
-	own_window_argb_value = 0,
-	own_window_transparent = true,
+    own_window_argb_value = 50,
+    own_window_colour = '000000',
 
-	gap_x = 0,
-	gap_y = 0,
-
-	border_inner_margin = 15,
-	border_outer_margin = 0,
 
 	draw_shades = false,
 	draw_outline = false,
 	draw_borders = false,
 	draw_graph_borders = false,
-
-	alignment = 'top_middle',
 
 	use_xft = true,
 	xftalpha = 0,
@@ -41,29 +53,40 @@ conky.config = {
     --'Open Sans Light:size=10'
 	override_utf8_locale = true,
 
-	default_color = 'grey',
--- Orange
+	--[[ # highlight, Orange ]]
 	color1 = '#EF5A29',
--- Grey
+	--[[ # highlight, grey ]]
 	color2 = 'grey',
+    --[[ # heading color, Cyanogen light ]]
     color3 = '2BB5C9',
+	--[[ # timestamp color, lemon yellow ]]
+	color4 = 'FFF44F',
 -------------------------------------
 --  Max number of earthquakes to display
 --  Leave empty for default(Def:10)
 -------------------------------------
-MaxOccurences=5,
+template1=5,
 
 -------------------------------------
 --  Minimum magnutude to display info
 --  Leave empty for default(Def:4.5)
 -------------------------------------
-Magnitude=5
+template2=5
 
 };
 
 conky.text = [[
-${execi 1800 ~/.conky/starwarp/scripts/get_earthquake}
-${font Neuropolitical:size=10:bold}${color3}${execi 900 jq -r .metadata.count ~/.cache/earthquake.json} significant earthquakes in the last 24h ${hr 2}${font}
-${font Open Sans Light:size=8}${color2}${execi 900 ~/.conky/starwarp/scripts/parse_earthquake}${font}
-${font Open Sans Light:size=6}${execi 900 date +%c}${font}
+${execi 1800 ~/.config/conky/starwarp/scripts/get_earthquake ${template2}}
+${goto 10}${font Neuropolitical:size=8:bold}${color3}\
+${execi 900 jq -r .metadata.count ~/.cache/earthquake.json} significant earthquakes ${font}in the last 24h ${hr 2}
+\
+\
+${font Open Sans Light:size=8}${color2}\
+${execi 900 ~/.config/conky/starwarp/scripts/parse_earthquake}\
+${font}
+\
+\
+${voffset 3}${goto 20}\
+${font Open Sans Light:size=6}${color4}\
+Last updated at ${execi 900 date +%c}${font}
 ]];

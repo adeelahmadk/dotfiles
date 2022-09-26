@@ -25,16 +25,18 @@ conky.config = {
 
     alignment = 'top_right',
     background = true,
-    gap_x = 10,
-    gap_y = 30,
+    gap_x = 15,
+    gap_y = 50,
     minimum_height = 80,
     maximum_height = 200,
     minimum_width = 240,
     maximum_width = 350,
     border_width = 0,
+	border_inner_margin = 10,
     default_color = 'D0D5DE',
     default_outline_color = 'C0C5CE',
     default_shade_color = 'C0C5CE',
+    
     own_window = true,
     own_window_class = 'Conky',
     own_window_type = 'normal',
@@ -42,7 +44,7 @@ conky.config = {
     own_window_colour = '000000',
     own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
     own_window_argb_visual = true,
-    own_window_argb_value = 0,
+    own_window_argb_value = 50,
 
     stippled_borders = 0,
     uppercase = false,
@@ -97,7 +99,7 @@ conky.config = {
 }
 
 conky.text = [[
-${execi 300 l=${template4}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template1}&id=${template2}&cnt=5&units=${template3}&lang=$l" -o ~/.cache/weather.json}${execi 300 cp -f ~/.conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}\
+${execi 300 l=${template4}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template1}&id=${template2}&cnt=5&units=${template3}&lang=$l" -o ~/.cache/weather.json}${execi 300 cp -f ~/.config/conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}\
 \
 \
 ${alignr}${color6}${font Neuropolitical:pixelsize=44}${time %H:%M}${font}

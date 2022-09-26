@@ -23,27 +23,28 @@ conky.config = {
     draw_outline = false,
     draw_shades = false,
 
-    alignment = 'bottom_right',
+    alignment = 'middle_right',
     background = true,
-    gap_x = 10,
-    gap_y = 100,
+    gap_x = 20,
+    gap_y = 40,
     minimum_height = 180,
-    maximum_height = 480,
+    --maximum_height = 480,
     minimum_width = 260,
-    maximum_width = 400,
+    maximum_width = 480,
     border_width = 0,
-	--border_inner_margin = 10,
+	border_inner_margin = 10,
     default_color = 'D0D5DE',
     default_outline_color = 'C0C5CE',
     default_shade_color = 'C0C5CE',
+
     own_window = true,
     own_window_class = 'Conky',
     own_window_type = 'normal',
     own_window_transparent = false,
     own_window_colour = '000000',
-    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
     own_window_argb_visual = true,
-    own_window_argb_value = 0,
+    own_window_argb_value = 85,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 
     stippled_borders = 0,
     uppercase = false,
@@ -58,7 +59,7 @@ conky.config = {
 	override_utf8_locale = true,
 	pad_percents=2,
 	
-    lua_load = '~/.conky/starwarp/scripts/os_info.lua',
+    lua_load = '~/.config/conky/starwarp/scripts/os_info.lua',
     lua_draw_hook_post = 'main',
 
 	--[[ # normal text, light grey ]]
@@ -83,34 +84,31 @@ conky.config = {
 conky.text = [[
 \
 \
-${goto 5}${color6}${execi 3600 lsb_release -sd | cut -d' ' -f1}${color}${goto 70}${font Neuropol X:size=7}${execi 3600 uname -rm}${font}
+${goto 10}${color6}${execi 3600 lsb_release -sd | cut -d' ' -f1}${color}${goto 70}${font Neuropol X:size=7}${execi 3600 uname -rm}${font}
 \
 ${voffset 5}\
-${goto 5}${color6}APT ${color}${goto 65}${font Neuropolitical:size=7}${execpi 120 $HOME/.conky/starwarp/scripts/apt-updates.py}${font}
-\
-${voffset 5}\
-${goto 5}${color6}Entropy${color}${goto 70}${font Neuropol X:size=7}\
+${goto 10}${color6}Entropy${color}${goto 70}${font Neuropol X:size=7}\
 ${entropy_avail}/${entropy_poolsize} B${font}${goto 170}${entropy_bar}
 \
 ${voffset 3}${color #222222}${hr 2}
 \
 ${voffset 5}\
-${goto 5}${color6}NIC${color}${goto 70}${font Neuropol X:size=7}\
+${goto 10}${color6}NIC${color}${goto 70}${font Neuropol X:size=7}\
 ${lua_parse active_nics}${font}
 \
 ${voffset 5}\
-${goto 5}${color6}State ${color}${goto 70}\
+${goto 10}${color6}State ${color}${goto 70}\
 ${if_match ${execi 30 curl -o /dev/null --max-time 10 --silent --head --write-out "%{http_code}" https://www.google.com | grep "20." > /dev/null && echo 1 || echo 0}==1}\
-${color3}${font FontAwesome:size=10}${font} tunneled${color}\
+${color3}${font FontAwesome:size=10}${font} accessible${color}\
 ${else}\
-${color9}${font FontAwesome:size=10}${font} GFWed${color}\
+${color9}${font FontAwesome:size=10}${font} unreachale${color}\
 ${endif}
 \
 ${voffset 5}\
 ${lua_parse draw_nics}
 \
-${voffset 5}${goto 70}${font Neuropol X:size=6}\
-${color6}Agg. Traffic: ${color}${time %b} ${execi 900 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'} 
+${voffset 6}${goto 70}${font Neuropol X:size=6}\
+${color6}Agg. Traffic: ${color}${time %b} ${execi 900 vnstat -m 1 | grep "`LC_ALL=C date +"%Y-%m"`" | awk '{print $8 $9}'} 
 \
 ${color #222222}${hr 2}${color}
 \
