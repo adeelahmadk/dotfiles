@@ -5,9 +5,9 @@ set -eu
 Series Name:    Star Warp
 Code Name:      A new hope
 Author:         Codegenki
-Description:    Supporting script for RSS mudule
+Description:    Supporting script for OS mudule
 Usage:          Add to your conkyrc config block:
-                lua_load = '~/.config/conky/scripts/script.lua',
+                lua_load = '~/.conky/scripts/script.lua',
                 lua_draw_hook_post = 'main',
                 lua_draw_hook_pre = 'some_function'
 INTRO
@@ -16,7 +16,7 @@ INTRO
 # written the file. For some reason adding a sleep before calling curl fixes it.
 sleep 2
 
-earthquake_list=~/.cache/conky/earthquake.json
+earthquake_list=~/.cache/earthquake.json
 
 curl -s "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson" -o "$earthquake_list"
 

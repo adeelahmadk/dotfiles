@@ -73,7 +73,7 @@ bash_prompt() {
     local BGW="\[\033[47m\]"
 
     MOODS=(😃 😄 😌 😌 😓 😜)
-    RANDOM=$(date +%s)
+    RANDOM=$$$(date +%s)
     FACE=${MOODS[$RANDOM % ${#MOODS[@]}]}
 
     local UC=$G                 # user's color

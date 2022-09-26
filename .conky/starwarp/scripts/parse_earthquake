@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-earthquake=~/.cache/conky/earthquake.json
+earthquake=~/.cache/earthquake.json
 
 get_earthquake_list() {
     local MsgDate=""
@@ -18,7 +18,7 @@ get_earthquake_list() {
     while [ $idx -lt $total_items ]; do
         Alert=""
         DateRaw=$(jq ".features[$idx].properties.time" "$earthquake")
-        Mag=`printf %.1f $(jq ".features[$idx].properties.mag" "$earthquake")`
+        Mag=$(jq ".features[$idx].properties.mag" "$earthquake")
         Place=$(jq ".features[$idx].properties.place" "$earthquake")
         Tsunami=$(jq ".features[$idx].properties.tsunami" "$earthquake")
         [ $Tsunami != 0 ] && Alert="(Tsunami Alert)"

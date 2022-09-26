@@ -22,18 +22,18 @@ conky.config = {
     draw_outline = false,
     draw_shades = false,
 
-    alignment = 'top_middle',
+    alignment = 'bottom_middle',
     background = true,
     gap_x = 10,
-    gap_y = 40,
+    gap_y = 10,
     minimum_height = 30,
-    minimum_width = 400,
-    maximum_width = 600,
+    maximum_height = 35,
+    minimum_width = 1100,
+    maximum_width = 1190,
     border_width = 0,
     default_color = 'D0D5DE',
     default_outline_color = 'C0C5CE',
     default_shade_color = 'C0C5CE',
-
     own_window = true,
     own_window_class = 'Conky',
     own_window_type = 'normal',
@@ -41,7 +41,7 @@ conky.config = {
     own_window_colour = '000000',
     own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
     own_window_argb_visual = true,
-    own_window_argb_value = 0,
+    own_window_argb_value = 150,
 
     stippled_borders = 0,
     uppercase = false,
@@ -53,8 +53,11 @@ conky.config = {
 	xftalpha = 1,
     font = 'Neuropolitical:size=8',
 	--text_buffer_size = 256,
-	override_utf8_locale = yes,
+	override_utf8_locale = true,
 	pad_percents=2,
+
+    lua_load = '~/.conky/starwarp/scripts/sys_info.lua',
+    lua_draw_hook_post = 'main',
 
 	--[[ # normal text, light grey ]]
 	color1 = 'D0D5DE',
@@ -72,14 +75,36 @@ conky.config = {
     color7 = '0C3247',
 	--[[ # special, Pop OS cyan ]]
 	color8 = '94EBEB',
-	color9 = 'DC143C'
+	color9 = 'DC143C',
+
+-------------------------------------
+--  Locale (e.g. "es_ES.UTF-8")
+--  Leave empty for default
+-------------------------------------
+	template1="en_US.UTF-8"
 }
 
 conky.text = [[
 \
 \
-${voffset 2}\
-${alignc}${color3}${font icomoon Regular:size=56}☣${font} ${voffset -5}${color6}${font Neuropolitical:size=12}Corona meter${font}\
+${voffset 7}\
+${goto 15}${color6}CPU${color}${offset 10}$freq_g${goto 90}GHz\
+${goto 120}${color6}/${color}${offset 5}${cpu cpu0}${goto 150}%\
+\
+${goto 180}${color6}Temp${color}${offset 10}${lua_parse cpu_temp}${goto 250}°C\
+\
+${goto 285}${color6}RAM${color}${offset 10}$mem${color6} / ${color}$memmax\
+\
+${goto 475}${color6}HDD${color4}${offset 10}/${color}${offset 10}${fs_used /}${color6} / ${color}${fs_size /}\
+\
+${offset 10}${color4}/home${color}${offset 10}${fs_used /home}${color6} / ${color}${fs_size /home}\
+\
+${goto 855}${color6}BAT${color}${offset 10}\
+${if_match ${battery_percent BAT0}<=15}${color9}${blink ${battery_percent BAT0}${color}${goto 915}%}\
+${else}${if_match ${battery_percent BAT0}<=25}${color9}${battery_percent BAT0}${color}${goto 915}%\
+${else}${if_match ${battery_percent BAT0}>25}${color}${battery_percent BAT0}${color}${goto 915}%${endif}${endif}${endif}\
+\
+${goto 945}${color6}UPTIME${color}${offset 10}$uptime
 \
 \
 ]]
