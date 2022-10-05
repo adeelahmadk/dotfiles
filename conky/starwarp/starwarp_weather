@@ -10,10 +10,10 @@ Dependencies:	conky, curl, jq, API Key (http://openweathermap.org/)
 ]]
 
 conky.config = {
-    update_interval = 1,
+    update_interval = 10,
     no_buffers = true,
     double_buffer = true,
-    cpu_avg_samples = 2,
+    cpu_avg_samples = 4,
     net_avg_samples = 2,
     out_to_console = false,
     out_to_stderr = false,
@@ -23,12 +23,12 @@ conky.config = {
     draw_outline = false,
     draw_shades = false,
 
-    alignment = 'top_right',
+    alignment = 'top_middle',
     background = true,
-    gap_x = 15,
+    gap_x = 0,
     gap_y = 50,
     minimum_height = 80,
-    maximum_height = 200,
+    --maximum_height = 200,
     minimum_width = 240,
     maximum_width = 350,
     border_width = 0,
@@ -77,14 +77,14 @@ conky.config = {
 	color9 = 'DC143C',
 	
 -------------------------------------
---  API Key
+--  API Key: Shell Var $OWM_APIKEY
 -------------------------------------
-	template1="b59117c083dfa1d4e6cc3186a568fd26",
+	template1="",
 
 -------------------------------------
---  City ID
+--  City ID: Shell Var $OWM_CITYID
 -------------------------------------
-	template2="1172451",
+	template2="",
 
 -------------------------------------
 --  Temp Unit (default, metric, imperial)
@@ -99,18 +99,11 @@ conky.config = {
 }
 
 conky.text = [[
-${execi 300 l=${template4}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template1}&id=${template2}&cnt=5&units=${template3}&lang=$l" -o ~/.cache/conky/weather.json}${execi 300 cp -f ~/.config/conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/conky/weather.json).png ~/.cache/conky/weather-0.png}\
+${execi 300 l=${LC_NAME%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o ~/.cache/conky/weather.json}${execi 300 cp -f ~/.config/conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/conky/weather.json).png ~/.cache/conky/weather-0.png}\
 \
 \
-${alignr}${color6}${font Neuropolitical:pixelsize=44}${time %H:%M}${font}
-\
-\
-${voffset 5}\
-${alignr}${color6}${font Neuropolitical:pixelsize=12}${time %A %d %B %Y}${font}
-\
-\
-${image ~/.cache/conky/weather-0.png -p 2,80 -s 60x60 -f 150}\
-${voffset 10}${goto 65}\
+${image ~/.cache/conky/weather-0.png -p 0,8 -s 60x60 -f 150}\
+${voffset 0}${goto 70}\
 ${font Neuropolitical:pixelsize=26}${color #FFFFFF}\
 ${execi 300 jq -r .main.temp ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num}\
 ${font Neuropol X:pixelsize=12}${color6} \

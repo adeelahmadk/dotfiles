@@ -145,7 +145,7 @@ function fpfind() {
     __grep=`which grep`
     __fpack=`which flatpak`
     echo "Searching for the app flatpak remotes..."
-    RES=$($__flatpak search "$1" | $__grep "$1" | $__awk -F'\t' '{print $NF "-" $3;}')
+    RES=$($__fpack search "$1" | $__grep "$1" | $__awk -F'\t' '{print $NF "-" $3;}')
     IFS=- read REMOTE REF <<< $RES
     echo "Looking up REF:${REF} in REMOTE:${REMOTE}..."
     $__fpack remote-info $REMOTE $REF || echo "flatpak remote-info failed!" >&2

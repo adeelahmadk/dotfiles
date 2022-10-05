@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-earthquake=~/.cache/earthquake.json
+earthquake="$HOME/.cache/conky/earthquake.json"
 
 get_earthquake_list() {
     local MsgDate=""

@@ -8,7 +8,7 @@ Dependencies:	conky (>= 1.10), curl & jq (for accompanying bash scripts to
                 scrape & parse JSON API).
 ]]
 conky.config = {
-	update_interval = 30,
+	update_interval = 5,
 	double_buffer = true,
 	no_buffers = true,
     out_to_console = false,
@@ -20,13 +20,13 @@ conky.config = {
     draw_shades = false,
 
 	alignment = 'bottom_right',
-	gap_x = 10,
+	gap_x = 20,
 	gap_y = 60,
     background = true,
-    minimum_width = 380,
+    minimum_width = 350,
 
     border_width = 0,
-	border_inner_margin = 10,   
+	border_inner_margin = 5,   
 	border_outer_margin = 0,
     default_color = 'D0D5DE',
     default_outline_color = 'C0C5CE',
@@ -77,16 +77,18 @@ template2=5
 
 conky.text = [[
 ${execi 1800 ~/.config/conky/starwarp/scripts/get_earthquake}
-${goto 10}${font Neuropolitical:size=8:bold}${color3}\
-${execi 900 jq -r .metadata.count ~/.cache/earthquake.json} significant earthquakes ${font}in the last 24h ${hr 2}
+${voffset -5}${goto 10}\
+${font Neuropolitical:size=8:regular}${color3}\
+${execi 900 jq -r .metadata.count ~/.cache/conky/earthquake.json} significant earthquakes ${font}in the last 24h ${hr 2}
 \
 \
+${voffset 5}\
 ${font Open Sans Light:size=8}${color2}\
 ${execi 900 ~/.config/conky/starwarp/scripts/parse_earthquake}\
 ${font}
 \
 \
-${voffset 3}${goto 20}\
+${voffset 3}${goto 15}\
 ${font Open Sans Light:size=6}${color4}\
-Last updated at ${execi 900 date +%c}${font}
+Last updated at ${execi 900 date -d @$((`jq -r .metadata.generated ~/.cache/conky/earthquake.json`/1000)) +%c}${font}
 ]];
