@@ -2,15 +2,15 @@
 Series Name:    Star Warp
 Code Name:      A new hope
 Designer:       Codegenki
-Description:	StarWarp, a minimalist futuristic configuration for Conky 
+Description:	StarWarp, a minimalist futuristic configuration for Conky
                 system monitor(with added openweathermap.org api).
-Dependencies:	conky, curl, jq, API Key (http://openweathermap.org/) 
+Dependencies:	conky, curl, jq, API Key (http://openweathermap.org/)
                 and city id (https://bulk.openweathermap.org/sample/city.list.json.gz)
-		        from OpenWeatherMap
+                from OpenWeatherMap
 ]]
 
 conky.config = {
-    update_interval = 10,
+    update_interval = 5,
     no_buffers = true,
     double_buffer = true,
     cpu_avg_samples = 4,
@@ -23,20 +23,20 @@ conky.config = {
     draw_outline = false,
     draw_shades = false,
 
-    alignment = 'top_middle',
+    alignment = 'top_right',
     background = true,
-    gap_x = 0,
+    gap_x = 20,
     gap_y = 50,
     minimum_height = 80,
     --maximum_height = 200,
     minimum_width = 240,
     maximum_width = 350,
     border_width = 0,
-	border_inner_margin = 10,
+    border_inner_margin = 10,
     default_color = 'D0D5DE',
     default_outline_color = 'C0C5CE',
     default_shade_color = 'C0C5CE',
-    
+
     own_window = true,
     own_window_class = 'Conky',
     own_window_type = 'normal',
@@ -53,52 +53,40 @@ conky.config = {
     show_graph_range = false,
 
     use_xft = true,
-	xftalpha = 1,
+    xftalpha = 1,
     font = 'Neuropolitical:size=8',
-	override_utf8_locale = true,
-	pad_percents=2,
+    override_utf8_locale = true,
+    pad_percents=2,
 
-	--[[ # normal text, light grey ]]
-	color1 = 'D0D5DE',
-	--[[ # caution text, tomato ]]
-	color2 = 'BF616A',
-	--[[ # stat text, mint ]]
-	color3 = '3eb489',
-	--[[ # highlight, lemon yellow ]]
-	color4 = 'fff44f',
-	--[[ # heading text, smokey grey ]]
-	color5 = '8FA1B3',
-	--[[ # graph color, Cyanogen light ]]
-	color6 = '2BB5C9',
-	--[[ # special, Cyanogen dark ]]
-	color7 = '0C3247',
-	--[[ # special, Pop OS cyan ]]
-	color8 = '94EBEB',
-	color9 = 'DC143C',
-	
--------------------------------------
---  API Key: Shell Var $OWM_APIKEY
--------------------------------------
-	template1="",
+    --[[ # normal text, light grey ]]
+    color1 = 'D0D5DE',
+    --[[ # caution text, tomato ]]
+    color2 = 'BF616A',
+    --[[ # stat text, mint ]]
+    color3 = '3eb489',
+    --[[ # highlight, lemon yellow ]]
+    color4 = 'fff44f',
+    --[[ # heading text, smokey grey ]]
+    color5 = '8FA1B3',
+    --[[ # graph color, Cyanogen light ]]
+    color6 = '2BB5C9',
+    --[[ # special, Cyanogen dark ]]
+    color7 = '0C3247',
+    --[[ # special, Pop OS cyan ]]
+    color8 = '94EBEB',
+    color9 = 'DC143C',
 
 -------------------------------------
---  City ID: Shell Var $OWM_CITYID
+--  Shell Vars
+--  $OWM_APIKEY: API Key
+--  $OWM_CITYID: City ID
+--  $OWM_UNITS: Units (default, metric, imperial)
+--  $LC_NAME: Locale (e.g. "es_ES.UTF-8", Leave empty for default)
 -------------------------------------
-	template2="",
-
--------------------------------------
---  Temp Unit (default, metric, imperial)
--------------------------------------
-	template3="metric",
-
--------------------------------------
---  Locale (e.g. "es_ES.UTF-8")
---  Leave empty for default
--------------------------------------
-	template4="en_US.UTF-8"
 }
 
 conky.text = [[
+${execi 300 l=${LC_NAME%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast/daily?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o ~/.cache/conky/forecast.json}\
 ${execi 300 l=${LC_NAME%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o ~/.cache/conky/weather.json}${execi 300 cp -f ~/.config/conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/conky/weather.json).png ~/.cache/conky/weather-0.png}\
 \
 \
@@ -107,9 +95,9 @@ ${voffset 0}${goto 70}\
 ${font Neuropolitical:pixelsize=26}${color #FFFFFF}\
 ${execi 300 jq -r .main.temp ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num}\
 ${font Neuropol X:pixelsize=12}${color6} \
-${if_match "$template3" == "metric"}°C\
-${else}${if_match "$template3" == "imperial"}°F\
-${else}${if_match "$template3" == "default"} K\
+${if_match "$OWM_UNITS" == "metric"}°C\
+${else}${if_match "$OWM_UNITS" == "imperial"}°F\
+${else}${if_match "$OWM_UNITS" == "default"} K\
 ${endif}\
 ${endif}\
 ${endif}\
@@ -121,13 +109,32 @@ ${alignr}${font Neuropol X:pixelsize=9}${color #FFFFFF}${execi 300 jq -r .weathe
 ${alignr}${font Neuropolitical:pixelsize=9}${color6}${exec jq .name ~/.cache/conky/weather.json | sed -e 's/^"//' -e 's/"$//'}, ${exec jq .sys.country ~/.cache/conky/weather.json | sed -e 's/^"//' -e 's/"$//'}${color}
 \
 \
-${voffset 10}${goto 20}\
+${voffset 15}${goto 20}\
 ${font Neuropolitical:pixelsize=8}${color5}\
 sunrise: ${color6}${exec date -d @$(jq .sys.sunrise ~/.cache/conky/weather.json) +"%H:%M"}\
 \
 ${goto 185}\
 ${font Neuropolitical:pixelsize=8}${color5}\
 sunset: ${color6}${exec date -d @$(jq .sys.sunset ~/.cache/conky/weather.json) +"%H:%M"}
+\
+\
+${voffset 10}${color6}${font Neuropolitical:pixelsize=9}\
+Forecast ${color #222222}${hr 2}
+\
+\
+${voffset 40}${color1}\
+${goto 45}${execi 300 LANG=${OWM_LOCALE} LC_TIME=${OWM_LOCALE} date +%^a}\
+${goto 125}${execi 300 LANG=${OWM_LOCALE} LC_TIME=${OWM_LOCALE} date -d +1day +%^a}\
+${goto 205}${execi 300 LANG=${OWM_LOCALE} LC_TIME=${OWM_LOCALE} date -d +2day +%^a}${color}\
+${execi 300 cp -f ~/.config/conky/assets/icons/#fff__32/$(jq .list[0].weather[0].id ~/.cache/conky/forecast.json).png ~/.cache/conky/weather-1.png}${image ~/.cache/conky/weather-1.png -p 35,110 -s 28x28}\
+${execi 300 cp -f ~/.config/conky/assets/icons/#fff__32/$(jq .list[1].weather[0].id ~/.cache/conky/forecast.json).png ~/.cache/conky/weather-2.png}${image ~/.cache/conky/weather-2.png -p 112,110 -s 28x28}\
+${execi 300 cp -f ~/.config/conky/assets/icons/#fff__32/$(jq .list[2].weather[0].id ~/.cache/conky/forecast.json).png ~/.cache/conky/weather-3.png}${image ~/.cache/conky/weather-3.png -p 189,110 -s 28x28}${font}
+\
+\
+${voffset 0}${font Neuropol X:pixelsize=8}\
+${color #FFFFFF}${goto 29}${execi 300 jq -r .list[0].temp.min ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}/${execi 300 jq -r .list[0].temp.max ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}\
+${color #FFFFFF}${goto 106}${execi 300 jq -r .list[1].temp.min ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}/${execi 300 jq -r .list[1].temp.max ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}\
+${color #FFFFFF}${goto 184}${execi 300 jq -r .list[2].temp.min ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}/${execi 300 jq -r .list[2].temp.max ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}
 \
 \
 ]]

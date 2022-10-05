@@ -2,15 +2,15 @@
 Series Name:    SpaceX
 Code Name:	    The adventure begins
 Designer:	    Codegenki
-Description:	SpaceX, a minimalist futuristic configuration for Conky system monitor 
-Dependencies:	1- Font 'Neuropolitical' is used, download it or change to a 
+Description:	SpaceX, a minimalist futuristic configuration for Conky system monitor
+Dependencies:	1- Font 'Neuropolitical' is used, download it or change to a
                 font of your liking.
-                2- Run following command to find CPU monitor on your system: 
+                2- Run following command to find CPU monitor on your system:
                 ls /sys/class/hwmon/*/temp* | grep -Po --regexp ".*(label)$"
                 Correct dir 'hwmonX' has files named tempY_label (Y: 1,2,3,...)
                 which total 'number of cores + 1' (Cores, not threads):
                 /sys/class/hwmon/hwmonX/tempY_label
-                and content of 'temp1_label' are 'Package id 0', 
+                and content of 'temp1_label' are 'Package id 0',
                 substitute X from hwmonX & Y from tempY_label in temperature tag
                 as  ${hwmon X temp Y}
 ]]
@@ -57,35 +57,35 @@ conky.config = {
     show_graph_range = false,
 
     use_xft = true,
-	xftalpha = 1,
+    xftalpha = 1,
     font = 'Neuropolitical:size=8',
-	--text_buffer_size = 256,
-	override_utf8_locale = true,
-	pad_percents=2,
+    --text_buffer_size = 256,
+    override_utf8_locale = true,
+    pad_percents=2,
 
-	--[[ # normal text, light grey ]]
-	color1 = 'D0D5DE',
-	--[[ # caution text, tomato ]]
-	color2 = 'BF616A',
-	--[[ # stat text, mint ]]
-	color3 = '3eb489',
-	--[[ # highlight, lemon yellow ]]
-	color4 = 'fff44f',
-	--[[ # heading text, smokey grey ]]
-	color5 = '8FA1B3',
+    --[[ # normal text, light grey ]]
+    color1 = 'D0D5DE',
+    --[[ # caution text, tomato ]]
+    color2 = 'BF616A',
+    --[[ # stat text, mint ]]
+    color3 = '3eb489',
+    --[[ # highlight, lemon yellow ]]
+    color4 = 'fff44f',
+    --[[ # heading text, smokey grey ]]
+    color5 = '8FA1B3',
     --[[ # graph color, Cyanogen light ]]
     color6 = '2BB5C9',
     --[[ # special, Cyanogen dark ]]
     color7 = '0C3247',
-	--[[ # special, Pop OS cyan ]]
-	color8 = '94EBEB',
-	color9 = 'DC143C',
+    --[[ # special, Pop OS cyan ]]
+    color8 = '94EBEB',
+    color9 = 'DC143C',
 
 -------------------------------------
 --  Locale (e.g. "es_ES.UTF-8")
 --  Leave empty for default
 -------------------------------------
-	template1="en_US.UTF-8"
+    template1="en_US.UTF-8"
 }
 
 conky.text = [[

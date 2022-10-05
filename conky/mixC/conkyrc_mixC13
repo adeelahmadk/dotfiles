@@ -2,15 +2,15 @@
 Name:		    Carbon Mix
 Code Name:	    Carbon 13 (C13: CPU Resource Monitor)
 Designer:	    Codegenki
-Description:	minimal#, a minimalist configuration for Conky system monitor 
+Description:	minimal#, a minimalist configuration for Conky system monitor
                 (with added battery indicator & openweathermap.org api).
-Dependencies:	conky, curl, jq, vnstat, API Key (http://openweathermap.org/) 
-                and city id (http://openweathermap.org/help/city_list.txt)
-		        from OpenWeatherMap
+Dependencies:	conky, curl, jq, vnstat, API Key (http://openweathermap.org/)
+                and city id (http://openweathermap.org/help/city_list.txt
+                from OpenWeatherMap
 ]]
 
 conky.config = {
-    update_interval = 1,
+    update_interval = 1
     no_buffers = true,
     double_buffer = true,
     cpu_avg_samples = 2,
@@ -50,65 +50,52 @@ conky.config = {
     show_graph_range = false,
 
     use_xft = true,
-	xftalpha = 1,
+    xftalpha = 1,
     font = 'Roboto Regular:size=7',
-	--text_buffer_size = 256,
-	override_utf8_locale = true,
-	pad_percents=2,
+    --text_buffer_size = 256,
+    override_utf8_locale = true,
+    pad_percents=2,
 
-	--[[ # normal text, light grey ]]
-	color1 = 'D0D5DE',
-	--[[ # caution text, tomato ]]
-	color2 = 'BF616A',
-	--[[ # stat text, mint ]]
-	color3 = '3eb489',
-	--[[ # highlight, lemon yellow ]]
-	color4 = 'fff44f',
-	--[[ # heading text, smokey grey ]]
-	color5 = '8FA1B3',
-	--[[ # graph color, Cannonical Aubergine ]]
-	color6 = '772953',
-	--[[ # special, ubuntu orange ]]
-	color7 = 'E95420',
-	color8 = 'DC143C',
-	--[[ # special, Pop OS cyan ]]
+    --[[ # normal text, light grey ]]
+    color1 = 'D0D5DE',
+    --[[ # caution text, tomato ]]
+    color2 = 'BF616A',
+    --[[ # stat text, mint ]]
+    color3 = '3eb489',
+    --[[ # highlight, lemon yellow ]]
+    color4 = 'fff44f',
+    --[[ # heading text, smokey grey ]]
+    color5 = '8FA1B3',
+    --[[ # graph color, Cannonical Aubergine ]]
+    color6 = '772953',
+    --[[ # special, ubuntu orange ]]
+    color7 = 'E95420',
+    color8 = 'DC143C',
+    --[[ # special, Pop OS cyan ]]
     color9 = '94EBEB',
 -------------------------------------
---  API Key
+--  Shell Vars
+--  $OWM_APIKEY: API Key
+--  $OWM_CITYID: City ID
+--  $OWM_UNITS: Units (default, metric, imperial)
+--  $LC_NAME: Locale (e.g. "es_ES.UTF-8", Leave empty for default)
 -------------------------------------
-	template1="b59117c083dfa1d4e6cc3186a568fd26",
-
--------------------------------------
---  City ID
--------------------------------------
-	template2="1172451",
-
--------------------------------------
---  Temp Unit (default, metric, imperial)
--------------------------------------
-	template3="metric",
-
--------------------------------------
---  Locale (e.g. "es_ES.UTF-8")
---  Leave empty for default
--------------------------------------
-	template4=""
 }
 
 conky.text = [[
 ${voffset 4}\
 ${goto 55}${font Roboto Regular:size=8}${color3}${USER}${color} @ ${color3}${nodename}${font}${color}\
 ${voffset 15}\
-${goto 40}${font Roboto Regular:size=6}${color7}${execi 3600 lsb_release -sd} (${execi 3600 lsb_release -si} ${execi 3600 lsb_release -sc})${color}
+${goto -24ont Roboto Regular:size=6}${color7}${execi 3600 lsb_release -sd} (${execi 3600 lsb_release -si} ${execi 3600 lsb_release -sc})${color}
 ${font}\
 \
 \
 \
 \
 ${voffset 25}\
-${image ~/.conky/assets/misc/uptime.png -p 10,55 -s 12x12}${goto 35}${color}$uptime\
+${image ~/.config/conky/assets/misc/uptime.png -p 10,55 -s 12x12}${goto 35}${color}$uptime\
 \
-${image ~/.conky/assets/misc/battery.png -p 110,55 -s 12x12}${goto 135}${color}\
+${image ~/.config/conky/assets/misc/battery.png -p 110,55 -s 12x12}${goto 135}${color}\
 ${if_match ${battery_percent BAT0}<=15}${color8}${blink ${battery_percent BAT0}}\
 ${else}${if_match ${battery_percent BAT0}<=25}${color8}${battery_percent BAT0}\
 ${else}${if_match ${battery_percent BAT0}>25}${color}${battery_percent BAT0}${endif}${endif}${endif}${color}%\
@@ -117,9 +104,9 @@ ${else}${if_match ${battery_percent BAT0}>25}${color}${battery_percent BAT0}${en
 \
 \
 ${voffset 25}\
-${image ~/.conky/assets/misc/cpu.png -p 10,80 -s 12x12}${goto 35}${color}$freq_g GHz  \
+${image ~/.config/conky/assets/misc/cpu.png -p 10,80 -s 12x12}${goto 35}${color}$freq_g GHz  \
 \
-${image ~/.conky/assets/misc/cpu-busy.png -p 110,80 -s 12x12}${goto 135}${color}${cpu cpu0}% \
+${image ~/.config/conky/assets/misc/cpu-busy.png -p 110,80 -s 12x12}${goto 135}${color}${cpu cpu0}% \
 \
 \
 \
@@ -131,10 +118,10 @@ ${goto 25}${cpugraph 20,150 A5FCFC 94EBEB -t -l}
 \
 \
 ${voffset 3}\
-${image ~/.conky/assets/misc/ram-memory.png -p 10,135 -s 12x12}${goto 35}${color}$mem${color5} / ${color}$memmax\
+${image ~/.config/conky/assets/misc/ram-memory.png -p 10,135 -s 12x12}${goto 35}${color}$mem${color5} / ${color}$memmax\
 \
 ${voffset 23}\
-${image ~/.conky/assets/misc/hard-drive.png -p 10,160 -s 14x14}\
+${image ~/.config/conky/assets/misc/hard-drive.png -p 10,160 -s 14x14}\
 ${goto 35}${font Roboto Regular:size=6}${color4}/${color} ${fs_used /} /${fs_size /}${goto 120}${fs_bar 5,60 /}\
 ${voffset 15}${goto 35}${color4}~${color} ${fs_used /home} / ${fs_size /home}${font}${goto 120}${fs_bar 5,60 /home}\
 \
@@ -164,5 +151,4 @@ ${voffset -13}${alignr 22}${color5}Mem${color}
 \
 \
 \
-
 ]]

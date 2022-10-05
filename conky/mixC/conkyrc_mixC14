@@ -2,11 +2,11 @@
 Name:		    Carbon Mix
 Code Name:	    Carbon 14 (C14: Network Resource Monitor)
 Designer:	    Codegenki
-Description:	minimal#, a minimalist configuration for Conky system monitor 
+Description:	minimal#, a minimalist configuration for Conky system monitor
                 (with added battery indicator & openweathermap.org api).
-Dependencies:	conky, curl, jq, vnstat, API Key (http://openweathermap.org/) 
+Dependencies:	conky, curl, jq, vnstat, API Key (http://openweathermap.org/)
                 and city id (http://openweathermap.org/help/city_list.txt)
-		        from OpenWeatherMap
+                from OpenWeatherMap
 ]]
 
 conky.config = {
@@ -50,48 +50,35 @@ conky.config = {
     show_graph_range = false,
 
     use_xft = true,
-	xftalpha = 1,
+    xftalpha = 1,
     font = 'Roboto Regular:size=7',
-	--text_buffer_size = 256,
-	override_utf8_locale = true,
-	pad_percents=2,
+    --text_buffer_size = 256,
+    override_utf8_locale = true,
+    pad_percents=2,
 
-	--[[ # normal text, light grey ]]
-	color1 = 'D0D5DE',
-	--[[ # caution text, tomato ]]
-	color2 = 'BF616A',
-	--[[ # stat text, mint ]]
-	color3 = '3eb489',
-	--[[ # highlight, lemon yellow ]]
-	color4 = 'fff44f',
-	--[[ # heading text, smokey grey ]]
-	color5 = '8FA1B3',
-	--[[ # graph color, Cannonical Aubergine ]]
-	color6 = '772953',
-	--[[ # special, ubuntu orange ]]
-	color7 = 'E95420',
-	color8 = 'DC143C',
-
--------------------------------------
---  API Key
--------------------------------------
-	template1="b59117c083dfa1d4e6cc3186a568fd26",
+    --[[ # normal text, light grey ]]
+    color1 = 'D0D5DE',
+    --[[ # caution text, tomato ]]
+    color2 = 'BF616A',
+    --[[ # stat text, mint ]]
+    color3 = '3eb489',
+    --[[ # highlight, lemon yellow ]]
+    color4 = 'fff44f',
+    --[[ # heading text, smokey grey ]]
+    color5 = '8FA1B3',
+    --[[ # graph color, Cannonical Aubergine ]]
+    color6 = '772953',
+    --[[ # special, ubuntu orange ]]
+    color7 = 'E95420',
+    color8 = 'DC143C',
 
 -------------------------------------
---  City ID
+--  Shell Vars
+--  $OWM_APIKEY: API Key
+--  $OWM_CITYID: City ID
+--  $OWM_UNITS: Units (default, metric, imperial)
+--  $LC_NAME: Locale (e.g. "es_ES.UTF-8", Leave empty for default)
 -------------------------------------
-	template2="1172451",
-
--------------------------------------
---  Temp Unit (default, metric, imperial)
--------------------------------------
-	template3="metric",
-
--------------------------------------
---  Locale (e.g. "es_ES.UTF-8")
---  Leave empty for default
--------------------------------------
-	template4=""
 }
 
 conky.text = [[
@@ -99,14 +86,14 @@ ${voffset 10}\
 \
 ${if_existing /proc/net/route enp5s0}\
 \
-${image ~/.conky/assets/misc/ethernet.png -p 10,9 -s 12x12}\
+${image ~/.config/conky/assets/misc/ethernet.png -p 10,9 -s 12x12}\
 ${goto 32}${color3}Ethernet\
-${image ~/.conky/assets/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}\
+${image ~/.config/conky/assets/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}\
 \
 ${if_existing /proc/net/route wlp4s0}\
 \
 ${voffset 17}\
-${image ~/.conky/assets/misc/signal-symbol.png -p 10,26 -s 12x12}\
+${image ~/.config/conky/assets/misc/signal-symbol.png -p 10,26 -s 12x12}\
 ${goto 35}${color3}${wireless_essid wlp4s0}${color}\
 \
 ${endif}\
@@ -122,9 +109,9 @@ ${else}\
 \
 ${if_existing /proc/net/route wlp4s0}\
 \
-${image ~/.conky/assets/misc/signal-symbol.png -p 10,9 -s 12x12}\
+${image ~/.config/conky/assets/misc/signal-symbol.png -p 10,9 -s 12x12}\
 ${goto 32}${color3}${wireless_essid wlp4s0}${color}\
-${image ~/.conky/assets/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}${color}\
+${image ~/.config/conky/assets/misc/data-stat.png -p 103,9 -s 12x12}${goto 127}${color3}${time %b} ${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 $10}'}${color}\
 ${voffset 25}\
 ${goto 15}${color5}Up: ${color}${upspeed wlp4s0}${color5}${goto 105}Down: ${color}${downspeed wlp4s0}
 ${voffset 5}\
@@ -134,15 +121,13 @@ ${goto 15}${color5}Sent: ${color}${totalup wlp4s0}${color5}${goto 105}Received: 
 \
 ${else}\
 \
-${image ~/.conky/assets/misc/network.png -p 10,5 -s 12x12}\
+${image ~/.config/conky/assets/misc/network.png -p 10,5 -s 12x12}\
 ${goto 35}${color}disconnected\
-${image ~/.conky/assets/misc/offline.png -p 100,5 -s 12x12}\
+${image ~/.config/conky/assets/misc/offline.png -p 100,5 -s 12x12}\
 \
 ${endif}\
 \
 ${endif}\
-\
-\
 \
 \
 ]]
