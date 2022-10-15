@@ -113,6 +113,9 @@ bash -c '/home/user/.config/conky/conky-startup.sh'
    ![alt text](.assets/spacex_os.png "spacex_os")
 
    #### StarWarp
+
+![](.assets/starwarp-weather.png)
+
    ![alt text](.assets/starwarp-loaded00.png "starwarp desktop")
 
 ![alt text](.assets/starwarp-loaded02.png "starwarp desktop")

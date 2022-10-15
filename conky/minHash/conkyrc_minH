@@ -50,52 +50,39 @@ conky.config = {
     show_graph_range = false,
 
     use_xft = true,
-	xftalpha = 1,
+    xftalpha = 1,
     font = 'Roboto Regular:size=7',
-	--text_buffer_size = 256,
-	override_utf8_locale = true,
-	pad_percents=2,
+    --text_buffer_size = 256,
+    override_utf8_locale = true,
+    pad_percents=2,
 
-	--[[ # normal text, light grey ]]
-	color1 = 'D0D5DE',
-	--[[ # caution text, tomato ]]
-	color2 = 'BF616A',
-	--[[ # stat text, mint ]]
-	color3 = '3eb489',
-	--[[ # highlight, lemon yellow ]]
-	color4 = 'fff44f',
-	--[[ # heading text, smokey grey ]]
-	color5 = '8FA1B3',
-	--[[ # graph color, Cannonical Aubergine ]]
-	color6 = '772953',
-	--[[ # special, ubuntu orange ]]
-	color7 = 'E95420',
-	color8 = 'DC143C',
-
--------------------------------------
---  API Key
--------------------------------------
-	template1="",
+    --[[ # normal text, light grey ]]
+    color1 = 'D0D5DE',
+    --[[ # caution text, tomato ]]
+    color2 = 'BF616A',
+    --[[ # stat text, mint ]]
+    color3 = '3eb489',
+    --[[ # highlight, lemon yellow ]]
+    color4 = 'fff44f',
+    --[[ # heading text, smokey grey ]]
+    color5 = '8FA1B3',
+    --[[ # graph color, Cannonical Aubergine ]]
+    color6 = '772953',
+    --[[ # special, ubuntu orange ]]
+    color7 = 'E95420',
+    color8 = 'DC143C',
 
 -------------------------------------
---  City ID
+--  Shell Vars
+--  $OWM_APIKEY: API Key
+--  $OWM_CITYID: City ID
+--  $OWM_UNITS: Units (default, metric, imperial)
+--  $LC_NAME: Locale (e.g. "es_ES.UTF-8", Leave empty for default)
 -------------------------------------
-	template2="",
-
--------------------------------------
---  Temp Unit (default, metric, imperial)
--------------------------------------
-	template3="metric",
-
--------------------------------------
---  Locale (e.g. "es_ES.UTF-8")
---  Leave empty for default
--------------------------------------
-	template4=""
 }
 
 conky.text = [[
-${execi 300 l=${template4}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template1}&id=${template2}&cnt=5&units=${template3}&lang=$l" -o ~/.cache/weather.json}\
+${execi 300 l=${LC_NAME%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o ~/.cache/conky/weather.json}\
 ${execi 300 cp -f ~/.conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}${image ~/.cache/weather-0.png -p 190,0 -s 20x20 -f 150}\
 ${voffset 4}\
 ${goto 8}${font Roboto Regular:size=8}${color3}${USER}${color}@${color3}${nodename}${font}${color}\

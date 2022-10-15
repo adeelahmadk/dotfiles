@@ -2,10 +2,10 @@
 Series Name:    Star Warp
 Code Name:      A new hope
 Designer:       Codegenki
-Description:	StarWarp, a minimalist futuristic configuration for Conky 
-                system monitor (with added Python script for repo status & 
+Description:	StarWarp, a minimalist futuristic configuration for Conky
+                system monitor (with added Python script for repo status &
                 Lua script for active NIC list).
-Dependencies:	conky (>= 1.10), curl, Fonts (FontAwesome, Neuropolitical, 
+Dependencies:	conky (>= 1.10), curl, Fonts (FontAwesome, Neuropolitical,
                 Neuropol X)
 --]]
 
@@ -26,13 +26,13 @@ conky.config = {
     alignment = 'middle_right',
     background = true,
     gap_x = 20,
-    gap_y = 40,
+    gap_y = 20,
     minimum_height = 180,
     --maximum_height = 480,
     minimum_width = 260,
     maximum_width = 480,
     border_width = 0,
-	border_inner_margin = 10,
+    border_inner_margin = 10,
     default_color = 'D0D5DE',
     default_outline_color = 'C0C5CE',
     default_shade_color = 'C0C5CE',
@@ -53,32 +53,32 @@ conky.config = {
     show_graph_range = false,
 
     use_xft = true,
-	xftalpha = .3,
+    xftalpha = .3,
     font = 'Neuropolitical:size=8',
-	text_buffer_size = 2048,
-	override_utf8_locale = true,
-	pad_percents=2,
-	
+    text_buffer_size = 2048,
+    override_utf8_locale = true,
+    pad_percents=2,
+
     lua_load = '~/.config/conky/starwarp/scripts/os_info.lua',
     lua_draw_hook_post = 'main',
 
-	--[[ # normal text, light grey ]]
-	color1 = 'D0D5DE',
-	--[[ # caution text, tomato ]]
-	color2 = 'BF616A',
-	--[[ # stat text, mint ]]
-	color3 = '3EB489',
-	--[[ # highlight, lemon yellow ]]
-	color4 = 'FFF44F',
-	--[[ # heading text, smokey grey ]]
-	color5 = '8FA1B3',
+    --[[ # normal text, light grey ]]
+    color1 = 'D0D5DE',
+    --[[ # caution text, tomato ]]
+    color2 = 'BF616A',
+    --[[ # stat text, mint ]]
+    color3 = '3EB489',
+    --[[ # highlight, lemon yellow ]]
+    color4 = 'FFF44F',
+    --[[ # heading text, smokey grey ]]
+    color5 = '8FA1B3',
     --[[ # graph color, Cyanogen light ]]
     color6 = '2BB5C9',
     --[[ # special, Cyanogen dark ]]
     color7 = '0C3247',
-	--[[ # special, Pop OS cyan ]]
-	color8 = '94EBEB',
-	color9 = 'DC143C'
+    --[[ # special, Pop OS cyan ]]
+    color8 = '94EBEB',
+    color9 = 'DC143C'
 }
 
 conky.text = [[
@@ -108,7 +108,7 @@ ${voffset 5}\
 ${lua_parse draw_nics}
 \
 ${voffset 6}${goto 70}${font Neuropol X:size=6}\
-${color6}Agg. Traffic: ${color}${time %b} ${execi 900 vnstat -m 1 | grep "`LC_ALL=C date +"%Y-%m"`" | awk '{print $8 $9}'} 
+${color6}Agg. Traffic: ${color}${time %b} ${execi 900 vnstat -m 1 | grep "`LC_ALL=C date +"%Y-%m"`" | awk '{print $8 $9}'}
 \
 ${color #222222}${hr 2}${color}
 \

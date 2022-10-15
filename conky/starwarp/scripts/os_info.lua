@@ -4,7 +4,7 @@ Code Name:      A new hope
 Author:         Codegenki
 Description:    Supporting script for OS mudule
 Usage:          Add to your conkyrc config block:
-                lua_load = '~/.config/conky/scripts/script.lua',
+                lua_load = '~/.config/conky/starwarp/scripts/os_info.lua',
                 lua_draw_hook_post = 'main',
                 lua_draw_hook_pre = 'some_function'
 ]]
@@ -32,11 +32,13 @@ function conky_main ()
     if conky_window == nil then
         return
     end
-    local cs = cairo_xlib_surface_create (conky_window.display,
-                                         conky_window.drawable,
-                                         conky_window.visual,
-                                         conky_window.width,
-                                         conky_window.height)
+    local cs = cairo_xlib_surface_create (
+        conky_window.display,
+        conky_window.drawable,
+        conky_window.visual,
+        conky_window.width,
+        conky_window.height
+    )
     cr = cairo_create (cs)
     if first_run == 1 then
         local file = io.popen("lscpu -a -p='cpu' | grep '[0-9]' | wc -l")
@@ -44,7 +46,7 @@ function conky_main ()
         file:close()
         first_run = nil
     end
-        
+
     cairo_destroy (cr)
     cairo_surface_destroy (cs)
     cr = nil
@@ -52,23 +54,27 @@ end
 
 -- Print a list of active network interfaces
 function conky_active_nics()
-    if active_nics == '' or tonumber(conky_parse("$updates")) % nic_update_interval == 0 then
-        local output = io.popen('ip link | grep -Po --regexp "(?<=[0-9]: ).*"')
+    if active_nics == '' or tonumber(conky_parse("${updates}")) % nic_update_interval == 0 then
+        local output, err, code = io.popen('ip link | grep -Po --regexp "(?<=[0-9]: ).*"')
+        if not output then
+            print("Error opening file", "ip link", err)
+            -- Do something to handle the error
+        end
 
         local nic_str = ''
         active_ifaces = {}
         for l in output:lines() do
             local line = io.popen('echo "' .. l .. '" | cut -d">" -f1'):read("*a")
-            --print('\nLine: ' .. line .. '\n')
+            -- print('\nLine: ' .. line .. '\n')
             if string.find(line, "<BROADCAST") or string.find(line, "<POINTOPOINT") then
                 local iface = string.gsub(string.match(line, "^.*:"), ":", "")
                 table.insert(active_ifaces, iface)
                 nic_str = nic_str .. iface .. '  '
-                --print('Interface: ' .. iface)
+                -- print('Interface: ' .. iface)
             end
         end
         output:close()
-        
+
         if active_ifaces == nil then
             active_nics = ''
         else
@@ -81,7 +87,7 @@ end
 
 -- Print traffic stats for active network interfaces
 function conky_draw_nics()
-    if netconf == '' or tonumber(conky_parse("$updates")) % net_update_interval == 0 then
+    if netconf == '' or tonumber(conky_parse("${updates}")) % net_update_interval == 0 then
         if table.maxn(active_ifaces) >= 1 then
             local iface_stats = ''
             for _,v in pairs(active_ifaces) do

@@ -2,15 +2,15 @@
 Series Name:    Star Warp
 Code Name:      A new hope
 Designer:       Codegenki
-Description:	StarWarp, a minimalist futuristic configuration for Conky 
+Description:	StarWarp, a minimalist futuristic configuration for Conky
                 system monitor(with added earthquake.usgs.gov api).
-Dependencies:	conky (>= 1.10), curl & jq (for accompanying bash scripts to 
+Dependencies:	conky (>= 1.10), curl & jq (for accompanying bash scripts to
                 scrape & parse JSON API).
 ]]
 conky.config = {
-	update_interval = 5,
-	double_buffer = true,
-	no_buffers = true,
+    update_interval = 5,
+    double_buffer = true,
+    no_buffers = true,
     out_to_console = false,
     out_to_stderr = false,
     extra_newline = false,
@@ -19,59 +19,58 @@ conky.config = {
     draw_outline = false,
     draw_shades = false,
 
-	alignment = 'bottom_right',
-	gap_x = 20,
-	gap_y = 60,
+    alignment = 'bottom_right',
+    gap_x = 20,
+    gap_y = 60,
     background = true,
     minimum_width = 350,
 
     border_width = 0,
-	border_inner_margin = 5,   
-	border_outer_margin = 0,
+    border_inner_margin = 5,
+    border_outer_margin = 0,
     default_color = 'D0D5DE',
     default_outline_color = 'C0C5CE',
     default_shade_color = 'C0C5CE',
-    
-	own_window = true,
-	own_window_type = 'normal',
-	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-	own_window_title = '',
-	own_window_transparent = false,
-	own_window_argb_visual = true,
+
+    own_window = true,
+    own_window_type = 'normal',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_title = '',
+    own_window_transparent = false,
+    own_window_argb_visual = true,
     own_window_argb_value = 50,
     own_window_colour = '000000',
 
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = false,
 
-	draw_shades = false,
-	draw_outline = false,
-	draw_borders = false,
-	draw_graph_borders = false,
-
-	use_xft = true,
-	xftalpha = 0,
-	font = 'Neuropol X:size=8',
+    use_xft = true,
+    xftalpha = 0,
+    font = 'Neuropol X:size=8',
     --'Open Sans Light:size=10'
-	override_utf8_locale = true,
+    override_utf8_locale = true,
 
-	--[[ # highlight, Orange ]]
-	color1 = '#EF5A29',
-	--[[ # highlight, grey ]]
-	color2 = 'grey',
+    --[[ # highlight, Orange ]]
+    color1 = '#EF5A29',
+    --[[ # highlight, grey ]]
+    color2 = 'grey',
     --[[ # heading color, Cyanogen light ]]
     color3 = '2BB5C9',
-	--[[ # timestamp color, lemon yellow ]]
-	color4 = 'FFF44F',
+    --[[ # timestamp color, lemon yellow ]]
+    color4 = 'FFF44F',
 -------------------------------------
 --  Max number of earthquakes to display
 --  Leave empty for default(Def:10)
 -------------------------------------
-template1=5,
+template1="5",
 
 -------------------------------------
 --  Minimum magnutude to display info
 --  Leave empty for default(Def:4.5)
 -------------------------------------
-template2=5
+template2="5"
 
 };
 

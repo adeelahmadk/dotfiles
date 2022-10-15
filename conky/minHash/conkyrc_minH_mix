@@ -2,11 +2,11 @@
 Name:		    minimalHash Icon Mix
 Code Name:	    Hydrogen (H)
 Designer:	    Codegenki
-Description:	minimal#, a minimalist configuration for Conky system monitor 
+Description:	minimal#, a minimalist configuration for Conky system monitor
                 (with added battery indicator & openweathermap.org api).
-Dependencies:	conky, curl, jq, vnstat, API Key (http://openweathermap.org/) 
+Dependencies:	conky, curl, jq, vnstat, API Key (http://openweathermap.org/)
                 and city id (http://openweathermap.org/help/city_list.txt)
-		        from OpenWeatherMap
+                from OpenWeatherMap
 ]]
 
 conky.config = {
@@ -50,52 +50,38 @@ conky.config = {
     show_graph_range = false,
 
     use_xft = true,
-	xftalpha = 1,
+    xftalpha = 1,
     font = 'Roboto Regular:size=7',
-	--text_buffer_size = 256,
-	override_utf8_locale = true,
-	pad_percents=2,
+    --text_buffer_size = 256,
+    override_utf8_locale = true,
+    pad_percents=2,
 
-	--[[ # normal text, light grey ]]
-	color1 = 'D0D5DE',
-	--[[ # caution text, tomato ]]
-	color2 = 'BF616A',
-	--[[ # stat text, mint ]]
-	color3 = '3eb489',
-	--[[ # highlight, lemon yellow ]]
-	color4 = 'fff44f',
-	--[[ # heading text, smokey grey ]]
-	color5 = '8FA1B3',
-	--[[ # graph color, Cannonical Aubergine ]]
-	color6 = '772953',
-	--[[ # special, ubuntu orange ]]
-	color7 = 'E95420',
-	color8 = 'DC143C',
+    --[[ # normal text, light grey ]]
+    color1 = 'D0D5DE',
+    --[[ # caution text, tomato ]]
+    color2 = 'BF616A',
+    --[[ # stat text, mint ]]
+    color3 = '3eb489',
+    --[[ # highlight, lemon yellow ]]
+    color4 = 'fff44f',
+    --[[ # heading text, smokey grey ]]
+    color5 = '8FA1B3',
+    --[[ # graph color, Cannonical Aubergine ]]
+    color6 = '772953',
+    --[[ # special, ubuntu orange ]]
+    color7 = 'E95420',
+    color8 = 'DC143C',
 
+--  Shell Vars
+--  $OWM_APIKEY: API Key
+--  $OWM_CITYID: City ID
+--  $OWM_UNITS: Units (default, metric, imperial)
+--  $LC_NAME: Locale (e.g. "es_ES.UTF-8", Leave empty for default)
 -------------------------------------
---  API Key
--------------------------------------
-	template1="b59117c083dfa1d4e6cc3186a568fd26",
-
--------------------------------------
---  City ID
--------------------------------------
-	template2="1172451",
-
--------------------------------------
---  Temp Unit (default, metric, imperial)
--------------------------------------
-	template3="metric",
-
--------------------------------------
---  Locale (e.g. "es_ES.UTF-8")
---  Leave empty for default
--------------------------------------
-	template4=""
 }
 
 conky.text = [[
-${execi 300 l=${template4}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template1}&id=${template2}&cnt=5&units=${template3}&lang=$l" -o ~/.cache/weather.json}\
+${execi 300 l=${LC_NAME%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o ~/.cache/conky/weather.json}\
 ${execi 300 cp -f ~/.conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}${image ~/.cache/weather-0.png -p 250,2 -s 19x19 -f 150}\
 \
 \
@@ -146,6 +132,6 @@ ${endif}\
 ${endif}\
 \
 \
-${image ~/.conky/assets/misc/data-stat.png -p 955,5 -s 12x12}${goto 980}${color5}${time %b}${color}  ${color}${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 " " $10}'} 
-${voffset 1}${goto 5}${font Roboto Regular:size=2}${color} 
+${image ~/.conky/assets/misc/data-stat.png -p 955,5 -s 12x12}${goto 980}${color5}${time %b}${color}  ${color}${execi 300 vnstat -m | grep "`LC_ALL=C date +"%b '%y"`" | awk '{print $9 " " $10}'}
+${voffset 1}${goto 5}${font Roboto Regular:size=2}${color}
 ]]

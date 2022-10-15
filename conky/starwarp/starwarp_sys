@@ -2,8 +2,8 @@
 Series Name:    Star Warp
 Code Name:      A new hope
 Designer:       Codegenki
-Description:	StarWarp, a minimalist futuristic configuration for Conky 
-                system monitor (with added lua script for CPU temperature 
+Description:	StarWarp, a minimalist futuristic configuration for Conky
+                system monitor (with added lua script for CPU temperature
                 indicator).
 Dependencies:	conky (>= 1.10), Font: Neuropolitical
 ]]
@@ -27,7 +27,6 @@ conky.config = {
     gap_x = 10,
     gap_y = 10,
     minimum_height = 30,
-    maximum_height = 35,
     minimum_width = 1100,
     maximum_width = 1190,
     border_width = 0,
@@ -50,38 +49,38 @@ conky.config = {
     show_graph_range = false,
 
     use_xft = true,
-	xftalpha = 1,
+    xftalpha = 1,
     font = 'Neuropolitical:size=8',
-	--text_buffer_size = 256,
-	override_utf8_locale = true,
-	pad_percents=2,
+    --text_buffer_size = 256,
+    override_utf8_locale = true,
+    pad_percents=2,
 
     lua_load = '~/.config/conky/starwarp/scripts/sys_info.lua',
     lua_draw_hook_post = 'main',
 
-	--[[ # normal text, light grey ]]
-	color1 = 'D0D5DE',
-	--[[ # caution text, tomato ]]
-	color2 = 'BF616A',
-	--[[ # stat text, mint ]]
-	color3 = '3eb489',
-	--[[ # highlight, lemon yellow ]]
-	color4 = 'fff44f',
-	--[[ # heading text, smokey grey ]]
-	color5 = '8FA1B3',
+    --[[ # normal text, light grey ]]
+    color1 = 'D0D5DE',
+    --[[ # caution text, tomato ]]
+    color2 = 'BF616A',
+    --[[ # stat text, mint ]]
+    color3 = '3eb489',
+    --[[ # highlight, lemon yellow ]]
+    color4 = 'fff44f',
+    --[[ # heading text, smokey grey ]]
+    color5 = '8FA1B3',
     --[[ # graph color, Cyanogen light ]]
     color6 = '2BB5C9',
     --[[ # special, Cyanogen dark ]]
     color7 = '0C3247',
-	--[[ # special, Pop OS cyan ]]
-	color8 = '94EBEB',
-	color9 = 'DC143C',
+    --[[ # special, Pop OS cyan ]]
+    color8 = '94EBEB',
+    color9 = 'DC143C',
 
 -------------------------------------
 --  Locale (e.g. "es_ES.UTF-8")
 --  Leave empty for default
 -------------------------------------
-	template1="en_US.UTF-8"
+    template1="en_US.UTF-8"
 }
 
 conky.text = [[

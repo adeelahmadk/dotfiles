@@ -4,7 +4,7 @@ Code Name:      A new hope
 Author:         Codegenki
 Description:    Supporting script for SYS mudule
 Usage:          Add to your conkyrc config block:
-                lua_load = '~/.config/conky/scripts/script.lua',
+                lua_load = '~/.config/conky/starwarp/scripts/script.lua',
                 lua_draw_hook_post = 'main',
                 lua_draw_hook_pre = 'some_function'
 ]]
@@ -13,7 +13,7 @@ require 'cairo'
 
 -- Global Vars
 first_run = 1
-cpu_update_interval = 1800
+cpu_update_interval = 30 -- 1800
 cputemp_update_interval = 6
 ncpus = 0
 cpu_hwmon = ''
@@ -42,27 +42,27 @@ function conky_main ()
     if first_run == 1 then
         local file = io.popen("lscpu -a -p='cpu' | grep '[0-9]' | wc -l")
         ncpu = trim(file:read("*a"))
-        --print('No. of CPUs: ' .. ncpu)
+        -- print('No. of CPUs: ' .. ncpu)
         file:close()
         first_run = nil
     end
-    
+
     local hwmon = ''
-	timer = (updates % cpu_update_interval)
-	if timer == 0 or cpu_hwmon == '' then
+    timer = (updates % cpu_update_interval)
+    if timer == 0 or cpu_hwmon == '' then
         local all_hwmon_temp_names = io.popen('ls /sys/class/hwmon/*/temp* | grep -Po --regexp ".*(label)$"')
         for l in all_hwmon_temp_names:lines() do
             local name = io.popen('cat ' .. l):read("*a")
             if name:match("^Package*") then
                 start, finish, hwmon = string.find(l,"[%a%p]+/([%a]+%d)%p[%a%d]+")
                 cpu_hwmon = hwmon
-                --print(l .. 'found under: ' .. hwmon)
+                -- print(l .. 'found under: ' .. hwmon)
                 break
             end
         end
         all_hwmon_temp_names:close()
-	end
-    
+    end
+
     cairo_destroy (cr)
     cairo_surface_destroy (cs)
     cr = nil
@@ -70,14 +70,22 @@ end
 
 -- Print a temperature of the CPU Package
 function conky_cpu_temp()
+    if cpu_hwmon == '' then
+        return ctemp
+    end
+
     if tonumber (conky_parse ('${updates}')) % cputemp_update_interval == 0 or ctemp == 0 then
         cpu_temp_file = '/sys/class/hwmon/' .. cpu_hwmon .. '/temp1_input'
-        local cpu_temp_fh = io.open(cpu_temp_file, "r")
-        ctemp = tonumber(cpu_temp_fh:read("*a"))  / 1000
-        --print('CPU temp: ' .. ctemp)
+        local cpu_temp_fh, err, code = assert(io.open(cpu_temp_file, "r"))
+        if not cpu_temp_fh then
+            print("Error opening file", cpu_temp_file, err)
+            -- Do something to handle the error
+        end
+        ctemp = tonumber(cpu_temp_fh:read("*all"))  / 1000
         cpu_temp_fh:close()
+        -- print('CPU temp: ' .. ctemp)
     end
-    
+
     if ctemp > 75 then
         cputemp_update_interval = 2
         return "${color red}${blink " .. ctemp .. "}${color}"

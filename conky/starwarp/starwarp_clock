@@ -2,11 +2,11 @@
 Series Name:    Star Warp
 Code Name:      A new hope
 Designer:       Codegenki
-Description:	StarWarp, a minimalist futuristic configuration for Conky 
+Description:	StarWarp, a minimalist futuristic configuration for Conky
                 system monitor(with added openweathermap.org api).
-Dependencies:	conky, curl, jq, API Key (http://openweathermap.org/) 
+Dependencies:	conky, curl, jq, API Key (http://openweathermap.org/)
                 and city id (https://bulk.openweathermap.org/sample/city.list.json.gz)
-		        from OpenWeatherMap
+                from OpenWeatherMap
 ]]
 
 conky.config = {
@@ -28,15 +28,15 @@ conky.config = {
     gap_x = 15,
     gap_y = 50,
     minimum_height = 80,
-    maximum_height = 200,
+    -- maximum_height = 200,
     minimum_width = 240,
     maximum_width = 350,
     border_width = 0,
-	border_inner_margin = 10,
+    border_inner_margin = 10,
     default_color = 'D0D5DE',
     default_outline_color = 'C0C5CE',
     default_shade_color = 'C0C5CE',
-    
+
     own_window = true,
     own_window_class = 'Conky',
     own_window_type = 'normal',
@@ -53,53 +53,41 @@ conky.config = {
     show_graph_range = false,
 
     use_xft = true,
-	xftalpha = 1,
+    xftalpha = 1,
     font = 'Neuropolitical:size=8',
-	override_utf8_locale = true,
-	pad_percents=2,
+    override_utf8_locale = true,
+    pad_percents=2,
 
-	--[[ # normal text, light grey ]]
-	color1 = 'D0D5DE',
-	--[[ # caution text, tomato ]]
-	color2 = 'BF616A',
-	--[[ # stat text, mint ]]
-	color3 = '3eb489',
-	--[[ # highlight, lemon yellow ]]
-	color4 = 'fff44f',
-	--[[ # heading text, smokey grey ]]
-	color5 = '8FA1B3',
-	--[[ # graph color, Cyanogen light ]]
-	color6 = '2BB5C9',
-	--[[ # special, Cyanogen dark ]]
-	color7 = '0C3247',
-	--[[ # special, Pop OS cyan ]]
-	color8 = '94EBEB',
-	color9 = 'DC143C',
-	
--------------------------------------
---  API Key
--------------------------------------
-	template1="b59117c083dfa1d4e6cc3186a568fd26",
+    --[[ # normal text, light grey ]]
+    color1 = 'D0D5DE',
+    --[[ # caution text, tomato ]]
+    color2 = 'BF616A',
+    --[[ # stat text, mint ]]
+    color3 = '3eb489',
+    --[[ # highlight, lemon yellow ]]
+    color4 = 'fff44f',
+    --[[ # heading text, smokey grey ]]
+    color5 = '8FA1B3',
+    --[[ # graph color, Cyanogen light ]]
+    color6 = '2BB5C9',
+    --[[ # special, Cyanogen dark ]]
+    color7 = '0C3247',
+    --[[ # special, Pop OS cyan ]]
+    color8 = '94EBEB',
+    color9 = 'DC143C',
 
 -------------------------------------
---  City ID
+--  Shell Vars
+--  OWM_APIKEY: API Key
+--  OWM_CITYID: City ID
+--  OWM_UNITS: Temp Unit (default, metric, imperial)
+--  LC_NAME: Locale (e.g. "es_ES.UTF-8", Leave empty for default)
 -------------------------------------
-	template2="1172451",
-
--------------------------------------
---  Temp Unit (default, metric, imperial)
--------------------------------------
-	template3="metric",
-
--------------------------------------
---  Locale (e.g. "es_ES.UTF-8")
---  Leave empty for default
--------------------------------------
-	template4="en_US.UTF-8"
 }
 
 conky.text = [[
-${execi 300 l=${template4}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template1}&id=${template2}&cnt=5&units=${template3}&lang=$l" -o ~/.cache/conky/weather.json}${execi 300 cp -f ~/.config/conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/conky/weather.json).png ~/.cache/conky/weather-0.png}\
+${execi 300 l=${LC_NAME%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o ~/.cache/conky/weather.json}\
+${execi 300 cp -f ~/.config/conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/conky/weather.json).png ~/.cache/conky/weather-0.png}\
 \
 \
 ${alignr}${color6}${font Neuropolitical:pixelsize=44}${time %H:%M}${font}
