@@ -100,7 +100,7 @@ ${alignr}${color6}${font Neuropolitical:pixelsize=12}${time %A %d %B %Y}${font}
 ${image ~/.cache/conky/weather-0.png -p 2,80 -s 60x60 -f 150}\
 ${voffset 10}${goto 65}\
 ${font Neuropolitical:pixelsize=26}${color #FFFFFF}\
-${execi 300 jq -r .main.temp ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num}\
+${execi 300 jq .main.temp ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num}\
 ${font Neuropol X:pixelsize=12}${color6} \
 ${if_match "$template3" == "metric"}°C\
 ${else}${if_match "$template3" == "imperial"}°F\
@@ -113,7 +113,7 @@ ${font}
 \
 ${alignr}${font Neuropol X:pixelsize=9}${color #FFFFFF}${execi 300 jq -r .weather[0].description ~/.cache/conky/weather.json | sed "s|\<.|\U&|g"}${color}
 \
-${alignr}${font Neuropolitical:pixelsize=9}${color6}${exec jq .name ~/.cache/conky/weather.json | sed -e 's/^"//' -e 's/"$//'}, ${exec jq .sys.country ~/.cache/conky/weather.json | sed -e 's/^"//' -e 's/"$//'}${color}
+${alignr}${font Neuropolitical:pixelsize=9}${color6}${exec jq -r .name ~/.cache/conky/weather.json}, ${exec jq -r .sys.country ~/.cache/conky/weather.json}${color}
 \
 \
 ${voffset 10}${goto 20}\

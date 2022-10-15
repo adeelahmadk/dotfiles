@@ -87,7 +87,7 @@ ${execi 300 l=${LC_NAME%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?A
 ${execi 300 cp -f ~/.conky/assets/icons/#dcdcdc__32/$(jq .weather[0].id ~/.cache/weather.json).png ~/.cache/weather-0.png}${image ~/.cache/weather-0.png -p 175,0 -s 20x20 -f 150}\
 ${voffset 5}\
 ${goto 8}${color3}${USER}${color}@${color3}${nodename}${color} \
-${goto 115}${color5}${exec jq .name ~/.cache/weather.json | sed -e 's/^"//' -e 's/"$//'} ${color}${execi 300 jq -r .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}\
+${goto 115}${color5}${exec jq -r .name ~/.cache/weather.json} ${color}${execi 300 jq .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}\
 ${if_match "$template8" == "metric"}°C\
 ${else}${if_match "$template8" == "imperial"}°F\
 ${else}${if_match "$template8" == "default"} K\
@@ -120,7 +120,7 @@ ${goto 15}${color7}${execi 3600 lsb_release -si} ${execi 3600 lsb_release -sc}${
 ${font DejaVu Sans:size=5}\
 ${voffset 5}\
 ${goto 115}${color}${execi 300 LANG=${template9} LC_TIME=${template9} date +%^a}${color} \
-${execi 300 jq -r .list[0].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif} / ${execi 300 jq -r .list[0].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif}${color}\
+${execi 300 jq .list[0].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif} / ${execi 300 jq .list[0].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif}${color}\
 ${voffset -5}\
 ${goto 488}${color4}+${color}${cpu cpu1}%\
 ${goto 515}└ ${top name 1}\
@@ -128,14 +128,14 @@ ${goto 595} └ ${top_mem name 1} \
 ${goto 757}${font}${color4}home ${color}${fs_used /home}/${fs_size /home}
 ${voffset 8}${font DejaVu Sans:size=5}\
 ${goto 115}${execi 300 LANG=${template9} LC_TIME=${template9} date -d +1day +%^a}${color} \
-${execi 300 jq -r .list[1].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif} / ${execi 300 jq -r .list[1].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif}${color}\
+${execi 300 jq .list[1].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif} / ${execi 300 jq .list[1].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif}${color}\
 ${voffset -7}\
 ${goto 488}${color4}+${color}${cpu cpu2}%\
 ${goto 515}   ${top name 2}\
 ${goto 595}    ${top_mem name 2}
 ${voffset 12}\
 ${goto 115}${color}${execi 300 LANG=${template9} LC_TIME=${template9} date -d +2day +%^a}${color} \
-${execi 300 jq -r .list[2].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif} / ${execi 300 jq -r .list[2].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif}${color}\
+${execi 300 jq .list[2].temp.min ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif} / ${execi 300 jq .list[2].temp.max ~/.cache/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} °C${else}${if_match "$template8" == "imperial"} °F${else}${if_match "$template8" == "default"} K${endif}${endif}${endif}${color}\
 ${voffset -11}\
 ${goto 488}${color4}+${color}${cpu cpu3}%\
 ${goto 515}   ${top name 3}\

@@ -89,8 +89,8 @@ ${execi 300 l=${LC_NAME%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?A
 \
 \
 ${voffset 4}\
-${goto 70}${font Roboto Regular:size=9}${color3}${exec jq .name ~/.cache/conky/weather.json | sed -e 's/^"//' -e 's/"$//'}, ${exec jq .sys.country ~/.cache/conky/weather.json | sed -e 's/^"//' -e 's/"$//'}${color}  \
-${execi 300 jq -r .main.temp ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num}\
+${goto 70}${font Roboto Regular:size=9}${color3}${exec jq -r .name ~/.cache/conky/weather.json}, ${exec jq -r .sys.country ~/.cache/conky/weather.json}${color}  \
+${execi 300 jq .main.temp ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num}\
 ${if_match "$OWM_UNITS" == "metric"}°C\
 ${else}${if_match "$OWM_UNITS" == "imperial"}°F\
 ${else}${if_match "$OWM_UNITS" == "default"} K\
@@ -114,8 +114,8 @@ ${voffset 18}\
 ${image ~/.config/conky/assets/misc/humidity.png -p 30,43 -s 16x16}\
 ${image ~/.config/conky/assets/misc/wind-2.png -p 85,43 -s 16x16}\
 ${color}\
-${goto 55}${execi 300 jq -r .main.humidity ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num} %\
-${goto 110}${execi 300 jq -r .wind.speed ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"} m/s${else}${if_match "$OWM_UNITS" == "default"} m/s${else}${if_match "$OWM_UNITS" == "imperial"} mi/h${endif}${endif}${endif}\
+${goto 55}${execi 300 jq .main.humidity ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num} %\
+${goto 110}${execi 300 jq .wind.speed ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"} m/s${else}${if_match "$OWM_UNITS" == "default"} m/s${else}${if_match "$OWM_UNITS" == "imperial"} mi/h${endif}${endif}${endif}\
 \
 \
 \
@@ -128,9 +128,9 @@ ${execi 300 cp -f ~/.config/conky/assets/icons/#fff__32/$(jq .list[0].weather[0]
 ${execi 300 cp -f ~/.config/conky/assets/icons/#fff__32/$(jq .list[1].weather[0].id ~/.cache/conky/forecast.json).png ~/.cache/conky/weather-2.png}${image ~/.cache/conky/weather-2.png -p 112,80 -s 20x20}\
 ${execi 300 cp -f ~/.config/conky/assets/icons/#fff__32/$(jq .list[2].weather[0].id ~/.cache/conky/forecast.json).png ~/.cache/conky/weather-3.png}${image ~/.cache/conky/weather-3.png -p 189,80 -s 20x20}${font}\
 ${voffset 35}${font}\
-${color1}${goto 22}${execi 300 jq -r .list[0].temp.min ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}/${execi 300 jq -r .list[0].temp.max ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}\
-${color1}${goto 99}${execi 300 jq -r .list[1].temp.min ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}/${execi 300 jq -r .list[1].temp.max ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}\
-${color1}${goto 177}${execi 300 jq -r .list[2].temp.min ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}/${execi 300 jq -r .list[2].temp.max ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}\
+${color1}${goto 22}${execi 300 jq .list[0].temp.min ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}/${execi 300 jq .list[0].temp.max ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}\
+${color1}${goto 99}${execi 300 jq .list[1].temp.min ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}/${execi 300 jq .list[1].temp.max ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}\
+${color1}${goto 177}${execi 300 jq .list[2].temp.min ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}/${execi 300 jq .list[2].temp.max ~/.cache/conky/forecast.json | awk '{print int($1+0.5)}' # round num}${if_match "$OWM_UNITS" == "metric"}°C${else}${if_match "$OWM_UNITS" == "imperial"}°F${else}${if_match "$OWM_UNITS" == "default"}K${endif}${endif}${endif}\
 ${font}\
 \
 \

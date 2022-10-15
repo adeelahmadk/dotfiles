@@ -78,7 +78,7 @@ conky.text = [[
 ${execi 1800 ~/.config/conky/starwarp/scripts/get_earthquake}
 ${voffset -5}${goto 10}\
 ${font Neuropolitical:size=8:regular}${color3}\
-${execi 900 jq -r .metadata.count ~/.cache/conky/earthquake.json} significant earthquakes ${font}in the last 24h ${hr 2}
+${execi 900 jq .metadata.count ~/.cache/conky/earthquake.json} significant earthquakes ${font}in the last 24h ${hr 2}
 \
 \
 ${voffset 5}\
@@ -89,5 +89,5 @@ ${font}
 \
 ${voffset 3}${goto 15}\
 ${font Open Sans Light:size=6}${color4}\
-Last updated at ${execi 900 date -d @$((`jq -r .metadata.generated ~/.cache/conky/earthquake.json`/1000)) +%c}${font}
+Last updated at ${execi 900 date -d @$((`jq .metadata.generated ~/.cache/conky/earthquake.json`/1000)) +%c}${font}
 ]];

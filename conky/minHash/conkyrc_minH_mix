@@ -90,7 +90,7 @@ ${goto 8}${font Roboto Regular:size=8}${color3}${USER}${color} @ ${color3}${node
 ${goto 105}${font Roboto Regular:size=6}${color7} ${execi 3600 lsb_release -si} ${execi 3600 lsb_release -sc}${color}${font}\
 \
 \
-${image ~/.conky/assets/misc/forecast.png -p 170,3 -s 14x14}${goto 190}${color5}${exec jq .name ~/.cache/weather.json | sed -e 's/^"//' -e 's/"$//'} ${color}${execi 300 jq -r .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}\
+${image ~/.conky/assets/misc/forecast.png -p 170,3 -s 14x14}${goto 190}${color5}${exec jq -r .name ~/.cache/weather.json} ${color}${execi 300 jq .main.temp ~/.cache/weather.json | awk '{print int($1+0.5)}' # round num}\
 ${if_match "$template3" == "metric"}°C\
 ${else}${if_match "$template3" == "imperial"}°F\
 ${else}${if_match "$template3" == "default"} K\
