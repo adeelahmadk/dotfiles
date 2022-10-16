@@ -6,7 +6,7 @@ Description:	StarWarp, a minimalist futuristic configuration for Conky
                 system monitor(with added openweathermap.org api).
 Dependencies:	conky, curl, jq, API Key (http://openweathermap.org/)
                 and city id (https://bulk.openweathermap.org/sample/city.list.json.gz)
-                from OpenWeatherMap
+                from OpenWeatherMap (API docs at https://openweathermap.org/current)
 ]]
 
 conky.config = {

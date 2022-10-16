@@ -1,6 +1,10 @@
 # vim ctags file
+tags
+# secrets file anywhere
+**/.env
+# temporary files
 *~
 *.bak
 *.swp
-tags
+# log files
 debug.log

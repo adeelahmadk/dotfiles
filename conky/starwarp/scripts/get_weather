@@ -6,6 +6,7 @@ Code Name:      A new hope
 Author:         adeelahamdk
 Description:    Supporting script for weather mudule
 Usage:          Add to your conkyrc config block:
+                "\${execi 300 /path/to/scripts/get_weather}"
 INTRO
 
 [ -z "$OWM_APIKEY" ] && { echo "OpenWeatherMap API key not defined!"; exit 1; }
@@ -18,8 +19,12 @@ WEATHER_FILE="$CACHE_DIR/weather.json"
 FORECAST_FILE="$CACHE_DIR/forecast.json"
 
 l=${LC_NAME%%_*}
-curl -s "api.openweathermap.org/data/2.5/forecast/daily?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o $FORECAST_FILE
-curl -s "api.openweathermap.org/data/2.5/weather?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o $WEATHER_FILE
+# API request by city ID
+# curl -s "api.openweathermap.org/data/2.5/forecast/daily?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o $FORECAST_FILE
+# curl -s "api.openweathermap.org/data/2.5/weather?APPID=${OWM_APIKEY}&id=${OWM_CITYID}&cnt=5&units=${OWM_UNITS}&lang=$l" -o $WEATHER_FILE
+# API request by city name
+curl -s "api.openweathermap.org/data/2.5/forecast/daily?APPID=${OWM_APIKEY}&q=${OWM_QUERY}&units=${OWM_UNITS}&lang=$l" -o $FORECAST_FILE
+curl -s "api.openweathermap.org/data/2.5/weather?APPID=${OWM_APIKEY}&q=${OWM_QUERY}&units=${OWM_UNITS}&lang=$l" -o $WEATHER_FILE
 cp -f "$CONF_DIR/assets/icons/#dcdcdc__32/$(jq .weather[0].id $WEATHER_FILE).png" "$CACHE_DIR/weather-0.png"
 cp -f "$CONF_DIR/assets/icons/#dcdcdc__32/$(jq .list[0].weather[0].id $FORECAST_FILE).png" "$CACHE_DIR/weather-1.png"
 cp -f "$CONF_DIR/assets/icons/#dcdcdc__32/$(jq .list[1].weather[0].id $FORECAST_FILE).png" "$CACHE_DIR/weather-2.png"
