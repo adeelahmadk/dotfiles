@@ -88,7 +88,7 @@ bash -c '/home/user/.config/conky/conky-startup.sh'
 
 #### Weather API
 
-The configurations that display current weather and forecast, HTTP GET request variables are read from `conky/.env` file. In order to use this feature, [register](https://home.openweathermap.org/users/sign_up) a free account with [OpenWeatherMap](https://openweathermap.org) and get an API key. Now, write a `.env` file in conky root directory `$HOME/.config/conky`. An example `.env` looks like
+The configurations that display current weather and forecast depend on some shell variables exported from `conky/.env` file by the respective startup script (like `starwarp-start.sh`). These variables are used by the HTTP GET request to the weather API. In order to use this feature, [register](https://home.openweathermap.org/users/sign_up) a free account with [OpenWeatherMap](https://openweathermap.org) and get an API key. Now, write a `.env` file in conky root directory `$HOME/.config/conky`. An example `.env` looks like
 
 ```sh
 #!/usr/bin/env sh
@@ -97,7 +97,7 @@ export OWM_APIKEY="1234567890abcdefgh"
 export OWM_QUERY="London,uk"
 export OWM_CITYID="2643743" # city id for London, GB
 export OWM_UNITS="metric"
-export OWM_LOCALE="en_GB.UTF-8"
+export OWM_LOCALE="en_GB.UTF-8"	# use your preffered locale e.g. en_US.UTF-8
 ```
 
 City ID list is available in the [compressed json file](https://bulk.openweathermap.org/sample/) from OWMap.

@@ -60,6 +60,29 @@ function rotlog() {
 }
 
 #############################################
+# Reads +/-delta from nth line in a file
+# Globals:
+#   None
+# Arguments:
+#   A file name.
+#   A line number.
+#   An integer delta.
+# Returns:
+#   None
+#############################################
+
+function rdld() {
+    delta=0
+    __awk=`which awk` || { echo "missing dependency: gawk" >&2; return 1; }
+    [ "$#" -lt 2 -o "$#" -gt 3 -o ! -r "$1" ] && \
+        { echo "Usage: rdld FILE <line-number> [delta]" >&2; return 1; }
+    [ "$#" -eq 2 ] && delta=5 || delta="$3"
+    d1=$(($2 - $delta))
+    d2=$(($2 + $delta))
+    $__awk -v a=$d1 -v b=$d2 'NR>=a&&NR<=b' "$1"
+}
+
+#############################################
 # Logs error on stderr.
 # Globals:
 #   None
