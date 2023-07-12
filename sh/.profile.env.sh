@@ -1,15 +1,11 @@
 shopt -s checkwinsize
 
 ################################################################
-#  Setup Prompt
+#  Setup dev environments
 ################################################################
-function _update_ps1() {
-  PS1=$(powerline-shell $?)
-}
-
-if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-  PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 ################################################################
 #  Define Functions
@@ -37,7 +33,7 @@ function log_error() {
 # Returns:
 #   None
 #############################################
-srand() {
+function srand() {
     __date=`which date`
     __cut=`which cut`
     # seed random generator
@@ -70,12 +66,11 @@ function rotlog() {
 # Returns:
 #   None
 #############################################
-
-function rdld() {
+function nlines() {
     delta=0
     __awk=`which awk` || { echo "missing dependency: gawk" >&2; return 1; }
     [ "$#" -lt 2 -o "$#" -gt 3 -o ! -r "$1" ] && \
-        { echo "Usage: rdld FILE <line-number> [delta]" >&2; return 1; }
+        { echo "Usage: nlines FILE <line-number> [delta]" >&2; return 1; }
     [ "$#" -eq 2 ] && delta=5 || delta="$3"
     d1=$(($2 - $delta))
     d2=$(($2 + $delta))
@@ -92,7 +87,6 @@ function rdld() {
 #   None
 #############################################
 # function urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
-
 function readmd() {
 # Read a markdown file in terminal.
 # Dependencies: pandoc, lynx
@@ -142,6 +136,16 @@ function wp2md() {
     $__curl -sS "${url}" | $__hxnorm -x | $__hxrem '.noprint' | $__pandoc -f html -t markdown -o "${outfile}"
 }
 
+
+###############################################
+# Fuzzy find files or directories
+# Globals:
+#   None
+# Arguments:
+#   Target directory
+# Returns:
+#   None
+###############################################
 function fzz() {
     # fuzzy find files in dir tree received.
     find "$1" -type f 2> /dev/null | fzf
@@ -153,25 +157,17 @@ function fzd() {
 }
 
 ###############################################
-# Search and print info about a remote flatpak
-# application or runtime.
+# Watch wifi signal strength refreshing after
+# n seconds.
 # Globals:
 #   None
 # Arguments:
-#   A string keyword to search
+#   None
 # Returns:
 #   None
 ###############################################
-function fpfind() {
-    [ "$#" -eq 0 ] && echo "Usage: fpfind APP" >&2 && return 2
-    __awk=`which awk`
-    __grep=`which grep`
-    __fpack=`which flatpak`
-    echo "Searching for the app flatpak remotes..."
-    RES=$($__fpack search "$1" | $__grep "$1" | $__awk -F'\t' '{print $NF "-" $3;}')
-    IFS=- read REMOTE REF <<< $RES
-    echo "Looking up REF:${REF} in REMOTE:${REMOTE}..."
-    $__fpack remote-info $REMOTE $REF || echo "flatpak remote-info failed!" >&2
+function wlwch() {
+    watch -n 2 'nmcli device wifi | awk -f $HOME/.config/scripts/wlsig.awk'
 }
 
 ###############################################
@@ -193,6 +189,32 @@ function aptdesc() {
         $__awk '/Package:/ {print} /Version:/ {print} /Description.*:/ {p=1} /Description-md5/ {p=0;exit}p;'
 }
 
+###################################################
+# Open a file at the first appearance of a keyword
+#
+# Globals:
+#   None
+# Arguments:
+#   keyword
+#   file name
+# Returns:
+#   None
+###################################################
+function vwf() {
+    [ "$#" -ne 2 ] && { echo "Usage: vwf KEYWORD FILE" >&2; return 1; }
+    [ ! -f "$2" ] && { echo "Not a valid file: ${2}" >&2; return 1; }
+
+    # allign to the top of the screen
+    nvim +$(grep -in -m1 "$1" "$2" | awk -F':' '{print $1}') -c 'execute "normal zt"' "$2"
+}
+
+function vwm() {
+    [ "$#" -ne 2 ] && { echo "Usage: vwm KEYWORD FILE" >&2; return 1; }
+    [ ! -f "$2" ] && { echo "Not a valid file: ${2}" >&2; return 1; }
+
+    # allign to the middle of the screen
+    nvim +$(grep -in -m1 "$1" "$2" | awk -F':' '{print $1}') -c 'execute "normal zz"' "$2"
+}
 
 ################################################################
 #  Define Env Vars
@@ -201,69 +223,63 @@ function aptdesc() {
 # set env vars for virtualenv
 export VENV=$HOME/workspace/venv
 
-################################################################
-#  Define Aliases
-#  for frequently used commands
-################################################################
+###############################################
+# Activate a python venv saved in a default
+# home directory.
+# Globals:
+#   VENV  Path to the venv home directory.
+# Arguments:
+#   Name of a directory containing a venv
+# Returns:
+#   None
+###############################################
+function envon() {
+    [ -z "$VENV" ] && { echo "Default path to the venv direvtory not defined!"; return 1; }
+    [ "$#" -ne 1 ] && { echo "usage: envon <venv-name>"; return 1; }
+    envdir="$VENV/$1"
+    [ ! -d "$envdir" ] \
+        && { echo "$envdir: no such directory found!"; return 1; }
+    [ ! -f "$envdir/bin/activate" ] \
+        && { echo "$1: missing script file!"; return 1; }
 
-# common commands
-alias ls='ls --color=auto'
-alias la='ls -A'
-alias dls='ls --group-directories-first'
-alias dla='ls -A --group-directories-first'
-alias lsd='ls -d */'
-alias ll='ls -lh --group-directories-first'
-alias lla='ls -Alh'
-alias lt='ls -lth'
-alias lu='ls -ltuh'
-alias lsf='ls -lh | egrep -v "^d"'
+    source $envdir"/bin/activate"
+}
 
-# custom application functions
-alias mergepdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged_file.pdf'
+###############################################
+# List all python venv's saved in a default
+# home directory.
+# Globals:
+#   $VENV  Path to the venv home directory.
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################
+function envls() {
+    [ -z "$VENV" ] && { echo "Default path to the venv direvtory not defined!"; return 1; }
+    echo "venv(s) defined at the default path:"
+    ls -lh --group-directories-first "$VENV/"
+}
 
-# package management (apt, flatpak)
-alias aptud='sudo apt update'
-alias aptug='sudo apt upgrade'
-alias aptrm='sudo apt remove'
-alias aptarm='sudo apt autoremove'
-alias aptin='sudo apt install'
-alias aptls='apt list --upgradable'
-alias apts='apt search'
-alias fpls='flatpak list'
-alias fpud='flatpak update -y'
-alias fpcl='flatpak uninstall --unused -y'
-alias update='sudo sh -c "apt update && apt upgrade -y && apt autoremove -y"'
-alias updall='sudo sh -c "apt update && apt upgrade -y && apt autoremove -y" && flatpak update -y && flatpak uninstall --unused -y'
+###############################################
+# Search and print info about a remote flatpak
+# application or runtime.
+# Globals:
+#   None
+# Arguments:
+#   A string keyword to search
+# Returns:
+#   None
+###############################################
+function fpfind() {
+    [ "$#" -eq 0 ] && echo "Usage: fpfind APP" >&2 && return 2
+    __awk=`which awk`
+    __grep=`which grep`
+    __fpack=`which flatpak`
+    echo "Searching for the app flatpak remotes..."
+    RES=$($__fpack search "$1" | $__grep -i "$1" | $__awk -F'\t' '{print $NF "-" $3;}')
+    IFS=- read REMOTE REF <<< $RES
+    echo "Looking up REF:${REF} in REMOTE:${REMOTE}..."
+    $__fpack remote-info --user $REMOTE $REF || echo "flatpak remote-info failed!" >&2
+}
 
-# searching
-alias whatigot="dpkg --get-selections | grep install | cut -f1"
-
-# dev env commands
-alias asin="as -msyntax=intel -mnaked-reg"
-alias lzyd="lazydocker"
-alias lzyg="lazygit"
-
-# system admin commands
-alias lsproc='ps -ef | grep'
-alias ldsk='mount|grep /dev/sd|cut -f1-3 -d" "|sort'
-alias usage='du -hxd1'
-alias dsz='du -hxd0'
-alias filesfx='echo `date "+%F"`_`date "+%s"`'
-alias rmspc='find -name "* *" -type f | rename "s/ /_/g"'
-
-# network admin commands
-alias lshosts='fping -aAqgn -r 0'
-alias scansub='sudo nmap -sP -PB'
-alias pingg='ping 8.8.8.8 -c'
-alias intip="ifconfig `route -n | grep -m1 -e ^'0\.0\.0\.0' |awk '{print \$NF}'` | grep 'inet ' | awk '{print \$2}' | sed 's/addr://1'"
-alias pubip='curl -s "https://api.ipify.org" ; echo'
-alias hdrchk='curl -o /dev/null --max-time 3 --silent --write-out "HTTP Status: %{http_code}\n"'
-alias lslp='netstat -lntup'
-
-# docker command aliases
-alias doci="docker image"
-alias docc="docker container"
-alias docv="docker volume"
-
-## dev env on-liners
-alias repos="find . -name .git -type d -prune -exec dirname {} \;"

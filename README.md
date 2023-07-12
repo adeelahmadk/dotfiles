@@ -39,6 +39,29 @@ Both files, in addition to custom aliases and functions, print a custom prompt a
 
 ![alt text](.assets/powershell-shot.png "Bash prompt")
 
+### Bash Functions
+
+Bash scripy `.profile.env.sh` defines a number of functions to simplify performing frequent tasks.
+
+| Function | Usage | Description |
+| -------- | ----- | ----------- |
+| srand  | `srand` | Seed the 16-bit random number generator |
+| rotlog | `rotlog LOGFILE` | Rotates a log file every 1MB |
+| nlines | `nlines FILE <line-number> [delta]` | Reads +/-delta from nth line in a file |
+| readmd | `readmd FILE` | Read a markdown file in the terminal |
+| lld | `lld [dir]` | List directory names in the pwd. |
+| wp2md | `wp2md URL [FILE]` | Generate markdown doc from Wikipedia article |
+| fzz | `fzz [dir]` | Fuzzy find files |
+| fdd | `fdd [dir]` | Fuzzy find directories |
+| aptdesc | `aptdesc pkg-name` | Print info about an apt package |
+| wlwch | `wlwch` | Watch wifi signal strength every n seconds |
+| vwf | `vwf KEYWORD FILE` | Open a file at the first appearance of a keyword at top screen |
+| vwm | `vwm KEYWORD FILE` | Open a file at the first appearance of a keyword at mid screen |
+| envon | `envon VENVNAME` | Activate a Python venv saved in a default home directory. |
+| envls | `envls` | List all python venv's saved in a default home directory |
+| fpfind | `fpfind KEYWORD` | Search and print info about a remote flatpak application or runtime |
+|  |  |  |
+
 ## Conky
 
 First clone the repo in a directory (say `dotfiles`) inside `~/.config`. Then install and setup all the dependencies for a config of your choice as listed in the following table.

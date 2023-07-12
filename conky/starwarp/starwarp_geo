@@ -20,8 +20,8 @@ conky.config = {
     draw_shades = false,
 
     alignment = 'bottom_right',
-    gap_x = 20,
-    gap_y = 60,
+    gap_x = 15,
+    gap_y = 50,
     background = true,
     minimum_width = 350,
 
@@ -38,7 +38,7 @@ conky.config = {
     own_window_title = '',
     own_window_transparent = false,
     own_window_argb_visual = true,
-    own_window_argb_value = 50,
+    own_window_argb_value = 100,
     own_window_colour = '000000',
 
     draw_shades = false,
@@ -82,7 +82,7 @@ ${execi 900 jq .metadata.count ~/.cache/conky/earthquake.json} significant earth
 \
 \
 ${voffset 5}\
-${font Open Sans Light:size=8}${color2}\
+${font Open Sans Light:size=8}${color FFFFFF}\
 ${execi 900 ~/.config/conky/starwarp/scripts/parse_earthquake}\
 ${font}
 \
