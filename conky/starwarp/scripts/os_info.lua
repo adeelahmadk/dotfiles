@@ -12,13 +12,13 @@ Usage:          Add to your conkyrc config block:
 require 'cairo'
 
 -- Global Vars
-first_run = 1
-nic_update_interval = 5
-net_update_interval = 2
-ncpus = 0
-active_nics = ''
-active_ifaces = {}
-netconf = ''
+First_Run = 1
+NIC_update_interval = 5
+NET_update_interval = 2
+-- NCPUs = 0
+Active_NICs = ''
+Active_Interfaces = {}
+NETConf = ''
 
 -- Function Definitions
 
@@ -40,11 +40,11 @@ function conky_main ()
         conky_window.height
     )
     cr = cairo_create (cs)
-    if first_run == 1 then
+    if First_Run == 1 then
         local file = io.popen("lscpu -a -p='cpu' | grep '[0-9]' | wc -l")
         ncpu = trim(file:read("*a"))
         file:close()
-        first_run = nil
+        First_Run = nil
     end
 
     cairo_destroy (cr)
@@ -54,7 +54,7 @@ end
 
 -- Print a list of active network interfaces
 function conky_active_nics()
-    if active_nics == '' or tonumber(conky_parse("${updates}")) % nic_update_interval == 0 then
+    if Active_NICs == '' or tonumber(conky_parse("${updates}")) % NIC_update_interval == 0 then
         local output, err, code = io.popen('ip link | grep -Po --regexp "(?<=[0-9]: ).*"')
         if not output then
             print("Error opening file", "ip link", err)
@@ -62,35 +62,37 @@ function conky_active_nics()
         end
 
         local nic_str = ''
-        active_ifaces = {}
+        Active_Interfaces = {}
         for l in output:lines() do
             local line = io.popen('echo "' .. l .. '" | cut -d">" -f1'):read("*a")
             -- print('\nLine: ' .. line .. '\n')
             if string.find(line, "<BROADCAST") or string.find(line, "<POINTOPOINT") then
                 local iface = string.gsub(string.match(line, "^.*:"), ":", "")
-                table.insert(active_ifaces, iface)
+                table.insert(Active_Interfaces, iface)
                 nic_str = nic_str .. iface .. '  '
                 -- print('Interface: ' .. iface)
             end
         end
-        output:close()
+        if output ~= nil then
+            output:close()
+        end
 
-        if active_ifaces == nil then
-            active_nics = ''
+        if Active_Interfaces == nil then
+            Active_NICs = ''
         else
-            active_nics = nic_str
+            Active_NICs = nic_str
         end
     end
-    --print('Interface: ' .. active_nics)
-    return active_nics
+    --print('Interface: ' .. Active_NICs)
+    return Active_NICs
 end
 
 -- Print traffic stats for active network interfaces
 function conky_draw_nics()
-    if netconf == '' or tonumber(conky_parse("${updates}")) % net_update_interval == 0 then
-        if table.maxn(active_ifaces) >= 1 then
+    if NETConf == '' or tonumber(conky_parse("${updates}")) % NET_update_interval == 0 then
+        if table.maxn(Active_Interfaces) >= 1 then
             local iface_stats = ''
-            for _,v in pairs(active_ifaces) do
+            for _,v in pairs(Active_Interfaces) do
                 if string.find(v, "wlp") or string.find(v, "enp") then
                     if iface_stats ~= '' then
                         iface_stats = iface_stats .. '\n'
@@ -98,14 +100,14 @@ function conky_draw_nics()
                     iface_stats = iface_stats
                                   .. '${goto 10}${color6}'.. v .. '${goto 70}${color5}'
                                   .. '${voffset -1}'
-                                  .. '${font Neuropol X:size=6}Up: ${color #FFFFFF}'
+                                  .. '${font Neuropol X:size=7}Up: ${color #FFFFFF}'
                                   .. '${upspeed ' .. v .. '}${color5}'
                                   .. '${goto 170}Down: ${color #FFFFFF}'
                                   .. '${downspeed ' .. v .. '}'
                                   .. '\n'
                                   .. '${voffset -1}'
-                                  .. '${goto 70}${upspeedgraph '.. v .. ' 20,80 FFFFFF 3EB489}'
-                                  .. '${goto 170}${downspeedgraph ' .. v .. ' 20,80 FFFFFF 3EB489}'
+                                  .. '${goto 70}${upspeedgraph '.. v .. ' 20,85 FFFFFF 3EB489}'
+                                  .. '${goto 170}${downspeedgraph ' .. v .. ' 20,85 FFFFFF 3EB489}'
                                   .. '\n'
                                   .. '${voffset -2}'
                                   .. '${goto 70}${color5}Sent ${color #FFFFFF}'
@@ -114,20 +116,20 @@ function conky_draw_nics()
                                   .. '${totaldown ' .. v .. '}'
                 end
             end
-            netconf = iface_stats
+            NETConf = iface_stats
         else
-            netconf = netconf
+            NETConf = NETConf
                       .. '${goto 5}${color6}Net${color}${goto 70}${color9}'
                       .. '${font Neuropol X:size=7}disconnected${font}'
         end
     end
-    return netconf
+    return NETConf
 end
 
 -- Utility functions for table data structure
 
 function flush_table(table)
-    for _,v in pairs(table) do
+    for _, v in pairs(table) do
         table.remove(table, v)
     end
 end
@@ -137,7 +139,7 @@ function has_key(table, key)
 end
 
 function has_value(table, value)
-    for k, v in pairs(table) do
+    for k, _ in pairs(table) do
         if table[k] == value then
             return true
         end

@@ -40,6 +40,16 @@ function srand() {
     RANDOM=$($__date +%s%N | $__cut -b10-19)
 }
 
+#############################################
+# Rotate a log file if exceeding 1MB size and
+# keep history of 9 files
+# Globals:
+#   None
+# Arguments:
+#   A log file name
+# Returns:
+#   None
+#############################################
 function rotlog() {
   file="$1"
   MaxFileSize=$((1024*1024))
@@ -78,17 +88,15 @@ function nlines() {
 }
 
 #############################################
-# Logs error on stderr.
+# Read a markdown file in terminal.
 # Globals:
 #   None
 # Arguments:
-#   An error msg string to log on stderr.
+#   Path to a md file.
 # Returns:
 #   None
 #############################################
-# function urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 function readmd() {
-# Read a markdown file in terminal.
 # Dependencies: pandoc, lynx
     __pandoc=`which pandoc`
     __lynx=`which lynx`
@@ -99,8 +107,16 @@ function readmd() {
     $__pandoc $1 | $__lynx -stdin
 }
 
+#############################################
+# List directories under a directory.
+# Globals:
+#   None
+# Arguments:
+#   A dirstory
+# Returns:
+#   None
+#############################################
 function lld() {
-# List directory names in the pwd.
     if [ "$#" -gt 0 ] && [ -d "$1" ]; then
         dest="$1"
     else
@@ -191,6 +207,7 @@ function aptdesc() {
 
 ###################################################
 # Open a file at the first appearance of a keyword
+# and align it at the top of the buffer
 #
 # Globals:
 #   None
@@ -200,7 +217,7 @@ function aptdesc() {
 # Returns:
 #   None
 ###################################################
-function vwf() {
+function vwt() {
     [ "$#" -ne 2 ] && { echo "Usage: vwf KEYWORD FILE" >&2; return 1; }
     [ ! -f "$2" ] && { echo "Not a valid file: ${2}" >&2; return 1; }
 
@@ -208,6 +225,18 @@ function vwf() {
     nvim +$(grep -in -m1 "$1" "$2" | awk -F':' '{print $1}') -c 'execute "normal zt"' "$2"
 }
 
+###################################################
+# Open a file at the first appearance of a keyword
+# and align it at the center of the buffer
+#
+# Globals:
+#   None
+# Arguments:
+#   keyword
+#   file name
+# Returns:
+#   None
+###################################################
 function vwm() {
     [ "$#" -ne 2 ] && { echo "Usage: vwm KEYWORD FILE" >&2; return 1; }
     [ ! -f "$2" ] && { echo "Not a valid file: ${2}" >&2; return 1; }
@@ -281,5 +310,33 @@ function fpfind() {
     IFS=- read REMOTE REF <<< $RES
     echo "Looking up REF:${REF} in REMOTE:${REMOTE}..."
     $__fpack remote-info --user $REMOTE $REF || echo "flatpak remote-info failed!" >&2
+}
+
+###############################################
+# Search and print docstring of a function in
+# a shell script.
+# Globals:
+#   None
+# Arguments:
+#   A string keyword to search
+#   A script file to search in
+# Returns:
+#   None
+###############################################
+function shdoc() {
+    [ "$#" -ne 2 ] && { echo "Usage: shdoc KEYWORD FILE" >&2; return 2; }
+    [ ! -f "$2" ] && { echo "File: $2 not found!" >&2; return 2; }
+    __grep=`which grep`
+    __awk=`which awk`
+    __tac=`which tac`
+    d2=$($__grep -in -m1 -- "$1" "$2" | $__awk -F':' '{print $1}')
+    [ -z "$d2" ] && { echo "Function $1 not found!" >&2; return 2; }
+    [ $d2 -gt 20 ] && d1=$(($d2 - 20)) || d1=1
+    d2=$(($d2 - 1))
+    printf "Docstring for %s:\n\n" "$1"
+    $__awk -v a=$d1 -v b=$d2 'NR>=a&&NR<=b' "$2" \
+        | $__tac \
+        | $__awk -F'# ' -v start=1 '/####/{n++;next};n==start{print $2};n==start+1{exit}' \
+        | $__tac
 }
 

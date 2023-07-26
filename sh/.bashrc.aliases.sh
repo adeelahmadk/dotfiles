@@ -66,6 +66,7 @@ alias lzyg="lazygit"
 # vcs command aliases
 alias gss="git log --stat --summary"
 alias glp1="git log --pretty=oneline"
+alias ggr="git rev-parse --show-toplevel>/dev/null 2>&1 && cd \$(git rev-parse --show-toplevel) || ( echo 'Not a git repo!'; exit 1; )"
 
 # system admin commands
 alias lsproc='ps -ef | grep'
