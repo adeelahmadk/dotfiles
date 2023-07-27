@@ -14,16 +14,21 @@ A collection of config files used to setup and maintain a uniform development en
 
 ## bashrc
 
-You can either copy one of the two script files to your home directory or soft link it there and add a source line in your `~/.bashrc` file:
-   ```bash
+### `.bashrc.aliases.sh`, `.profile.env.sh`: Aliases and Functions
+
+You can either copy one of the two script files to your home directory or soft link it there:
+```bash
 # assuming you cloned this repo in ~/.config/dotfiles
 ln -s ~/.config/dotfiles/.bashrc.env.sh ~/.bashrc.env.sh
+```
+and add a source line in your `~/.bashrc` file:
+```bash
 source .bashrc.env.sh
-   ```
-
+```
 
 For changes to take effect either run ```source ~/.bashrc``` from terminal or logout and login.
 
+### `.bashrc.cpwd.sh`: Custom Prompt and Aliases
 Both files, in addition to custom aliases and functions, print a custom prompt and are differentiated as follows:
 
 
@@ -39,28 +44,7 @@ Both files, in addition to custom aliases and functions, print a custom prompt a
 
 ![alt text](.assets/powershell-shot.png "Bash prompt")
 
-### Bash Functions
-
-Bash scripy `.profile.env.sh` defines a number of functions to simplify performing frequent tasks.
-
-| Function | Usage | Description |
-| -------- | ----- | ----------- |
-| srand  | `srand` | Seed the 16-bit random number generator |
-| rotlog | `rotlog LOGFILE` | Rotates a log file every 1MB |
-| nlines | `nlines FILE <line-number> [delta]` | Reads +/-delta from nth line in a file |
-| readmd | `readmd FILE` | Read a markdown file in the terminal |
-| lld | `lld [dir]` | List directory names in the pwd. |
-| wp2md | `wp2md URL [FILE]` | Generate markdown doc from Wikipedia article |
-| fzz | `fzz [dir]` | Fuzzy find files |
-| fdd | `fdd [dir]` | Fuzzy find directories |
-| aptdesc | `aptdesc pkg-name` | Print info about an apt package |
-| wlwch | `wlwch` | Watch wifi signal strength every n seconds |
-| vwf | `vwf KEYWORD FILE` | Open a file at the first appearance of a keyword at top screen |
-| vwm | `vwm KEYWORD FILE` | Open a file at the first appearance of a keyword at mid screen |
-| envon | `envon VENVNAME` | Activate a Python venv saved in a default home directory. |
-| envls | `envls` | List all python venv's saved in a default home directory |
-| fpfind | `fpfind KEYWORD` | Search and print info about a remote flatpak application or runtime |
-|  |  |  |
+For detailed information on bash functions and aliases look at relavent [readme file](sh/README.md).
 
 ## Conky
 

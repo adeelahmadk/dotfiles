@@ -22,6 +22,13 @@ export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
 ################################################################
+#  Setup dev environments
+################################################################
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+################################################################
 #  Define Aliases
 #  for frequently used commands
 ################################################################

@@ -1,13 +1,6 @@
 shopt -s checkwinsize
 
 ################################################################
-#  Setup dev environments
-################################################################
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-################################################################
 #  Define Functions
 ################################################################
 
@@ -200,7 +193,6 @@ function aptdesc() {
     [ "$#" -ne 1 ] && echo "Usage: aptdesc PACKAGE" >&2 && return 2
     __aptcache=`which apt-cache`
     __awk=`which awk`
-    # __grep=`which grep`
     $__aptcache show "$1" | \
         $__awk '/Package:/ {print} /Version:/ {print} /Description.*:/ {p=1} /Description-md5/ {p=0;exit}p;'
 }
