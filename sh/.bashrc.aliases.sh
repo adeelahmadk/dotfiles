@@ -61,9 +61,10 @@ alias fpud='flatpak update -y'
 alias fpcl='flatpak uninstall --unused -y'
 alias upd='sudo sh -c "apt update && apt upgrade -y && apt autoremove -y"'
 alias upall='sudo sh -c "apt update && apt upgrade -y && apt autoremove -y" && flatpak update -y && flatpak uninstall --unused -y'
-
+alias upc='echo "$(apt-get -q -y --allow-change-held-packages --allow-unauthenticated -s dist-upgrade 2>/dev/null | grep ^Inst | wc -l) update(s) avaiable"'
 # searching
 alias whatigot="dpkg --get-selections | grep install | cut -f1"
+alias aptman="comm -12 <(dpkg --get-selections | grep install | cut -f1 | sort) <(apt-mark showmanual | sort)"
 
 # dev env commands
 alias asin="as -msyntax=intel -mnaked-reg"
@@ -71,6 +72,8 @@ alias lzyd="lazydocker"
 alias lzyg="lazygit"
 
 # vcs command aliases
+alias gits="git status"
+alias gaa="git add ."
 alias gss="git log --stat --summary"
 alias glp1="git log --pretty=oneline"
 alias ggr="git rev-parse --show-toplevel>/dev/null 2>&1 && cd \$(git rev-parse --show-toplevel) || ( echo 'Not a git repo!'; exit 1; )"

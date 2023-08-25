@@ -26,7 +26,7 @@ conky.config = {
     alignment = 'top_right',
     background = true,
     gap_x = 20,
-    gap_y = 45,
+    gap_y = 50,
     minimum_height = 80,
     minimum_width = 240,
     maximum_width = 350,
@@ -88,8 +88,8 @@ conky.text = [[
 ${execi 300 ~/.config/conky/starwarp/scripts/get_weather}
 \
 \
-${image ~/.cache/conky/weather-0.png -p 0,8 -s 60x60 -f 150}\
-${voffset 0}${goto 80}\
+${image ~/.cache/conky/weather-0.png -p 0,5 -s 60x60 -f 150}\
+${voffset -10}${goto 75}\
 ${font Neuropolitical:pixelsize=26}${color #FFFFFF}\
 ${execi 300 jq .main.temp ~/.cache/conky/weather.json | awk '{print int($1+0.5)}' # round num}\
 ${font Neuropol X:pixelsize=12}${color6} \
@@ -102,6 +102,7 @@ ${endif}\
 ${font}
 \
 \
+${voffset 5}\
 ${alignr}${font Neuropol X:pixelsize=9}${color #FFFFFF}${execi 300 jq -r .weather[0].description ~/.cache/conky/weather.json | sed "s|\<.|\U&|g" #Title Case}${color}
 ${alignr}${font Neuropolitical:pixelsize=9}${color6}${exec jq -r .name ~/.cache/conky/weather.json}, ${exec jq -r .sys.country ~/.cache/conky/weather.json}${color}
 \

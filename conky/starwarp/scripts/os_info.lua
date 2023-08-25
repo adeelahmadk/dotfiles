@@ -15,10 +15,13 @@ require 'cairo'
 First_Run = 1
 NIC_update_interval = 5
 NET_update_interval = 2
+PKG_update_interval = 450
+MAX_PKG_Count = 3
 -- NCPUs = 0
 Active_NICs = ''
 Active_Interfaces = {}
 NETConf = ''
+APT_Pkgs = ''
 
 -- Function Definitions
 
@@ -52,6 +55,59 @@ function conky_main ()
     cr = nil
 end
 
+-- Print number of updates available and a list of top packages
+function conky_apt_pkgs()
+    if APT_Pkgs == '' or tonumber(conky_parse("${updates}")) % PKG_update_interval == 0 then
+        -- get the list of available updates
+        local output, err, code = io.popen('apt-get -qy --allow-change-held-packages --allow-unauthenticated -s dist-upgrade 2>/dev/null|grep ^Inst')
+        if not output then
+            print("Error opening file", "apt-get", err)
+            return 'None'
+        end
+
+        local count = 0
+        local nsec = 0
+        local pkg_str = ''
+        APT_Pkgs = ''
+        for l in output:lines() do
+            -- count packages
+            count = count + 1
+            if string.find(l, "security") then
+                nsec = nsec + 1
+            end
+            -- top n package names
+            if count <= MAX_PKG_Count then
+                local pkg = io.popen('echo "' .. l .. '" | awk \'{printf "%s", $2}\''):read("*a")
+                if count > 1 then
+                    pkg_str = pkg_str .. ', '
+                end
+                pkg_str = pkg_str .. pkg
+            end
+        end
+        if count > MAX_PKG_Count then
+            pkg_str = pkg_str .. ' ...'
+        end
+
+        if output ~= nil then
+            output:close()
+        end
+
+        APT_Pkgs = APT_Pkgs
+            .. '${goto 70}${font Neuropol X:size=7}'
+            .. '${color8}' .. tostring(count) .. '${color} updates(s)'
+        -- print pkg count breakdown
+        if count > 0 then
+            APT_Pkgs = APT_Pkgs
+                .. ', ${color9}' .. tostring(nsec) .. '${color} '
+                .. 'sec. / ${color3}' .. tostring(count - nsec) .. '${color} other\n'
+                .. '${voffset 5}${goto 70}${font Neuropol X:size=6}'
+                .. pkg_str
+        end
+        APT_Pkgs = APT_Pkgs .. '${font}'
+    end
+    return APT_Pkgs
+end
+
 -- Print a list of active network interfaces
 function conky_active_nics()
     if Active_NICs == '' or tonumber(conky_parse("${updates}")) % NIC_update_interval == 0 then
@@ -59,6 +115,7 @@ function conky_active_nics()
         if not output then
             print("Error opening file", "ip link", err)
             -- Do something to handle the error
+            return Active_NICs
         end
 
         local nic_str = ''
@@ -69,6 +126,10 @@ function conky_active_nics()
             if string.find(line, "<BROADCAST") or string.find(line, "<POINTOPOINT") then
                 local iface = string.gsub(string.match(line, "^.*:"), ":", "")
                 table.insert(Active_Interfaces, iface)
+                -- break line for longer nic interface names
+                if string.len(nic_str) + string.len(iface) > 30 then
+                    nic_str = nic_str .. '\n' .. string.rep(' ', 20)
+                end
                 nic_str = nic_str .. iface .. '  '
                 -- print('Interface: ' .. iface)
             end

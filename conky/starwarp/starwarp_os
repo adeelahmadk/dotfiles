@@ -26,7 +26,7 @@ conky.config = {
     alignment = 'middle_right',
     background = true,
     gap_x = 20,
-    gap_y = 30,
+    gap_y = 0,
     minimum_height = 180,
     --maximum_height = 480,
     minimum_width = 260,
@@ -90,7 +90,11 @@ ${voffset 5}\
 ${goto 10}${color6}Entropy${color}${goto 70}${font Neuropol X:size=7}\
 ${entropy_avail}/${entropy_poolsize} B${font}${goto 170}${entropy_bar}
 \
-${voffset 3}${color #222222}${hr 2}
+${voffset 5}\
+${goto 10}${color6}APT${color}\
+${lua_parse apt_pkgs}
+\
+${voffset 0}${color #222222}${hr 2}
 \
 ${voffset 5}\
 ${goto 10}${color6}NIC${color}${goto 70}${font Neuropol X:size=7}\
