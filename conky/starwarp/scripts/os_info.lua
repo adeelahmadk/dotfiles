@@ -81,6 +81,10 @@ function conky_apt_pkgs()
                 if count > 1 then
                     pkg_str = pkg_str .. ', '
                 end
+                -- break line for longer package names
+                if string.len(pkg_str) + string.len(pkg) > 38 then
+                    pkg_str = pkg_str .. '\n${goto 70}' -- .. string.rep(' ', 20)
+                end
                 pkg_str = pkg_str .. pkg
             end
         end
@@ -154,12 +158,12 @@ function conky_draw_nics()
         if table.maxn(Active_Interfaces) >= 1 then
             local iface_stats = ''
             for _,v in pairs(Active_Interfaces) do
-                if string.find(v, "wlp") or string.find(v, "enp") then
+                if string.find(v, "wl") or string.find(v, "enp") then
                     if iface_stats ~= '' then
                         iface_stats = iface_stats .. '\n'
                     end
                     iface_stats = iface_stats
-                                  .. '${goto 10}${color6}'.. v .. '${goto 70}${color5}'
+                                  .. '${goto 10}${color6}'.. string.sub(v,1,5) .. '${goto 70}${color5}'
                                   .. '${voffset -1}'
                                   .. '${font Neuropol X:size=7}Up: ${color #FFFFFF}'
                                   .. '${upspeed ' .. v .. '}${color5}'
