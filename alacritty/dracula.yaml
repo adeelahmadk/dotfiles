@@ -1,0 +1,64 @@
+# Colors (Dracula)
+colors:
+  # Default colors
+  primary:
+    background: '0x282a36'
+    foreground: '0xf8f8f2'
+    bright_foreground: "#ffffff"
+ 
+  cursor:
+    text : "#282a36"
+    cursor : "#f8f8f2"
+
+  vi_mode_cursor:
+
+    text: "CellBackground"
+    cursor: "CellForeground"
+
+  selection:
+    text: "CellForeground"
+    background: "#44475a"
+
+  # Normal colors
+  normal:
+    black:   '0x21222c'
+    red:     '0xff5555'
+    green:   '0x50fa7b'
+    yellow:  '0xf1fa8c'
+    blue:    '0xbd93f9'
+    magenta: '0xff79c6'
+    cyan:    '0x8be9fd'
+    white:   '0xf8f8f2'
+ 
+  # Bright colors
+  bright:
+    black:   "#6272a4"
+    red:     "#ff6e6e"
+    green:   "#69ff94"
+    yellow:  "#ffffa5"
+    blue:    "#d6acff"
+    magenta: "#ff92df"
+    cyan:    "#a4ffff"
+    white:   "#ffffff"
+
+  footer_bar:
+    background: "#282a36"
+    foreground: "#f8f8f2"
+
+  hints:
+    start:
+      foreground: "#282a36"
+      background: "#f1fa8c"
+
+    end:
+      foreground: "#f1fa8c"
+      background: "#282a36"
+
+search:
+  matches:
+    foreground: "#44475a"
+    background: "#50fa7b"
+
+  focused_match:
+    foreground: "#44475a"
+    background: "#ffb86c"

@@ -1,0 +1,147 @@
+#!/usr/bin/env sh
+
+# ####################################################
+# Script:       themecli.sh                          #
+# Version:      0.10                                 #
+# Author:       Adeel Ahmad (adeelahmadk)            #
+# Date Crated:  May 27, 2022                         #
+# Date Updated: June 26, 2022                        #
+# Usage:        themecli -t | -s <theme>             #
+# Description:  Theme automation script for CLI env, #
+#               changes terminal & vim themes        #
+# Dependencies: A config file and an env var in      #
+#               .profile to export config path.      #
+# ####################################################
+
+PROGNAME=`basename $0`
+__awk=`which awk`
+__grep=`which grep`
+__sed=`which sed`
+_CLI_CONF=
+_theme_state=
+_new_state=
+
+########################################################
+# Print usage info.
+# Globals:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   None
+########################################################
+usage() {
+    echo "Usage: $PROGNAME -t | -s OPTION
+  OPTION    (l)ight or (d)ark
+
+Try $PROGNAME -h or $PROGNAME --help for more info."
+    return
+}
+
+help() {
+    echo "Usage: $PROGNAME -t | -s OPTION
+Change CLI theme between light or dark.
+
+  -t        toggle CLI theme
+  -s l|d    set CLI theme to (l)ight or (d)ark
+"
+    return
+}
+
+########################################################
+# Set CLI theme.
+# Globals:
+#   CLI_CONF    path to the config file
+# Arguments:
+#   A string containing the theme lexeme (light|dark).
+# Returns:
+#   None
+########################################################
+setCliTheme() {
+    _theme="$1"
+    _cur_theme="${_theme_state}"
+
+    [ "$_theme" = "$_cur_theme" ] && echo "${_theme} theme already set!" && return 0
+
+    _term_conf=`${__awk} -F"=" '/TERM_CONF_FILE/ {gsub(/"/, "", $2); print $2}' ${_CLI_CONF}`
+    _term_light_theme=`${__awk} -F"=" '/TERM_THEME_LIGHT/ {gsub(/"/, "", $2); print $2}' ${_CLI_CONF}`
+    _term_dark_theme=`${__awk} -F"=" '/TERM_THEME_DARK/ {gsub(/"/, "", $2); print $2}' ${_CLI_CONF}`
+    _vim_conf=`${__awk} -F"=" '/VIM_CONF_FILE/ {gsub(/"/, "", $2); print $2}' ${_CLI_CONF}`
+    _vim_light_theme=`${__awk} -F"=" '/VIM_THEME_LIGHT/ {gsub(/"/, "", $2); print $2}' ${_CLI_CONF}`
+    _vim_dark_theme=`${__awk} -F"=" '/VIM_THEME_DARK/ {gsub(/"/, "", $2); print $2}' ${_CLI_CONF}`
+
+    if [ "$_theme" = "light" ]; then
+        _old_term_theme="$_term_dark_theme"
+        _new_term_theme="$_term_light_theme"
+        _old_vim_theme="$_vim_dark_theme"
+        _new_vim_theme="$_vim_light_theme"
+    elif [ "$_theme" = "dark" ]; then
+        _old_term_theme="$_term_light_theme"
+        _new_term_theme="$_term_dark_theme"
+        _old_vim_theme="$_vim_light_theme"
+        _new_vim_theme="$_vim_dark_theme"
+    else
+        echo "unrecognizable theme!" >&2
+        return 1
+    fi
+
+    # set new theme!
+    _status=`${__awk} "/${_new_term_theme}/ {print}" $_term_conf | ${__grep} -e '^\s*#'`
+    if [ -n "$_status" ]; then
+        # comment out the old theme line
+        ${__sed} -i "/${_old_term_theme}/s/^\s*-/  # -/" $_term_conf
+        # uncomment the new theme line
+        ${__sed} -i "/${_new_term_theme}/s/^\s*#/ /" $_term_conf
+    fi
+    _status=`${__awk} "/${_new_vim_theme}/ {print}" $_vim_conf | ${__grep} -e '^\s*"'`
+    if [ -n "$_status" ]; then
+        # comment out the old theme line
+        ${__sed} -i "/${_old_vim_theme}/s/^\s*source/\" source/" $_vim_conf
+        # uncomment the new theme line
+        ${__sed} -i "/${_new_vim_theme}/s/^\s*\"\s//" $_vim_conf
+    fi
+    # set current theme key in state config
+    ${__sed} -i "/CLI_THEME/s/\"[a-z][a-z]*\"/\"$_theme\"/" $_CLI_CONF
+}
+
+### MAIN BODY STARTS ###
+# called without an aurgument or option?
+[ "$#" -lt 1 ] && usage && return 1
+# env var referring to config file is set?
+[ -z "$CLI_CONF" ] && echo "Main CLI config file (\$CLI_CONF) not defined. Please check your ~/.profile file." >&2 && return 2
+# the mandatory config file exists & is readale?
+[ ! -r "$CLI_CONF" ] && echo "Config file ${CLI_CONF} doesn't exist." >&2 && return 2
+# everything's fine. let's complete the task!
+_CLI_CONF="$CLI_CONF"
+# read current state from the config
+_theme_state=`${__awk} -F"=" '/CLI_THEME/ {gsub(/"/, "", $2); print $2}' ${_CLI_CONF}`
+
+# process command line options
+while [ -n "$1" ]; do
+    case "$1" in
+        # toggle cli theme
+        -t)             [ "$_theme_state" = "light" ] && _new_state="dark"
+                        [ "$_theme_state" = "dark" ] && _new_state="light"
+                        ;;
+        # switch cli theme: (l)ight or (d)ark
+        -s)             shift
+                        value="$1"
+                        [ "$value" = "l" ] && _new_state="light" && break
+                        [ "$value" = "d" ] && _new_state="dark" && break
+                        exit 1
+                        ;;
+        # print help
+        -h | --help)    help
+                        exit
+                        ;;
+        # else print usage
+        *)              usage >&2
+                        exit 1
+                        ;;
+    esac
+    shift
+done
+
+#_theme_state=`${__awk} -F"=" '/CLI_THEME/ {gsub(/"/, "", $2); print $2}' $CLI_CONF`
+setCliTheme "$_new_state"
+### MAIN BODY ENDS ###

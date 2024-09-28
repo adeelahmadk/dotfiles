@@ -59,6 +59,38 @@ function rotlog() {
 }
 
 #############################################
+# Launch a nvim config of choice
+# Globals:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   None
+#############################################
+vv() {
+  local nvim_configs=(`fd --max-depth 1 --glob 'nvim*' ~/.config`)
+  declare -A config_paths
+
+  for path in ${nvim_configs[@]};
+  do
+    local directory=$(basename $path)
+    title=${directory##*nvim-}
+    title=${title/nvim/default}
+    config_paths[$title]="$path"
+  done
+
+  # Assumes all configs exist in directories named ~/.config/nvim-*
+  local config=$(printf "%s\n" ${!config_paths[@]} | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
+  config=`basename ${config_paths[${config}]}`
+
+  # If I exit fzf without selecting a config, don't open Neovim
+  [[ -z $config ]] && echo "No config selected" && return
+
+  # Open Neovim with the selected config
+  NVIM_APPNAME=$config nvim $@
+}
+
+#############################################
 # Reads +/-delta from nth line in a file
 # Globals:
 #   None

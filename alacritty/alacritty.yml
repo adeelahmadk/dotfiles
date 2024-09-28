@@ -1,0 +1,91 @@
+import:
+  # - /home/adeel/.config/alacritty/base16_default_dark.yaml
+  # - /home/adeel/.config/alacritty/breeze.yaml
+  # - /home/adeel/.config/alacritty/dark_pastels.yaml
+  # - /home/adeel/.config/alacritty/default_theme.yml
+  # - /home/adeel/.config/alacritty/dracula.yaml
+  # - /home/adeel/.config/alacritty/dracula.toml
+  # - /home/adeel/.config/alacritty/gruvbox_dark.yml
+  # - /home/adeel/.config/alacritty/gruvbox_material.yml
+  # - /home/adeel/.config/alacritty/horizon-dark.yaml
+  # - /home/adeel/.config/alacritty/nord.yaml
+  # - /home/adeel/.config/alacritty/onedark.yml
+  # - /home/adeel/.config/alacritty/palenight.yml
+  # - /home/adeel/.config/alacritty/pencil_dark.yaml
+  # - /home/adeel/.config/alacritty/seashells.yaml
+  # - /home/adeel/.config/alacritty/tokyo-night.yaml
+  # - /home/adeel/.config/alacritty/alacritty-light.yml
+  - /home/adeel/.config/alacritty/gruvbox_light.yml
+  # - /home/adeel/.config/alacritty/onelight.yml
+  # - /home/adeel/.config/alacritty/pencil_light.yaml
+
+    #env:
+    #  TERM: alacritty
+
+
+# monospaced fonts with ligatures
+#  - SauceCodePro Nerd Font
+#  - Fira Code
+#  - FiraCode Nerd Font
+font:
+  normal:
+    family: "FiraCode Nerd Font"
+    style: Light
+  bold:
+    family: "FiraCode Nerd Font"
+    style: Bold
+  italic:
+    family: "FiraCode Nerd Font"
+    style: Italic
+  bold_italic:
+    family: "FiraCode Nerd Font"
+    style: Bold Italic
+
+  # Point size
+  size: 9.0
+
+  offset:
+    x: 0
+    y: 0
+
+  glyph_offset:
+    x: 0
+    y: 0
+
+window:
+  padding:
+    x: 8
+    y: 12
+
+  opacity: 1.00
+
+  # dynamic_title: true
+  dynamic_padding: false
+  decorations: none
+
+scrolling:
+  # Maximum number of lines in the scrollback buffer.
+  # Specifying '0' will disable scrolling.
+  history: 10000
+
+  # Number of lines the viewport will move for every line scrolled when
+  # scrollback is enabled (history > 0).
+  multiplier: 10
+
+# If `true`, bold text is drawn using the bright color variants.
+draw_bold_text_with_bright_colors: true
+
+selection:
+  semantic_escape_chars: ',│`|:"'' ()[]{}<>'
+  save_to_clipboard: true
+
+live_config_reload: true
+
+key_bindings:
+  - { key: V, mods: Control|Shift, action: Paste }
+  - { key: C, mods: Control|Shift, action: Copy }
+  - { key: Key0, mods: Control, action: ResetFontSize }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Plus, mods: Control, action: IncreaseFontSize }
+  - { key: Minus, mods: Control, action: DecreaseFontSize }
+  - { key: N, mods: Control, action: SpawnNewInstance }

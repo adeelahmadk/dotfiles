@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+
+# ####################################################
+# Script:       themegtk                             #
+# Version:      0.1.0                                #
+# Author:       Adeel Ahmad (adeelahmadk)            #
+# Date Crated:  Oct 18, 2023                         #
+# Date Updated: Oct 18, 2023                         #
+# Usage:        themegtk -s <theme>                  #
+# Description:  Theme automation for Gnome shell     #
+#               based Linux distros with dconf cli.  #
+# Dependencies: A config file and an env var in      #
+#               .profile to export config path.      #
+# ####################################################
+
+PROGNAME=`basename $0`
+__awk=`which awk`
+__grep=`which grep`
+__sed=`which sed`
+_SHELL_CONF=
+_theme_state=
+_new_state=
+
+usage() {
+    echo "Usage: $PROGNAME [-l | -s THEME]
+
+Try $PROGNAME -h or $PROGNAME --help for more info."
+    return
+}
+
+help() {
+    echo "Usage: $PROGNAME [-l | -s THEME]
+List/Change Gnome Shell theme. When run without
+an option prints current theme.
+
+  -l          list managed Gnome Shell themes.
+  -s THEME    set Gnome Shell theme identified as THEME.
+  -h, --help  print this help.
+"
+    return
+}
+
+########################################################
+# Set Pop Shell theme.
+# Globals:
+#   SHELL_CONF    path to the config file
+# Arguments:
+#   A string containing the theme lexeme (light|dark).
+# Returns:
+#   None
+########################################################
+setShellTheme() {
+    _theme="$1"
+    _cur_theme="${_theme_state}"
+
+    [ "$_theme" = "$_cur_theme" ] && echo "${_theme} theme already set!" && return 0
+
+    # _shell_conf=`${__awk} -F"=" '/SHELL_CONF_FILE/ {gsub(/"/, "", $2); print $2}' ${_SHELL_CONF}`
+    _shell_light_theme=`${__awk} -F"=" '/SHELL_THEME_LIGHT/ {gsub(/"/, "", $2); print $2}' ${_SHELL_CONF}`
+    _shell_dark_theme=`${__awk} -F"=" '/SHELL_THEME_DARK/ {gsub(/"/, "", $2); print $2}' ${_SHELL_CONF}`
+
+    if [ "$_theme" = "Dracula" ]; then
+        # set light theme
+        gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
+        gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
+        gsettings set org.gnome.desktop.interface icon-theme "Flatery-Dark"
+        gsettings set org.gnome.desktop.interface cursor-theme "volantes_cursors"
+    elif [ "$_theme" = "Pop-dark" ]; then
+        # set dark theme
+        gsettings set org.gnome.desktop.interface gtk-theme "$_shell_dark_theme" \
+            && \
+            gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+    else
+        echo "unrecognizable theme!" >&2
+        return 1
+    fi
+
+    # set current theme key in config file
+    ${__sed} -i "/POPSHELL_THEME/s/\"[a-z][a-z]*\"/\"$_theme\"/" $_SHELL_CONF
+}
+
+### MAIN BODY STARTS ###
+# called without an aurgument or option?
+[ "$#" -lt 1 ] && { usage; exit 1; }
+# env var referring to config file is set?
+[ -z "$SHELL_CONF" ] && echo "Main SHELL config file (\$SHELL_CONF) not defined. Please check your ~/.profile file." >&2 && return 2
+# the mandatory config file exists & is readale?
+[ ! -r "$SHELL_CONF" ] && echo "Config file ${SHELL_CONF} doesn't exist." >&2 && return 2
+# everything's fine. let's complete the task!
+_SHELL_CONF="$SHELL_CONF"
+# read current state from the config
+_theme_state=`${__awk} -F"=" '/POPSHELL_THEME/ {gsub(/"/, "", $2); print $2}' ${_SHELL_CONF}`
+
+# process command line options
+while [ -n "$1" ]; do
+    case "$1" in
+        # toggle cli theme
+        -t)     
+            [ "$_theme_state" = "light" ] && _new_state="dark"
+            [ "$_theme_state" = "dark" ] && _new_state="light"
+            ;;
+        # switch cli theme: (l)ight or (d)ark
+        -s) 
+            shift
+            value="$1"
+            [ "$value" = "l" ] && _new_state="light" && break
+            [ "$value" = "d" ] && _new_state="dark" && break
+            usage >&2
+            exit 1
+            ;;
+        # print help
+        -h | --help)
+            help
+            exit
+            ;;
+        # else print usage
+        *)
+            usage >&2
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+#_theme_state=`${__awk} -F"=" '/SHELL_THEME/ {gsub(/"/, "", $2); print $2}' $SHELL_CONF`
+setShellTheme "$_new_state"
+### MAIN BODY ENDS ###
