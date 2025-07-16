@@ -146,6 +146,9 @@ alias pubip='curl -s "https://api.ipify.org" ; echo'
 alias hdrchk='curl -o /dev/null --max-time 3 --silent --write-out "HTTP Status: %{http_code}\n"'
 alias lslp='netstat -lntup'
 
+# weather update
+alias weather="curl -i wttr.in"
+
 # #################
 # dev env commands
 # #################
