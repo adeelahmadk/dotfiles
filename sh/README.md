@@ -92,6 +92,7 @@ Bash script `.profile.env.sh` defines a number of functions to simplify performi
 | log_error | `log_error msg` | Logs an error message string on stderr |
 | srand  | `srand` | Seed the 16-bit random number generator |
 | rotlog | `rotlog LOGFILE` | Rotates a log file every 1MB |
+| vv | `vv FILE` | Gives a menu to select from nvim configs |
 | nlines | `nlines FILE <line-number> [delta]` | Reads +/-delta from nth line in a file |
 | readmd | `readmd FILE` | Read a markdown file in the terminal |
 | lld | `lld [dir]` | List directory names in the pwd. |

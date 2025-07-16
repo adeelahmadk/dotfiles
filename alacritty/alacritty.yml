@@ -3,7 +3,7 @@ import:
   # - /home/adeel/.config/alacritty/breeze.yaml
   # - /home/adeel/.config/alacritty/dark_pastels.yaml
   # - /home/adeel/.config/alacritty/default_theme.yml
-  # - /home/adeel/.config/alacritty/dracula.yaml
+  - /home/adeel/.config/alacritty/dracula.yaml
   # - /home/adeel/.config/alacritty/dracula.toml
   # - /home/adeel/.config/alacritty/gruvbox_dark.yml
   # - /home/adeel/.config/alacritty/gruvbox_material.yml
@@ -15,7 +15,7 @@ import:
   # - /home/adeel/.config/alacritty/seashells.yaml
   # - /home/adeel/.config/alacritty/tokyo-night.yaml
   # - /home/adeel/.config/alacritty/alacritty-light.yml
-  - /home/adeel/.config/alacritty/gruvbox_light.yml
+  # - /home/adeel/.config/alacritty/gruvbox_light.yml
   # - /home/adeel/.config/alacritty/onelight.yml
   # - /home/adeel/.config/alacritty/pencil_light.yaml
 
