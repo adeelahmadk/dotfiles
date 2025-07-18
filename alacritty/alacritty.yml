@@ -3,8 +3,8 @@ import:
   # - /home/adeel/.config/alacritty/breeze.yaml
   # - /home/adeel/.config/alacritty/dark_pastels.yaml
   # - /home/adeel/.config/alacritty/default_theme.yml
-  - /home/adeel/.config/alacritty/dracula.yaml
-  # - /home/adeel/.config/alacritty/dracula.toml
+  # - /home/adeel/.config/alacritty/dracula.yaml
+  - /home/adeel/.config/alacritty/dracula.toml
   # - /home/adeel/.config/alacritty/gruvbox_dark.yml
   # - /home/adeel/.config/alacritty/gruvbox_material.yml
   # - /home/adeel/.config/alacritty/horizon-dark.yaml

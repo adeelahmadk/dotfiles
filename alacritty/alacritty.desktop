@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Application
+Exec=sh -c "$HOME/.cargo/bin/alacritty"
+Icon=alacritty-term
+Terminal=false
+Categories=System;TerminalEmulator;
+
+Name=Alacritty
+GenericName=Terminal
+Comment=A fast, cross-platform, OpenGL terminal emulator
+StartupNotify=true
+StartupWMClass=Alacritty
+Actions=New;
+
+[Desktop Action New]
+Name=New Terminal
+Exec=alacritty

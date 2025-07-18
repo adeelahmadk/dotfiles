@@ -327,7 +327,8 @@ function vwm() {
 #  for frequently used paths etc.
 ################################################################
 # set env vars for virtualenv
-export VENV=$HOME/workspace/venv
+export VENV=$HOME/.local/venv
+export VENV0=$HOME/.local/venv/py312
 
 ###############################################
 # Activate a python venv saved in a default
@@ -344,19 +345,25 @@ function envon() {
         echo "Default path to the venv direvtory not defined!"
         return 1
     }
-    [ "$#" -ne 1 ] && {
+    [ "$#" -ne 1 -a ! -d "$VENV0" ] && {
         echo "usage: envon <venv-name>"
         return 1
     }
+
+    [ "$#" -eq 0 ] && {
+    	source $VENV0"/bin/activate"
+    	return 0
+    }
+    
     envdir="$VENV/$1"
     [ ! -d "$envdir" ] &&
         {
-            echo "$envdir: no such directory found!"
+            echo "$envdir: no such virtual env found!"
             return 1
         }
     [ ! -f "$envdir/bin/activate" ] &&
         {
-            echo "$1: missing script file!"
+            echo "$1: virtual env missing activation script!"
             return 1
         }
 

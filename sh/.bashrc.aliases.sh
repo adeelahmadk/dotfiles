@@ -1,17 +1,6 @@
 # aliases for utility shell commands.
 
 ################################################################
-#  Setup Prompt
-################################################################
-function _update_ps1() {
-    PS1=$(powerline-shell $?)
-}
-
-# if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-#   PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-# fi
-
-################################################################
 # Set env variables
 ################################################################
 # '--height 40% --layout=reverse --border'
@@ -61,9 +50,9 @@ export LESS=' -R '
 ################################################################
 #  Setup dev environments
 ################################################################
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+#export PYENV_ROOT="$HOME/.pyenv"
+#command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
 
 ################################################################
 #  Define Aliases
@@ -159,8 +148,8 @@ alias vml="NVIM_APPNAME=nvim-lualazy nvim"
 # GNU as with intel syntax
 alias asin="as -msyntax=intel -mnaked-reg"
 # aliases for misc. dev tools
-alias lzyd="lazydocker"
-alias lzyg="lazygit"
+alias lzd="lazydocker"
+alias lzg="lazygit"
 # node & npm
 alias nls="npm list -g --depth=0"
 alias nig="npm i -g"

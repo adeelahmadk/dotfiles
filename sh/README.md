@@ -1,5 +1,19 @@
 # BASH Aliases and Functions
 
+## Scripts
+
+| File | Description |
+| -------- | ----------- |
+| `.bashrc.cpwd.sh` | bash config for custom prompt |
+| `.bashrc.aliases.sh` | define aliases for bash environment  |
+| `.bashrc.functions.sh` | define functions as complex commands for bash environment |
+| `.bashrc.env.sh` | define env vars for bash  |
+| `setup_init.sh` | Setup some basic apps for a new Debian/Ubuntu system |
+| `setup_env.sh` | Setup a dev env for a new system (for Debian/Ubuntu, got some apt) |
+| `themecli` | light/dark theme swticher for alacritty & vim |
+| `themegtk` | theme switcher for gtk |
+| `themepop` | light/dark theme switcher for Pop OS (<=22.04, Pop Shell) |
+
 ## BASH Aliases
 
 Bash script `.aliases.env.sh` defines a number of one-liners as aliases to simplify performing frequent tasks.

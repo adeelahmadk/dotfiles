@@ -1,0 +1,85 @@
+# Cosmic Dark theme for Alacritty
+#   background: #1B1B1B
+#   foreground: #C4C4C4
+#   accent, boundary: #63D0DF
+#   
+
+[colors.primary]
+
+foreground = "#C4C4C4"
+background = "#1B1B1B"
+bright_foreground = "#C4C4C4"
+dim_foreground = "#8E8E8E"
+
+[colors.cursor]
+
+text = "#1B1B1B"
+cursor = "#C4C4C4"
+
+[colors.vi_mode_cursor]
+
+text = "CellBackground"
+cursor = "CellForeground"
+
+[colors.selection]
+
+text = "CellForeground"
+background = "#C4C4C4"
+
+[colors.normal]
+
+black = "#1B1B1B"
+red = "#F16161"
+green = "#7CB987"
+yellow = "#DDC74C"
+blue = "#6296BE"
+magenta = "#BE6DEE"
+cyan = "#49BAC8"
+white = "#BEBEBE"
+
+[colors.bright]
+
+black = "#808080"
+red = "#FF8985"
+green = "#97D5A0"
+yellow = "#FAE365"
+blue = "#7DB1DA"
+magenta = "#D68EFF"
+cyan = "#49BAC8"
+white = "#C4C4C4"
+
+[colors.dim]
+
+black = "#000000"
+red = "#A04040"
+green = "#5D7D62"
+yellow = "#9E914A"
+blue = "#486073"
+magenta = "#7F46A1"
+cyan = "#3F7F87"
+white = "#898989"
+
+[colors.search.matches]
+
+foreground = "#1B1B1B"
+background = "#C4C4C4"
+
+[colors.search.focused_match]
+
+foreground = "#1B1B1B"
+background = "#D4D4D4"
+
+[colors.footer_bar]
+
+background = "#1B1B1B"
+foreground = "#C4C4C4"
+
+[colors.hints.start]
+
+foreground = "#1B1B1B"
+background = "#49BAC8"
+
+[colors.hints.end]
+
+foreground = "#49BAC8"
+background = "#1B1B1B"

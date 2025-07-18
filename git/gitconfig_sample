@@ -1,0 +1,7 @@
+[user]
+	name = Adeel Ahmad
+	email = 6880680+adeelahmadk@users.noreply.github.com
+[push]
+	default = matching
+[commit]
+	template = /home/adeel/.config/dotfiles/git/commit_template
