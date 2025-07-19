@@ -3,48 +3,69 @@ A collection of config files used to setup and maintain a uniform development en
 
 ## Contents
 1. [bashrc](#bashrc)
-2. [Conky](#Conky)
+2. [Terminal](#Terminal)
+3. [Conky](#Conky)
     1. [Setup dependencies](#setup-dependencies)
     2. [Autostart conky on startup](#autostart-conky-on-startup)
     3. [Screenshots](#screenshots)
-
-3. [i3 tiling WM config](#i3-tiling-wm-config)
+4. [i3 tiling WM config](#i3-tiling-wm-config)
 
 
 
 ## bashrc
 
-### `.bashrc.aliases.sh`, `.profile.env.sh`: Aliases and Functions
+### Aliases and Functions
 
-You can either copy one of the two script files to your home directory or soft link it there:
+The shell coustomizations comprise of three files in `sh/` directory:
+- `.bashrc.env.sh`: paths and env vars
+- `.bashrc.aliases.sh`: aliases
+- `.bashrc.functions.sh`: functions for task automation
+
+You can either copy these script files to your home directory or soft link there:
 ```bash
 # assuming you cloned this repo in ~/.config/dotfiles
-ln -s ~/.config/dotfiles/.bashrc.env.sh ~/.bashrc.env.sh
+ln -s $HOME/.config/dotfiles/.bashrc.env.sh ~/.bashrc.env.sh
 ```
-and add a source line in your `~/.bashrc` file:
+and source these files in `~/.bashrc` file:
 ```bash
-source .bashrc.env.sh
+if [ -f "~/.bashrc.env.sh" ]; then
+    source "~/.bashrc.env.sh"
+fi
 ```
 
-For changes to take effect either run ```source ~/.bashrc``` from terminal or logout and login.
+For changes to take effect either run `source ~/.bashrc` from terminal or logout and login.
 
 ### `.bashrc.cpwd.sh`: Custom Prompt and Aliases
+
 Both files, in addition to custom aliases and functions, print a custom prompt and are differentiated as follows:
 
+For detailed information on bash functions and aliases look at relavent [readme file](sh/README.md).
 
 - `.bashrc.cpwd.sh` prints a shell script based simple prompt
 
 ![alt text](.assets/shell-shot.png "Bash prompt")
 
-- `.bashrc.env.sh` prints a `powerline-shell` based prompt that can be installed using pip (python package manager):
+- `.bashrc.env.sh` prints a `starship` prompt that can be installed using pip (python package manager):
 
     ```bash
-    pip install powerline-shell
+    cargo install starship --locked
     ```
 
-![alt text](.assets/powershell-shot.png "Bash prompt")
+![alt text](.assets/starship-shot.png "Bash prompt")
 
-For detailed information on bash functions and aliases look at relavent [readme file](sh/README.md).
+### Inital Setup
+
+There are scripts for inital setup of a fresh install:
+- `setup_init.sh`: initial setup for cli and conky
+- `setup_env.sh`: setup a base dev env (python, node, rust, go, alacritty, starship prompt, latex) 
+
+
+
+## Terminal
+
+The information on terminal configurations can be found [here](./term.md).
+
+
 
 ## Conky
 
@@ -133,11 +154,11 @@ City ID list is available in the [compressed json file](https://bulk.openweather
 
    ![alt text](.assets/spacex_sys.png "spacex_sys")
 
-   ![alt text](.assets/spacex_os.png "spacex_os")
+   ![](.assets/spacex_os.png "spacex_os")
 
    #### StarWarp
 
-![](.assets/starwarp-weather.png)
+![](.assets/starwarp-weather.png "Starwarp Weather")
 
    ![alt text](.assets/starwarp-loaded00.png "starwarp desktop")
 
@@ -145,9 +166,11 @@ City ID list is available in the [compressed json file](https://bulk.openweather
 
 
 
-## i3 tiling WM config
+## Tiling WM configurations
 
-This contains config files for my i3 WM setup.
+### i3
+
+The `wm/i3` directory contains config files for my i3 WM setup.
 
 
 

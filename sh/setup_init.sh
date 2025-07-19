@@ -10,14 +10,11 @@ fi
 apt update && apt upgrade -y
 
 # basics
-apt install -y python3-pip python3.12-venv gparted ffmpeg #conky-all
+apt install -y python3-pip python3-venv gparted ffmpeg conky-all
 # improve cli
 apt install -y source-highlight
 
 # pip install -U --user pip youtube-dl 
-
-# Ubnuntu specific
-#pip install -U apt-select
 
 # Allow net packet capture capability to conky for network monitoring
 setcap cap_net_raw,cap_net_admin=eip /usr/bin/conky

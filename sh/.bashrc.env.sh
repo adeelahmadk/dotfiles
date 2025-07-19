@@ -1,6 +1,8 @@
 # Append paths
 export PATH=$PATH:/usr/local/go/bin
 
+# Set env vars
+export BASH_COMPLETION_USER_DIR="$HOME/.local/share/bash-completion/completions"
 export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
 export PATH=$PATH:$GOBIN
@@ -16,3 +18,8 @@ export NVM_DIR="$HOME/.nvm"
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+
+source "$BASH_COMPLETION_USER_DIR/alacritty.bash"
+source "$BASH_COMPLETION_USER_DIR/git-completion.bash"
+#source "$HOME/.bash-completion/git-completion.bash"
+
