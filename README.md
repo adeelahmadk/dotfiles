@@ -1,5 +1,5 @@
 # Linux Desktop Environment config files
-A collection of config files used to setup and maintain a uniform development environment across different machines.
+A collection of config files used to setup and maintain a uniform development environment across different machines and  distros (hopefully! :stuck_out_tongue_winking_eye: )
 
 ## Contents
 1. [bashrc](#bashrc)
@@ -8,7 +8,8 @@ A collection of config files used to setup and maintain a uniform development en
     1. [Setup dependencies](#setup-dependencies)
     2. [Autostart conky on startup](#autostart-conky-on-startup)
     3. [Screenshots](#screenshots)
-4. [i3 tiling WM config](#i3-tiling-wm-config)
+4. [Tiling WM configurations](#Tiling-WM-configurations)
+	1. [i3](#i3)
 
 
 
