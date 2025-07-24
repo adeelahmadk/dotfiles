@@ -1,7 +1,9 @@
-# Append paths
-export PATH=$PATH:/usr/local/go/bin:/home/adeel/.cargo/bin
+## Append paths
+export PATH=$PATH:/usr/local/go/bin:$HOME/.cargo/bin
 
-# Set env vars
+[ -d "$HOME/.local/bin" ] && export PATH=$PATH:$HOME/.local/bin
+
+## setup env vars
 export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
 export PATH=$PATH:$GOBIN
@@ -16,4 +18,3 @@ export NVM_DIR="$HOME/.nvm"
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-

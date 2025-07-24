@@ -125,7 +125,7 @@ alias nvs='watch -n 2 nvidia-smi'
 ## seraching
 alias fzb='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
-# network admin commands
+# networks
 alias wlsig="nmcli device wifi | awk -f $HOME/.config/scripts/wlsig.awk"
 alias lshosts='fping -aAqgn -r 0'
 alias scansub='sudo nmap -sP -PB'
@@ -141,12 +141,15 @@ alias weather="curl -i wttr.in"
 # #################
 # dev env commands
 # #################
+
 # load nvim with custom configs
 alias nvc="NVIM_APPNAME=nvim-nvchad nvim"
 alias lzv="NVIM_APPNAME=nvim-lazyvim nvim"
 alias vml="NVIM_APPNAME=nvim-lualazy nvim"
+
 # GNU as with intel syntax
 alias asin="as -msyntax=intel -mnaked-reg"
+
 # aliases for misc. dev tools
 alias lzd="lazydocker"
 alias lzg="lazygit"

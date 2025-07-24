@@ -1,6 +1,17 @@
 #!/bin/bash
+
 # First install all languages:
 # git, make, python, pip, npm, node, cargo, nvim and golang
+
+_DIST=
+_SHELL=`basename $SHELL`
+
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+
+    [ -n "$ID" ] && _DIST="$ID" || \
+    [ -n "$ID_LIKE" ] && _DIST="$ID_LIKE"
+fi
 
 if [[ $(id -u) -ne 0 ]]; then
    echo "root permissions required!" 
@@ -8,27 +19,41 @@ if [[ $(id -u) -ne 0 ]]; then
    # exit 1
 fi
 
-sudo apt install -y \
-    htop tree ncdu ranger \ # lm-sensors
-    git make curl ripgrep \
-    python3-pip python3-venv python3-argcomplete \
-    html-xml-utils source-highlight \
-    flameshot bleachbit qdirstat
+if [[ "$_DIST" == "debian" || "$_DIST" == "ubuntu" ]]
+    sudo apt install -y \
+        htop tree ncdu ranger \ # lm-sensors
+        git make curl ripgrep \
+        python3-pip python3-venv python3-argcomplete \
+        html-xml-utils source-highlight \
+        flameshot bleachbit qdirstat
+elif [[ "$_DIST" == "arch" ]]; then
+    sudo pacman -S git \
+        html-xml-utils source-highlight \
+        tldr qdirstat bleachbit
+fi
 
-# append color highlight setup to bashrc
-cat <<EOF >> ~/.bashrc
+if [[ "$_SHELL" == "bash" ]]; then
+
+  # append color highlight setup to bashrc
+  cat <<EOF >> ~/.bashrc
 
 # Enable source highlighting in `less` pager (dep: source-highlight)
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R'
 EOF
 
+fi
+
 sudo -v
 
-## install pacstall
-sudo bash -c "$(curl -fsSL https://pacstall.dev/q/install || wget -q https://pacstall.dev/q/install -O -)"
-## install neovim latest from pacstall repo
-pacstall -I neovim
+if [[ "$_DIST" == "debian" || "$_DIST" == "ubuntu" ]]
+
+    ## install pacstall
+    sudo bash -c "$(curl -fsSL https://pacstall.dev/q/install || wget -q https://pacstall.dev/q/install -O -)"
+    ## install neovim latest from pacstall repo
+    pacstall -I neovim
+
+fi
 
 sudo -v
 
@@ -37,6 +62,8 @@ sudo -v
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
 source ~/.bashrc
 nvm install --lts
+
+## ---- Shell Agnostic Steps -------------------------------
 
 sudo -v
 
@@ -62,6 +89,7 @@ cargo install starship --locked
 
 ## install golang
 sudo -v
+
 GOLANG_DL_STR=$(curl -s -L "https://go.dev/dl" | grep 'downloadBox.*linux' | awk '{print $4}' | awk -F= '{gsub(/[">]/, "", $2);}{print $2}')
 GOLANG_VER=$(echo $GOLANG_DL_STR | awk -F- '{print $1}' | awk -F/ '{print $3}')
 GOLANG_VER=${GOLANG_VER%.*}
@@ -120,4 +148,3 @@ cargo install fd-find
 cargo install --locked bat
 cargo install eza
 cargo install zoxide --locked
-

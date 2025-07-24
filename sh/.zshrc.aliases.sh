@@ -65,7 +65,7 @@ alias lu='ls -ltuh --group-directories-first'  # sort by access time
 alias lsf='ls -lh | grep -E -v "^d"'
 #alias tdp='tree --dirsfirst -F'
 
-# ---- Eza (better ls) -----
+## ---- Eza (better ls) -----
 
 alias ez="eza --color=always --group-directories-first --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias ea="eza --color=always --group-directories-first --no-filesize --icons=always --no-time --no-user --no-permissions -A"
@@ -76,10 +76,10 @@ alias ee="eza --color=always --group-directories-first --long --git --no-filesiz
 alias et="eza --color=always --group-directories-first --tree --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias elt="eza --color=always --group-directories-first --long --tree --git --icons=always --hyperlink --header"
 
-## custom application functions
+## ---- custom application functions ----
 alias mergepdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged_file.pdf'
 
-# system admin commands
+## ---- system admin commands ----
 alias lsproc='ps -ef | grep'
 alias ldsk='mount|grep /dev/sd|cut -f1-3 -d" "|sort'
 alias usage='du -hxd1'
@@ -87,7 +87,9 @@ alias dsz='du -hxd0'
 alias filesfx='echo `date "+%F"`_`date "+%s"`'
 #alias rmspc='find -name "* *" -type f | rename "s/ /_/g"'
 alias fnorm='for f in *\ *; do mv "$f" "${f// /_}"; done'
-alias nvs='watch -n 2 nvidia-smi'
+
+# seraching
+alias fzb='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 # network admin commands
 alias pingg='ping 8.8.8.8 -c'
@@ -119,6 +121,13 @@ alias lzg="lazygit"
 # node & npm
 alias nls="npm list -g --depth=0"
 alias nig="npm i -g"
+
+# vcs command aliases
+alias gits="git status"
+alias ga="git add ."
+alias gss="git log --stat --summary"
+alias gl1="git log --pretty=oneline"
+alias ggr="git rev-parse --show-toplevel>/dev/null 2>&1 && cd \$(git rev-parse --show-toplevel) || ( echo 'Not a git repo!'; exit 1; )"
 
 ## dev env one-liners
 alias repos="find . -name .git -type d -prune -exec dirname {} \;"
