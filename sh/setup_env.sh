@@ -127,7 +127,11 @@ case "$choice" in
     * )   decision="n";;
 esac
 [ "$decision" = "y" ] && {
+  if [[ "$_DIST" == "debian" || "$_DIST" == "ubuntu" ]]
     sudo apt install -y texlive texlive-extra-utils texlive-latex-extra texlive-font-utils fonts-font-awesome
+  elif [[ "$_DIST" == "asrch" ]]; then
+    sudo pacman -S texlive-basic texlive-bin texlive-binextra texlive-latex texlive-fontsrecommended texlive-fontutils
+  fi
 } || {
   echo
   echo "skipping texlive!"

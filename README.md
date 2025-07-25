@@ -3,13 +3,14 @@ A collection of config files used to setup and maintain a uniform development en
 
 ## Contents
 1. [bashrc](#bashrc)
-2. [Terminal](#Terminal)
-3. [Conky](#Conky)
+2. [zshrc](#zshrc)
+3. [Terminal](#Terminal)
+4. [Conky](#Conky)
     1. [Setup dependencies](#setup-dependencies)
     2. [Autostart conky on startup](#autostart-conky-on-startup)
     3. [Screenshots](#screenshots)
-4. [Tiling WM configurations](#Tiling-WM-configurations)
-	1. [i3](#i3)
+5. [Tiling WM configurations](#Tiling-WM-configurations)
+  1. [i3](#i3)
 
 
 
@@ -60,13 +61,20 @@ There are scripts for inital setup of a fresh install:
 - `setup_init.sh`: initial setup for cli and conky
 - `setup_env.sh`: setup a base dev env (python, node, rust, go, alacritty, starship prompt, latex) 
 
+## zshrc
 
+The shell script directory also contains configuration files to setup a functional `zsh` environment.
+
+- `.zshrc.min.zsh`: minimal `zsh` configuration
+- `.zshrc.min.zsh`: a relatively robust `zsh` configuration using `zim` framework
+- `.zshrc.env.sh`: paths and env vars
+- `.zshrc.aliases.sh`: aliases
+- `.zshrc.functions.sh`: functions and `zle` widgets for task automation
+- `setup_zsh.sh`: a script to setup the `zsh` configuration
 
 ## Terminal
 
 The information on terminal configurations can be found [here](./term.md).
-
-
 
 ## Conky
 

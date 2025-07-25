@@ -9,7 +9,13 @@
 | `.bashrc.functions.sh` | define functions as complex commands for bash environment |
 | `.bashrc.env.sh` | define env vars for bash  |
 | `setup_init.sh` | Setup some basic apps for a new Debian/Ubuntu system |
-| `setup_env.sh` | Setup a dev env for a new system (for Debian/Ubuntu, got some apt) |
+| `setup_env.sh` | Setup a dev env for a new system (for Debian/Ubuntu/Arch) |
+| `.zshrc.min.zsh` | minimal `zsh` configuration |
+| `.zshrc.min.zsh` | a relatively robust `zsh` configuration using `zim` framework |
+| `.zshrc.env.sh` | paths and env vars |
+| `.zshrc.aliases.sh` | aliases |
+| `.zshrc.functions.sh` | functions and `zle` widgets for task automation |
+| `setup_zsh.sh` | a script to setup the `zsh` configuration |
 | `themecli` | light/dark theme swticher for alacritty & vim |
 | `themegtk` | theme switcher for gtk |
 | `themepop` | light/dark theme switcher for Pop OS (<=22.04, Pop Shell) |
