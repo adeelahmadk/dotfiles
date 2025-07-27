@@ -107,9 +107,11 @@ alias weather="curl -i wttr.in"
 # #################
 
 # load nvim with custom configs
+alias nvd="NVIM_APPNAME=nvim-vanilla nvim"
 alias nvc="NVIM_APPNAME=nvim-nvchad nvim"
 alias lzv="NVIM_APPNAME=nvim-lazyvim nvim"
 alias vks="NVIM_APPNAME=nvim-ks nvim"
+alias nvv="NVIM_APPNAME=dummy nvim"
 
 # GNU as with intel syntax
 alias asin="as -msyntax=intel -mnaked-reg"

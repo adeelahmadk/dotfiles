@@ -3,6 +3,16 @@ export EDITOR=nvim
 
 ## --- zsh keybindings -------------------------------------
 
+insert_text_before_current_line() {
+  #zle beginning-of-line # Move cursor to the beginning of the line
+  local current_line="${LBUFFER} :Inserted Text: ${RBUFFER}"
+  LBUFFER="${current_line}"
+  RBUFFER="" #Clear RBUFFER
+  zle end-of-line
+}
+zle -N insert_text_before_current_line
+bindkey '^[e' insert_text_before_current_line # Bind Esc+E
+
 function run-tldr() {
     local line="$BUFFER"
     local cmd
@@ -10,16 +20,44 @@ function run-tldr() {
     if [ -n "$cmd" ]
     then
         zle -I
+        echo "fetching help..."
         tldr "$cmd"
     fi
 }
-#zle -N run-tldr{,}
 zle -N tldr-widget run-tldr
 bindkey '^[OP' tldr-widget # Bind F1
 
-insert_sudo() { BUFFER="sudo $BUFFER"; zle end-of-line; }
+function run-tldr-from-cursor() {
+    local line="$RBUFFER"
+    local cmd
+    cmd="$(echo "$line" | head -n1 | awk '{print $1;}')"
+    if [ -n "$cmd" ]
+    then
+        zle -I
+        echo "fetching help..."
+        tldr "$cmd"
+    fi
+}
+zle -N run-tldr-from-cursor
+bindkey '^[[1;2P' run-tldr-from-cursor # Bind Shift+F1
+
+insert_sudo() {
+    zle beginning-of-line;
+    BUFFER="sudo $BUFFER";
+    zle end-of-line;
+}
 zle -N insert_sudo
 bindkey '\es' insert_sudo # Bind ESC+S
+
+bindkey '^[[H' beginning-of-line # Bind Home
+
+bindkey '^[[F' end-of-line # Bind END
+
+bindkey '^[[1;5D' backward-word # Bind Ctrl+Left
+
+bindkey '^[[1;5C' forward-word # Bind Ctrl+Right
+
+bindkey '^[[3~' delete-char-or-list # Bind Delete
 
 ## ---- utility functions ----------------------------------
 
@@ -35,12 +73,14 @@ bindkey '\es' insert_sudo # Bind ESC+S
 #############################################
 vv() {
     __fzf=$(command -v fzf)
+    __nvim=$(command -v nvim)
     [ -z "$__fzf" ] && { echo "fzf: command not found!"; return1; }
     local nvim_configs=($(fd --max-depth 1 --glob 'nvim*' ~/.config))
     typeset -A config_paths=()
 
     for path in ${nvim_configs[@]}; do
         local directory=${path:t} # basename
+        echo "${directory} => ${path}"
         title=${directory##*nvim-}
         title=${title/nvim/default}
         config_paths[$title]="$path"
@@ -48,13 +88,14 @@ vv() {
 
     # Assumes all configs exist in directories named ~/.config/nvim-*
     local config=$(printf "%s\n" ${(k)config_paths[@]} | $__fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
-    config=$(${${config_paths[${config}]}##*/}) # basename
+    config="${config_paths[${config}]}"
+    config="${config:t}" # basename
 
     # If I exit fzf without selecting a config, don't open Neovim
-    [[ -z $config ]] && echo "No config selected" && return
+    #[[ -z $config ]] && echo "No config selected" && return
 
     # Open Neovim with the selected config
-    NVIM_APPNAME=$config nvim $@
+    NVIM_APPNAME=$config $__nvim $@
 }
 
 #############################################

@@ -1,6 +1,5 @@
-
 [font]
-size = 10.0
+size = 11.0
 
 [font.bold]
 family = "FiraCode Nerd Font"
@@ -9,10 +8,6 @@ style = "Bold"
 [font.bold_italic]
 family = "FiraCode Nerd Font"
 style = "Bold Italic"
-
-[font.glyph_offset]
-x = 0
-y = 0
 
 [font.italic]
 family = "FiraCode Nerd Font"
@@ -23,6 +18,10 @@ family = "FiraCode Nerd Font"
 style = "Light"
 
 [font.offset]
+x = 0
+y = 0
+
+[font.glyph_offset]
 x = 0
 y = 0
 
@@ -76,7 +75,7 @@ semantic_escape_chars = """,│`|:"' ()[]{}<>"""
 [window]
 decorations = "none"
 dynamic_padding = false
-opacity = 0.92
+opacity = 0.97
 
 [window.padding]
 x = 8
