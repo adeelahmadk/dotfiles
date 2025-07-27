@@ -3,16 +3,6 @@ export EDITOR=nvim
 
 ## --- zsh keybindings -------------------------------------
 
-insert_text_before_current_line() {
-  #zle beginning-of-line # Move cursor to the beginning of the line
-  local current_line="${LBUFFER} :Inserted Text: ${RBUFFER}"
-  LBUFFER="${current_line}"
-  RBUFFER="" #Clear RBUFFER
-  zle end-of-line
-}
-zle -N insert_text_before_current_line
-bindkey '^[e' insert_text_before_current_line # Bind Esc+E
-
 function run-tldr() {
     local line="$BUFFER"
     local cmd
