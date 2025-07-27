@@ -72,30 +72,33 @@ bindkey '^[[3~' delete-char-or-list # Bind Delete
 #   None
 #############################################
 vv() {
-    __fzf=$(command -v fzf)
-    __nvim=$(command -v nvim)
-    [ -z "$__fzf" ] && { echo "fzf: command not found!"; return1; }
-    local nvim_configs=($(fd --max-depth 1 --glob 'nvim*' ~/.config))
+    local __fzf=$(command -v fzf)
+    local __nvim=$(command -v nvim)
+    local __fd=$(command -v fd)
+    echo "$__fzf"
+    [ -z "$__fzf" ] && { echo "fzf: command not found!"; return 1; }
+    local nvim_configs=($($__fd --max-depth 1 --glob 'nvim*' ~/.config))
     typeset -A config_paths=()
 
-    for path in ${nvim_configs[@]}; do
-        local directory=${path:t} # basename
-        echo "${directory} => ${path}"
+    for nvim_conf in ${nvim_configs[@]}; do
+        local directory=${nvim_conf:t} # basename
         title=${directory##*nvim-}
-        title=${title/nvim/default}
-        config_paths[$title]="$path"
+        title=${title/nvim/vanilla}
+        config_paths[$title]="$nvim_conf"
     done
 
     # Assumes all configs exist in directories named ~/.config/nvim-*
-    local config=$(printf "%s\n" ${(k)config_paths[@]} | $__fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
+    local config=$(printf "%s\n" ${(k)config_paths[@]} | $__fzf --prompt="Neovim Config > " --height=~50% --layout=reverse --border --exit-0)
     config="${config_paths[${config}]}"
     config="${config:t}" # basename
 
     # If I exit fzf without selecting a config, don't open Neovim
-    #[[ -z $config ]] && echo "No config selected" && return
+    [[ -z $config ]] && echo "No config selected" && return
 
     # Open Neovim with the selected config
-    NVIM_APPNAME=$config $__nvim $@
+    export NVIM_APPNAME="$config"
+    $__nvim $@
+    unset NVIM_APPNAME
 }
 
 #############################################
