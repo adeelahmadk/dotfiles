@@ -24,7 +24,14 @@ setopt HIST_FIND_NO_DUPS
 
 ### --- configure completion ---------------------------------
 
-zstyle ':completion:*' menu yes select
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
+
+#zstyle ':completion:*' menu yes select
 
 ### ---- init plugins ----------------------------------------
 
