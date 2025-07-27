@@ -51,7 +51,6 @@ bindkey '^[[3~' delete-char-or-list # Bind Delete
 
 ## ---- utility functions ----------------------------------
 
-
 #############################################
 # Launch a nvim config of choice
 # Globals:
@@ -76,6 +75,8 @@ vv() {
         title=${title/nvim/vanilla}
         config_paths[$title]="$nvim_conf"
     done
+
+    nvim_conf=""
 
     # Assumes all configs exist in directories named ~/.config/nvim-*
     local config=$(printf "%s\n" ${(k)config_paths[@]} | $__fzf --prompt="Neovim Config > " --height=~50% --layout=reverse --border --exit-0)
@@ -103,8 +104,8 @@ vv() {
 #   None
 #############################################
 function nlines() {
-    delta=0
-    __awk=$(which awk) || {
+    local delta=0
+    local __awk=$(command -v awk) || {
         echo "missing dependency: gawk" >&2
         return 1
     }
@@ -114,8 +115,8 @@ function nlines() {
             return 1
         }
     [ "$#" -eq 2 ] && delta=5 || delta="$3"
-    d1=$(($2 - $delta))
-    d2=$(($2 + $delta))
+    local d1=$(($2 - $delta))
+    local d2=$(($2 + $delta))
     $__awk -v a=$d1 -v b=$d2 'NR>=a&&NR<=b' "$1"
 }
 
@@ -208,8 +209,8 @@ function vwm() {
 ###############################################
 function pacdesc() {
     [ "$#" -ne 1 ] && echo "Usage: pacdesc PACKAGE" >&2 && return 2
-    __pacman=$(which pacman)
-    __awk=$(which awk)
+    local __pacman=$(command -v pacman)
+    local __awk=$(command -v awk)
     $__pacman -Si "$1" |
         $__awk '/Name/ {print} /Version/ {print} /Description.*/ {p=1} /Architecture/ {p=0;exit}p;'
 }
@@ -235,10 +236,10 @@ function shdoc() {
         echo "File: $2 not found!" >&2
         return 2
     }
-    __grep=/usr/bin/grep
-    __awk=$(which awk)
-    __tac=$(which tac)
-    d2=$($__grep -in -m1 -- "$1" "$2" | $__awk -F':' '{print $1}')
+    local __grep=$(command -v grep)
+    local __awk=$(command -v awk)
+    local __tac=$(command -v tac)
+    local d2=$($__grep -in -m1 -- "$1" "$2" | $__awk -F':' '{print $1}')
     [ -z "$d2" ] && {
         echo "Function $1 not found!" >&2
         return 2
