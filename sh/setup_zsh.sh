@@ -24,6 +24,6 @@ elif [[ "$decision" = "z" ]]; then
     ln -s $(pwd)/.zshrc.zim.zsh "$HOME/.zshrc"
 fi
 
-ln -s $(pwd)/.zshrc.env.sh "$ZSH/.zshrc_env"
-ln -s $(pwd)/.zshrc.aliases.sh "$ZSH/.zshrc_aliases"
-ln -s $(pwd)/.zshrc.functions.sh "$ZSH/.zshrc_funcs"
+ln -s $(pwd)/.zshrc.env.zsh "$ZSH/.zshrc_env"
+ln -s $(pwd)/.zshrc.aliases.zsh "$ZSH/.zshrc_aliases"
+ln -s $(pwd)/.zshrc.functions.zsh "$ZSH/.zshrc_funcs"

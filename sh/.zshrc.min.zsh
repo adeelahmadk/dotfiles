@@ -53,4 +53,3 @@ fi
 if [[ -f "$ZSH/.zshrc_funcs" ]]; then
     . "$ZSH/.zshrc_funcs"
 fi
-
