@@ -37,6 +37,8 @@ Bash script `.aliases.env.sh` defines a number of one-liners as aliases to simpl
 
 ### Package Management
 
+#### APT
+
 | Alias | Usage | Description |
 | -------- | ----- | ----------- |
 | aud |  | update apt cache |
@@ -103,28 +105,29 @@ Network tasks
 | docv |  | docker volume |
 |  |  |  |
 
-## BASH Functions
+## Shell Functions
 
-Bash script `.profile.env.sh` defines a number of functions to simplify performing frequent tasks.
+Shell script `.bashrc.functions.sh` and `.zshrc.functions.sh` define a number of functions to simplify performing frequent tasks.
 
-| Function | Usage | Description |
-| -------- | ----- | ----------- |
-| log_error | `log_error msg` | Logs an error message string on stderr |
-| srand  | `srand` | Seed the 16-bit random number generator |
-| rotlog | `rotlog LOGFILE` | Rotates a log file every 1MB |
-| vv | `vv FILE` | Gives a menu to select from nvim configs |
-| nlines | `nlines FILE <line-number> [delta]` | Reads +/-delta from nth line in a file |
-| readmd | `readmd FILE` | Read a markdown file in the terminal |
-| lld | `lld [dir]` | List directory names in the pwd. |
-| wp2md | `wp2md URL [FILE]` | Generate markdown doc from Wikipedia article |
-| fzz | `fzz [dir]` | Fuzzy find files |
-| fdd | `fdd [dir]` | Fuzzy find directories |
-| wlwch | `wlwch` | Watch wifi signal strength every n seconds |
-| aptdesc | `aptdesc pkg-name` | Print info about an apt package |
-| vwt | `vwt KEYWORD FILE` | Open a file at the first appearance of a keyword at top screen |
-| vwm | `vwm KEYWORD FILE` | Open a file at the first appearance of a keyword at mid screen |
-| envon | `envon VENVNAME` | Activate a Python venv saved in a default home directory. |
-| envls | `envls` | List all python venv's saved in a default home directory |
-| fpfind | `fpfind KEYWORD` | Search and print info about a remote flatpak application or runtime |
-| shdoc | `shdoc FUNCTION FILE` | Search and print doc comment (Google Style) of a function in a script file. |
-|  |  |  |
+| Function | Args  | Shell | Description |
+| -------- | ----- | ----------- | -------- |
+| `readmd` | `FILE` | `bash` | Read a markdown file in the terminal |
+| `wp2md` | `URL [FILE]` | `bash` | Generate markdown doc from Wikipedia article |
+| `lld` | `[dir]` | `bash` | List directory names in the pwd. |
+| `log_error` | `msg` | `bash` | Logs an error message string on stderr |
+| `srand`  |  | `bash` | Seed the 16-bit random number generator |
+| `rotlog` | `LOGFILE` | `bash` | Rotates a log file every 1MB |
+| `vv` | `FILE` | `bash`, `zsh` | Gives a menu to select from nvim configs |
+| `nlines` | `FILE <line-number> [delta]` | `bash`, `zsh` | Reads +/-delta from nth line in a file |
+| `fzz` | `[dir]` | `bash`, `zsh` | Fuzzy find files |
+| `fdd` | `[dir]` | `bash`, `zsh` | Fuzzy find directories |
+| `aptdesc` | `pkg-name` | `bash` | Print info about an apt package |
+| `pacdesc` | `pkg-name` | `zsh` | Print info about a package |
+| `envon` | `VENVNAME` | `bash` | Activate a Python venv saved in a default home directory. |
+| `envls` |  | `bash` | List all python venv's saved in a default home directory |
+| `fpfind` | `KEYWORD` | `bash` | Search and print info about a remote flatpak application or runtime |
+| `wlwch` |  | `bash`, `zsh` | Watch WiFi signal strength every n seconds |
+| `vwt` | `KEYWORD FILE` | `bash`, `zsh` | Open a file at the first appearance of a keyword at top screen |
+| `vwm` | `KEYWORD FILE` | `bash`, `zsh` | Open a file at the first appearance of a keyword at mid screen |
+| `shdoc` | `FUNCTION FILE` | `bash`, `zsh` | Search and print doc comment (Google Style) of a function in a script file. |
+|  |  |  |  |

@@ -27,9 +27,10 @@ if [[ "$_DIST" == "debian" || "$_DIST" == "ubuntu" ]]
         html-xml-utils source-highlight \
         flameshot bleachbit qdirstat
 elif [[ "$_DIST" == "arch" ]]; then
-    sudo pacman -S git \
+    sudo pacman -Syu git ncdu \
         html-xml-utils source-highlight \
-        tldr qdirstat bleachbit
+        mkcert tldr httpie \
+        qdirstat bleachbit
 fi
 
 if [[ "$_SHELL" == "bash" ]]; then
@@ -152,3 +153,7 @@ cargo install fd-find
 cargo install --locked bat
 cargo install eza
 cargo install zoxide --locked
+
+## ---- clean up -------------------------------------------
+
+unset _DIST _SHELL _OS GOLANG_DL_STR GOLANG_VER GOLANG_PKG

@@ -92,9 +92,9 @@ alias fnorm='for f in *\ *; do mv "$f" "${f// /_}"; done'
 alias fzb='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 # network admin commands
+alias wlsig="nmcli device wifi | awk -f $HOME/.config/scripts/wlsig.awk"
 alias pingg='ping 8.8.8.8 -c'
 alias wlsig="nmcli device wifi | awk -f $HOME/.config/scripts/wlsig.awk"
-#alias intip="ifconfig $(route -n | grep -m1 -e ^'0\.0\.0\.0' | awk '{print $NF}') | grep 'inet ' | awk '{print \$2}' | sed 's/addr://1'"
 alias pubip='curl -s "https://api.ipify.org" ; echo'
 alias hdrchk='curl -o /dev/null --max-time 3 --silent --write-out "HTTP Status: %{http_code}\n"'
 #alias lslp='netstat -lntup'
@@ -126,6 +126,9 @@ alias nig="npm i -g"
 # vcs command aliases
 alias gits="git status"
 alias ga="git add ."
+alias gdf="git diff"
+alias gdfc="git diff --cached"
+alias gcm="git commit"
 alias gss="git log --stat --summary"
 alias gl1="git log --pretty=oneline"
 alias ggr="git rev-parse --show-toplevel>/dev/null 2>&1 && cd \$(git rev-parse --show-toplevel) || ( echo 'Not a git repo!'; exit 1; )"
