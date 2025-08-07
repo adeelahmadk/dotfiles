@@ -447,3 +447,27 @@ function shdoc() {
         $__awk -F'# ' -v start=1 '/####/{n++;next};n==start{print $2};n==start+1{exit}' |
         $__tac
 }
+
+###############################################
+# Print internal ip address for the default
+# interface.
+#
+# Globals:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   IP adress to STDOUT
+###############################################
+function intip() {
+  ip addr show $(ip route | awk '/default/ { print $5 }') \
+    | awk '/inet / {print $2}' \
+    | cut -d/ -f1
+}
+function intip6() {
+  ip -6 addr show $(ip route | awk '/default/ { print $5 }') \
+    | grep -E '^.*inet6' \
+    | awk '{print $2}' \
+    | cut -d/ -f1
+}
+

@@ -1,5 +1,6 @@
-#!/usr/bin/zsh
-# zsh aliases for utility shell commands.
+################################################################
+## zsh aliases for utility shell commands.
+################################################################
 
 ################################################################
 # Set env variables
@@ -88,7 +89,7 @@ alias filesfx='echo `date "+%F"`_`date "+%s"`'
 #alias rmspc='find -name "* *" -type f | rename "s/ /_/g"'
 alias fnorm='for f in *\ *; do mv "$f" "${f// /_}"; done'
 
-# seraching
+## fuzzy find with file preview
 alias fzb='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 # network admin commands
@@ -107,12 +108,13 @@ alias weather="curl -i wttr.in"
 # #################
 
 # load nvim with custom configs
-alias nvv="NVIM_APPNAME=nvim-minimal nvim"
+alias nvi="NVIM_APPNAME=nvim-minimal /opt/nvim/bin/nvim"
+alias nvl="NVIM_APPNAME=nvim-lite nvim"
 alias nvc="NVIM_APPNAME=nvim-nvchad nvim"
 alias lzv="NVIM_APPNAME=nvim-lazyvim nvim"
-alias vks="NVIM_APPNAME=nvim-ks nvim"
+alias nvks="NVIM_APPNAME=nvim-ks nvim"
 
-# GNU as with intel syntax
+# GNU assembler with intel syntax
 alias asin="as -msyntax=intel -mnaked-reg"
 
 # aliases for misc. dev tools
@@ -123,12 +125,16 @@ alias lzg="lazygit"
 alias nls="npm list -g --depth=0"
 alias nig="npm i -g"
 
-# vcs command aliases
+## ---- vcs command aliases ----
 alias gits="git status"
 alias ga="git add ."
 alias gdf="git diff"
 alias gdfc="git diff --cached"
 alias gcm="git commit"
+alias gck="git checkout"
+alias gcl="git config --list"
+alias gclg="git config --list --global"
+alias gcll="git config --list --local"
 alias gss="git log --stat --summary"
 alias gl1="git log --pretty=oneline"
 alias ggr="git rev-parse --show-toplevel>/dev/null 2>&1 && cd \$(git rev-parse --show-toplevel) || ( echo 'Not a git repo!'; exit 1; )"

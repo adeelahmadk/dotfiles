@@ -1,4 +1,6 @@
-# aliases for utility shell commands.
+################################################################
+## bash aliases for utility shell commands.
+################################################################
 
 ################################################################
 # Set env variables
@@ -48,18 +50,11 @@ export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
 ################################################################
-#  Setup dev environments
-################################################################
-#export PYENV_ROOT="$HOME/.pyenv"
-#command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-#eval "$(pyenv init -)"
-
-################################################################
 #  Define Aliases
 #  for frequently used commands
 ################################################################
 
-# common commands
+## ---- common commands ----
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias dls='ls --group-directories-first'
@@ -67,8 +62,8 @@ alias dla='ls -A --group-directories-first'
 alias lsd='ls -d */'
 alias ll='ls -lh --group-directories-first'
 alias lla='ls -Alh --group-directories-first'
-alias lt='ls -lth --group-directories-first'
-alias lu='ls -ltuh --group-directories-first'
+alias lt='ls -lth --group-directories-first'  # sort by time
+alias lu='ls -ltuh --group-directories-first'  # sort by access time
 alias lsf='ls -lh | egrep -v "^d"'
 alias tdp='tree --dirsfirst -F'
 
@@ -86,7 +81,7 @@ alias elt="eza --color=always --group-directories-first --long --tree --git --ic
 ## custom application functions
 alias mergepdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged_file.pdf'
 
-## package management (apt, flatpak)
+## ---- package management (apt, flatpak) ----
 # apt
 alias aud='sudo sh -c "apt update"'
 alias aug='sudo sh -c "apt upgrade"'
@@ -112,7 +107,7 @@ alias upc='echo "$(apt-get -q -y --allow-change-held-packages --allow-unauthenti
 alias whatigot="dpkg --get-selections | grep install | cut -f1"
 alias aptman="comm -12 <(dpkg --get-selections | grep install | cut -f1 | sort) <(apt-mark showmanual | sort)"
 
-# system admin commands
+## ---- system admin commands ----
 alias lsproc='ps -ef | grep'
 alias ldsk='mount|grep /dev/sd|cut -f1-3 -d" "|sort'
 alias usage='du -hxd1'
@@ -122,7 +117,7 @@ alias rmspc='find -name "* *" -type f | rename "s/ /_/g"'
 alias fnorm='for f in *\ *; do mv "$f" "${f// /_}"; done'
 alias nvs='watch -n 2 nvidia-smi'
 
-## seraching
+## fuzzy find with file preview
 alias fzb='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 # networks
@@ -130,7 +125,7 @@ alias wlsig="nmcli device wifi | awk -f $HOME/.config/scripts/wlsig.awk"
 alias lshosts='fping -aAqgn -r 0'
 alias scansub='sudo nmap -sP -PB'
 alias pingg='ping 8.8.8.8 -c'
-alias intip="ifconfig $(route -n | grep -m1 -e ^'0\.0\.0\.0' | awk '{print $NF}') | grep 'inet ' | awk '{print \$2}' | sed 's/addr://1'"
+#alias intip="ifconfig $(route -n | grep -m1 -e ^'0\.0\.0\.0' | awk '{print $NF}') | grep 'inet ' | awk '{print \$2}' | sed 's/addr://1'"
 alias pubip='curl -s "https://api.ipify.org" ; echo'
 alias hdrchk='curl -o /dev/null --max-time 3 --silent --write-out "HTTP Status: %{http_code}\n"'
 alias lslp='netstat -lntup'
@@ -143,11 +138,13 @@ alias weather="curl -i wttr.in"
 # #################
 
 # load nvim with custom configs
+alias nvi="NVIM_APPNAME=nvim-minimal /opt/nvim/bin/nvim"
+alias nvl="NVIM_APPNAME=nvim-lite nvim"
 alias nvc="NVIM_APPNAME=nvim-nvchad nvim"
 alias lzv="NVIM_APPNAME=nvim-lazyvim nvim"
-alias vml="NVIM_APPNAME=nvim-lualazy nvim"
+alias nvks="NVIM_APPNAME=nvim-ks nvim"
 
-# GNU as with intel syntax
+# GNU assembler with intel syntax
 alias asin="as -msyntax=intel -mnaked-reg"
 
 # aliases for misc. dev tools
@@ -157,14 +154,16 @@ alias lzg="lazygit"
 alias nls="npm list -g --depth=0"
 alias nig="npm i -g"
 
-# dict commands
-alias defc="dict -d foldoc"
-alias defwn="dict -d wn"
-alias defmob="dict -d moby-thesaurus"
-
-# vcs command aliases
+## ---- vcs command aliases ----
 alias gits="git status"
 alias ga="git add ."
+alias gdf="git diff"
+alias gdfc="git diff --cached"
+alias gcm="git commit"
+alias gck="git checkout"
+alias gcl="git config --list"
+alias gclg="git config --list --global"
+alias gcll="git config --list --local"
 alias gss="git log --stat --summary"
 alias gl1="git log --pretty=oneline"
 alias ggr="git rev-parse --show-toplevel>/dev/null 2>&1 && cd \$(git rev-parse --show-toplevel) || ( echo 'Not a git repo!'; exit 1; )"
@@ -179,6 +178,11 @@ alias ven="source .venv/bin/activate >/dev/null 2>&1 || ( echo 'Not a uv project
 alias doci="docker image"
 alias docc="docker container"
 alias docv="docker volume"
+
+# dict commands
+alias defc="dict -d foldoc"
+alias defwn="dict -d wn"
+alias defmob="dict -d moby-thesaurus"
 
 # open local dev sites incognito
 alias chd="google-chrome --incognito"
