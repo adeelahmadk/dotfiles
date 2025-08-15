@@ -1,5 +1,7 @@
 # zed Editor Settings
 
+Symlink the `settings.json` directory to `~/.config/zed/settings.json`
+
 ## Extensions
 
 For Productivity:
@@ -7,7 +9,7 @@ For Productivity:
 - emmet
 - git-firefly
 - html
-- live-server
+- TOML
 - php
 - python-snippets
 

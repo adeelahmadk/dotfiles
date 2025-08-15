@@ -1,5 +1,5 @@
 ### ---- PATH init ------------------------------------------
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 ### ---- ZSH HOME -------------------------------------------
 if [[ ! -d "$HOME/.config/zsh" ]]; then
@@ -53,3 +53,4 @@ fi
 if [[ -f "$ZSH/.zshrc_funcs" ]]; then
     . "$ZSH/.zshrc_funcs"
 fi
+

@@ -5,12 +5,19 @@
 
 _DIST=
 _SHELL=`basename $SHELL`
+_PKG=
 
 if [ -f /etc/os-release ]; then
     . /etc/os-release
 
     [ -n "$ID" ] && _DIST="$ID" || \
     [ -n "$ID_LIKE" ] && _DIST="$ID_LIKE"
+    
+    if [[ "$_DIST" == "debian" || "$_DIST" == "ubuntu" ]]; then
+    		_PKG="command -v apt"
+	elif [[ "$_DIST" == "arch" ]]; then
+		_PKG="command -v pacman"
+	fi
 fi
 
 if [[ $(id -u) -ne 0 ]]; then
@@ -19,13 +26,16 @@ if [[ $(id -u) -ne 0 ]]; then
    # exit 1
 fi
 
-if [[ "$_DIST" == "debian" || "$_DIST" == "ubuntu" ]]
+if [[ "$_DIST" == "debian" || "$_DIST" == "ubuntu" ]]; then
     sudo apt install -y \
-        htop tree ncdu ranger \ # lm-sensors
+    		gparted ffmpeg \
         git make curl ripgrep \
-        python3-pip python3-venv python3-argcomplete \
+    		pkg-config build-essential libfontconfig1-dev \
+        htop tree ncdu ranger \ # lm-sensors
+        python3-pip python3-venv python3-argcomplete pipx \
         html-xml-utils source-highlight \
-        flameshot bleachbit qdirstat
+        tldr-py httpie
+    echo "recommended: flameshot bleachbit qdirstat"
 elif [[ "$_DIST" == "arch" ]]; then
     sudo pacman -Syu git ncdu \
         html-xml-utils source-highlight \
@@ -57,10 +67,27 @@ if [[ "$_DIST" == "debian" || "$_DIST" == "ubuntu" ]]
 fi
 
 sudo -v
+decision="y"
+if command -v gnome-shell > /dev/null; then
+  printf "%s is installed\n" "$(gnome-sell --version)" 
+  read -p "Install customization tools (y/n)?" -n1 -r choice
+  case "$choice" in 
+    y|Y ) decision="y";;
+    n|N ) decision="n";;
+    * )   decision="n";;
+  esac
+  
+  [ "$decision" = "y" ] && {
+  	source setup_gnome.sh
+  } || {
+  	echo "skipping Gnome customization."
+  }
+fi
 
+sudo -v
 ## install nodejs
 # Node Version Manager (nvm)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 source ~/.bashrc
 nvm install --lts
 
@@ -69,8 +96,6 @@ nvm install --lts
 sudo -v
 
 ## Python tools, setup changed since 3.12
-## install pip
-#curl -fsSL "https://bootstrap.pypa.io/get-pip.py" && python3 get-pip.py
 #rm -r ~/.local/pipx/shared
 #pip install -U --user pipx
 
@@ -78,6 +103,7 @@ sudo -v
 [ `command -v rustup` ] && { echo "rust installed! updating..."; rustup update; } || { echo "Installing rust..."; curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh }
 
 ## install alacritty terminal
+export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 cargo install alacritty
 # setup icons and launcher entry
 [ ! -d "$HOME/.local/share/icons" ] && mkdir -p "$HOME/.local/share/icons"
@@ -94,28 +120,39 @@ sudo -v
 GOLANG_DL_STR=$(curl -s -L "https://go.dev/dl" | grep 'downloadBox.*linux' | awk '{print $4}' | awk -F= '{gsub(/[">]/, "", $2);}{print $2}')
 GOLANG_VER=$(echo $GOLANG_DL_STR | awk -F- '{print $1}' | awk -F/ '{print $3}')
 GOLANG_VER=${GOLANG_VER%.*}
+GOLANG_PKG="https://go.dev"$GOLANG_DL_STR
+DLFILE="$HOME/Downloads/golang.tar.gz"
+
 decision="y"
 if command -v "go" > /dev/null; then
-  printf "Golang:\nInstalled: %s\nLatest: %s\n" "$(go version | awk '{print $3}')" "$GOLANG_VER" 
-  read -p "Continue install (y/n)?" -n1 -r choice
-  case "$choice" in 
-    y|Y ) decision="y";;
-    n|N ) decision="n";;
-    * )   decision="n";;
-  esac
+	printf "Golang:\nInstalled: %s\nLatest: %s\n" "$(go version | awk '{print $3}')" "$GOLANG_VER" 
+	read -p "Continue install (y/n)?" -n1 -r choice
+	case "$choice" in 
+		y|Y ) decision="y";;
+		n|N ) decision="n";;
+		* )   decision="n";;
+	esac
+
+	sudo -v
+
+	[ "$decision" = "y" ] && {
+	  curl -fsSL "$GOLANG_PKG" -o $DLFILE && \
+	  sudo bash -c "rm -rf /usr/local/go && tar -C /usr/local -xzf $DLFILE" && \
+	  rm "$DLFILE"
+	} || {
+	  echo
+	  echo "skipping golang!"
+	}
+else
+	# install golang
+	echo "installing golang..."
+	sudo -v
+	curl -fsSL "$GOLANG_PKG" -o "$DLFILE" && \
+		sudo bash -c "tar -C /usr/local -xzf $DLFILE" && \
+		rm $DLFILE
+	echo "installation complete!"
+	exit 0
 fi
-
-sudo -v
-
-[ "$decision" = "y" ] && {
-  GOLANG_PKG="https://go.dev"$GOLANG_DL_STR
-  curl -fsSL "$GOLANG_PKG" -o golang.tar.gz && \
-  sudo bash -c "rm -rf /usr/local/go && tar -C /usr/local -xzf golang.tar.gz" && \
-  rm golang.tar.gz
-} || {
-  echo
-  echo "skipping golang!"
-}
 
 sudo -v
 
