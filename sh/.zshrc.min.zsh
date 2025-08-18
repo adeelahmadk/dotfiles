@@ -1,5 +1,6 @@
 ### ---- PATH init ------------------------------------------
-export PATH=$HOME/bin:$HOME/.local/bin:$PATH
+export PATH=/usr/sbin:$PATH
+#export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 ### ---- ZSH HOME -------------------------------------------
 if [[ ! -d "$HOME/.config/zsh" ]]; then

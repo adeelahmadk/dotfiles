@@ -77,6 +77,33 @@ alias ee="eza --color=always --group-directories-first --long --git --no-filesiz
 alias et="eza --color=always --group-directories-first --tree --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias elt="eza --color=always --group-directories-first --long --tree --git --icons=always --hyperlink --header"
 
+## ---- package management (apt, flatpak) ----
+if command -v apt > /dev/null ;  then
+  alias aud='sudo sh -c "apt update"'
+  alias aug='sudo sh -c "apt upgrade"'
+  alias aprm='sudo sh -c "apt remove"'
+  alias a2rm='sudo sh -c "apt autoremove"'
+  alias aptin='sudo sh -c "apt install"'
+  alias aptls='apt list --upgradable'
+  alias apts='apt search'
+  alias upd='sudo sh -c "apt update && apt upgrade -y && apt autoremove -y"'
+  
+  # apt update count
+  alias upc='echo "$(apt-get -q -y --allow-change-held-packages --allow-unauthenticated -s dist-upgrade 2>/dev/null | grep ^Inst | wc -l) update(s) avaiable"'
+
+  # package searching
+  alias whatigot="dpkg --get-selections | grep install | cut -f1 | less"
+  if command -v fzf >/dev/null; then
+    alias aptman="comm -12 <(dpkg --get-selections | grep install | cut -f1 | sort) <(apt-mark showmanual | sort) | fzf"
+  fi
+fi
+
+if command -v flatpak > /dev/null ;  then
+  alias fpls='flatpak list'
+  alias fpud='flatpak update -y'
+  alias fpcl='flatpak uninstall --unused -y'
+fi
+
 ## ---- custom application functions ----
 alias mergepdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged_file.pdf'
 
@@ -93,9 +120,9 @@ alias fnorm='for f in *\ *; do mv "$f" "${f// /_}"; done'
 alias fzb='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 # network admin commands
-alias wlsig="nmcli device wifi | awk -f $HOME/.config/scripts/wlsig.awk"
 alias pingg='ping 8.8.8.8 -c'
 alias wlsig="nmcli device wifi | awk -f $HOME/.config/scripts/wlsig.awk"
+alias wlpwr="nmcli device wifi | awk -f $HOME/.config/scripts/ssid_sig.awk"
 alias pubip='curl -s "https://api.ipify.org" ; echo'
 alias hdrchk='curl -o /dev/null --max-time 3 --silent --write-out "HTTP Status: %{http_code}\n"'
 #alias lslp='netstat -lntup'

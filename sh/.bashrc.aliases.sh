@@ -91,21 +91,24 @@ alias aptin='sudo sh -c "apt install"'
 alias aptls='apt list --upgradable'
 alias apts='apt search'
 alias upd='sudo sh -c "apt update && apt upgrade -y && apt autoremove -y"'
-# nala
-alias nuls='nala list --upgradable'
-alias nf='nala search'
-alias nup='sudo sh -c "nala upgrade -y && nala autoremove -y"'
-# flatpak
-alias fpls='flatpak list'
-alias fpud='flatpak update -y'
-alias fpcl='flatpak uninstall --unused -y'
-# upgrade from all managers
-alias upall='sudo sh -c "apt update && apt upgrade -y && apt autoremove -y" && flatpak update -y && flatpak uninstall --unused -y'
 # apt upadte count
 alias upc='echo "$(apt-get -q -y --allow-change-held-packages --allow-unauthenticated -s dist-upgrade 2>/dev/null | grep ^Inst | wc -l) update(s) avaiable"'
 # package searching
 alias whatigot="dpkg --get-selections | grep install | cut -f1"
 alias aptman="comm -12 <(dpkg --get-selections | grep install | cut -f1 | sort) <(apt-mark showmanual | sort)"
+
+# nala
+alias nuls='nala list --upgradable'
+alias nf='nala search'
+alias nup='sudo sh -c "nala upgrade -y && nala autoremove -y"'
+
+# flatpak
+alias fpls='flatpak list'
+alias fpud='flatpak update -y'
+alias fpcl='flatpak uninstall --unused -y'
+
+# upgrade from all managers
+alias upall='sudo sh -c "apt update && apt upgrade -y && apt autoremove -y" && flatpak update -y && flatpak uninstall --unused -y'
 
 ## ---- system admin commands ----
 alias lsproc='ps -ef | grep'
