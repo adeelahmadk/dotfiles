@@ -70,10 +70,12 @@ alias lsf='ls -lh | grep -E -v "^d"'
 
 alias ez="eza --color=always --group-directories-first --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias ea="eza --color=always --group-directories-first --no-filesize --icons=always --no-time --no-user --no-permissions -A"
+alias ezm="eza --color=always --group-directories-first --no-filesize --icons=always --no-time --no-user --no-permissions --sort modified --reverse"
 alias el="eza --color=always --group-directories-first --long --git --icons=always --header"
 alias ela="eza --color=always --group-directories-first --long --git --icons=always --header -A"
+alias elm="eza --color=always --group-directories-first --long --git --icons=always --header --sort modified --reverse"
 alias ee="eza --color=always --group-directories-first --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
-alias ee="eza --color=always --group-directories-first --long --git --no-filesize --icons=always --no-time --no-user --no-permissions -A"
+alias eea="eza --color=always --group-directories-first --long --git --no-filesize --icons=always --no-time --no-user --no-permissions -A"
 alias et="eza --color=always --group-directories-first --tree --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias elt="eza --color=always --group-directories-first --long --tree --git --icons=always --hyperlink --header"
 
@@ -135,11 +137,10 @@ alias weather="curl -i wttr.in"
 # #################
 
 # load nvim with custom configs
-alias nvi="NVIM_APPNAME=nvim-minimal /opt/nvim/bin/nvim"
-alias nvl="NVIM_APPNAME=nvim-lite nvim"
-alias nvc="NVIM_APPNAME=nvim-nvchad nvim"
+alias nvu="NVIM_APPNAME=nvim /opt/nvim/bin/nvim"
+alias nvi="NVIM_APPNAME=nvim-trim /opt/nvim/bin/nvim"
+alias nvt="NVIM_APPNAME=nvim-trim nvim"
 alias lzv="NVIM_APPNAME=nvim-lazyvim nvim"
-alias nvks="NVIM_APPNAME=nvim-ks nvim"
 
 # GNU assembler with intel syntax
 alias asin="as -msyntax=intel -mnaked-reg"

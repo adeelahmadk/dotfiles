@@ -2,7 +2,8 @@
 
 export PATH=$PATH:/usr/local/go/bin:$HOME/.cargo/bin
 
-#[ -d "$HOME/.local/bin" ] && export PATH=$PATH:$HOME/.local/bin
+[ -d "$HOME/bin" ] && export PATH=$PATH:$HOME/bin
+[ -d "$HOME/.local/bin" ] && export PATH=$PATH:$HOME/.local/bin
 
 ## ---- setup env vars -------------------------------------
 export GOPATH="$HOME/.local/go"
