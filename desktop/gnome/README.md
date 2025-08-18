@@ -2,13 +2,18 @@
 
 ## Gnome Shell
 
-Backup your config using:
+| File                             | Dconf Path                     |
+| -------------------------------- | ------------------------------ |
+| `gnome-shell-ext.conf`           | `/org/gnome/shell/extensions/` |
+| `gnome-shell-backup-trixie.conf` | `/org/gnome/shell/`            |
+
+**Backup** your config using:
 
 ```shell
 dconf dump /org/gnome/shell/extensions/ > gnome-shell-ext.conf
 ```
 
-Restore using:
+and **restore** using:
 
 ```shell
 dconf load /org/gnome/shell/extensions/ < gnome-shell-ext.conf

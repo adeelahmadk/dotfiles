@@ -77,13 +77,13 @@ The shell script directory also contains configuration files to setup a function
 
 ## Terminal
 
-The information on terminal configurations can be found [here](./term.md).
+The information on DE specific configurations for alacritty terminal can be found [here](./term.md).
 
 ## Desktop Configurations
 
 - Gnome Shell: minimal configuration with tiling, 
 - Pop Shell: customized configuration
-- i3wm
+- i3wm: config files for my `i3wm` setup.
 
 ## Conky
 
@@ -181,14 +181,6 @@ City ID list is available in the [compressed json file](https://bulk.openweather
    ![alt text](.assets/starwarp-loaded00.png "starwarp desktop")
 
 ![alt text](.assets/starwarp-loaded02.png "starwarp desktop")
-
-
-
-## Tiling WM configurations
-
-### i3
-
-The `wm/i3` directory contains config files for my i3 WM setup.
 
 
 
