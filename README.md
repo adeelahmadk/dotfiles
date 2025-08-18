@@ -14,6 +14,13 @@ A collection of config files used to setup and maintain a uniform development en
 
 
 
+## Initial Setup
+
+There are scripts for inital setup of a fresh install:
+
+- `setup_init.sh`: initial setup for cli and conky
+- `setup_env.sh`: setup a base dev env (python, node, rust, go, alacritty, starship prompt, latex) 
+
 ## bashrc
 
 ### Aliases and Functions
@@ -55,11 +62,7 @@ For detailed information on bash functions and aliases look at relavent [readme 
 
 ![alt text](.assets/starship-shot.png "Bash prompt")
 
-### Inital Setup
 
-There are scripts for inital setup of a fresh install:
-- `setup_init.sh`: initial setup for cli and conky
-- `setup_env.sh`: setup a base dev env (python, node, rust, go, alacritty, starship prompt, latex) 
 
 ## zshrc
 
@@ -75,6 +78,12 @@ The shell script directory also contains configuration files to setup a function
 ## Terminal
 
 The information on terminal configurations can be found [here](./term.md).
+
+## Desktop Configurations
+
+- Gnome Shell: minimal configuration with tiling, 
+- Pop Shell: customized configuration
+- i3wm
 
 ## Conky
 
