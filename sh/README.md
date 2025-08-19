@@ -1,6 +1,6 @@
 # BASH Aliases and Functions
 
-## Scripts
+## Shell Setup Scripts
 
 | File | Description |
 | -------- | ----------- |
@@ -16,9 +16,16 @@
 | `.zshrc.aliases.sh` | aliases |
 | `.zshrc.functions.sh` | functions and `zle` widgets for task automation |
 | `setup_zsh.sh` | a script to setup the `zsh` configuration |
-| `themecli` | light/dark theme swticher for alacritty & vim |
-| `themegtk` | theme switcher for gtk |
+
+## Automation Scripts
+
+| File       | Description                                               |
+| ---------- | --------------------------------------------------------- |
+| `themecli` | light/dark theme swticher for alacritty & vim             |
+| `themegtk` | theme switcher for gtk                                    |
 | `themepop` | light/dark theme switcher for Pop OS (<=22.04, Pop Shell) |
+
+Information on config and env vars related to automation script can be found in [here](../config/README.md).
 
 ## Shell Aliases
 

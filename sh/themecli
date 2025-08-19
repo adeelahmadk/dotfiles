@@ -17,7 +17,7 @@ PROGNAME=`basename $0`
 __awk=`which awk`
 __grep=`which grep`
 __sed=`which sed`
-_CLI_CONF=
+_CLI_CONF=  # major dep: path to config file
 _theme_state=
 _new_state=
 

@@ -6,11 +6,11 @@ A collection of config files used to setup and maintain a uniform development en
 2. [bashrc](#bashrc)
 3. [zshrc](#zshrc)
 4. [Terminal](#Terminal)
+4. [Env Files](#Env-Files)
 5. [Desktop Configurations](#Desktop-Configurations)
     1. Gnome Shell
     2. Pop Shell
     3. i3wm
-
 6. [Conky](#Conky)
     1. [Setup dependencies](#setup-dependencies)
     2. [Autostart conky on startup](#autostart-conky-on-startup)
@@ -82,6 +82,10 @@ The shell script directory also contains configuration files to setup a function
 ## Terminal
 
 The information on DE specific configurations for alacritty terminal can be found [here](./term.md).
+
+## Env Files
+
+[Files](config/README.md) to manage environment variables for personal automation scripts.
 
 ## Desktop Configurations
 
