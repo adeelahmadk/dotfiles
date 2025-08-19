@@ -1,16 +1,20 @@
 # Linux Desktop Environment config files
-A collection of config files used to setup and maintain a uniform development environment across different machines and  distros (hopefully! :stuck_out_tongue_winking_eye: )
+A collection of config files used to setup and maintain a uniform development environment across different machines and distros (hopefully! :stuck_out_tongue_winking_eye: )
 
 ## Contents
-1. [bashrc](#bashrc)
-2. [zshrc](#zshrc)
-3. [Terminal](#Terminal)
-4. [Conky](#Conky)
+1. [Initial Setup](#Initial-Setup)
+2. [bashrc](#bashrc)
+3. [zshrc](#zshrc)
+4. [Terminal](#Terminal)
+5. [Desktop Configurations](#Desktop-Configurations)
+    1. Gnome Shell
+    2. Pop Shell
+    3. i3wm
+
+6. [Conky](#Conky)
     1. [Setup dependencies](#setup-dependencies)
     2. [Autostart conky on startup](#autostart-conky-on-startup)
     3. [Screenshots](#screenshots)
-5. [Tiling WM configurations](#Tiling-WM-configurations)
-  1. [i3](#i3)
 
 
 
