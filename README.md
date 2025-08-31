@@ -83,6 +83,13 @@ The shell script directory also contains configuration files to setup a function
 
 The information on DE specific configurations for alacritty terminal can be found [here](./term.md).
 
+## IDE Config
+
+Configuration and setting files for commonly used [IDEs](./ide/README.md):
+
+- VS Codium
+- Zed Editor
+
 ## Env Files
 
 [Files](config/README.md) to manage environment variables for personal automation scripts.

@@ -22,4 +22,5 @@ eval "$(zoxide init bash)"
 source "$BASH_COMPLETION_USER_DIR/alacritty.bash"
 source "$BASH_COMPLETION_USER_DIR/git-completion.bash"
 #source "$HOME/.bash-completion/git-completion.bash"
-
+eval "$(uv generate-shell-completion bash)"
+eval "$(uvx generate-shell-completion bash)"

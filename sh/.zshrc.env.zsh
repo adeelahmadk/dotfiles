@@ -24,3 +24,5 @@ export NVM_DIR="$HOME/.nvm"
 # starship prompt,zoxide smart `cd`
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(uv --generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"

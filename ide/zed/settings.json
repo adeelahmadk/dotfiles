@@ -13,8 +13,8 @@
   },
   "theme": {
     "mode": "system",
-    "light": "Gruvbox Dark Hard",
-    "dark": "Catppuccin Mocha"
+    "light": "Quiet Light",
+    "dark": "Catppuccin Macchiato"
   },
   "ui_font_size": 16,
   "buffer_font_size": 16,

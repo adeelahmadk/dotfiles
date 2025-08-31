@@ -197,6 +197,28 @@ function vwm() {
 }
 
 ###############################################
+# Search and print info about an apt package
+#
+# Globals:
+#   None
+# Arguments:
+#   A string keyword to search
+# Returns:
+#   None
+###############################################
+if command -v apt > /dev/null; then
+
+function aptdesc() {
+    [ "$#" -ne 1 ] && echo "Usage: aptdesc PACKAGE" >&2 && return 2
+    __aptcache=$(which apt-cache)
+    __awk=$(which awk)
+    $__aptcache show "$1" |
+        $__awk '/Package:/ {print} /Version:/ {print} /Description.*:/ {p=1} /Description-md5/ {p=0;exit}p;'
+}
+
+fi
+
+###############################################
 # Search and print info about a package in
 # arch repo
 #
@@ -207,6 +229,8 @@ function vwm() {
 # Returns:
 #   None
 ###############################################
+if command -v pacman > /dev/null; then
+
 function pacdesc() {
     [ "$#" -ne 1 ] && echo "Usage: pacdesc PACKAGE" >&2 && return 2
     local __pacman=$(command -v pacman)
@@ -214,6 +238,8 @@ function pacdesc() {
     $__pacman -Si "$1" |
         $__awk '/Name/ {print} /Version/ {print} /Description.*/ {p=1} /Architecture/ {p=0;exit}p;'
 }
+
+fi
 
 ###############################################
 # Search and print docstring of a function in
