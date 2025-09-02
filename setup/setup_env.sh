@@ -28,9 +28,10 @@ fi
 
 if [[ "$_DIST" == "debian" || "$_DIST" == "ubuntu" ]]; then
     sudo apt install -y \
+        software-properties-common \
         gparted ffmpeg \
         git make curl ripgrep \
-    	pkg-config build-essential libfontconfig1-dev \
+        pkg-config build-essential libfontconfig1-dev \
         htop tree ncdu ranger \ # lm-sensors
         python3-pip python3-venv python3-argcomplete pipx \
         html-xml-utils source-highlight \
