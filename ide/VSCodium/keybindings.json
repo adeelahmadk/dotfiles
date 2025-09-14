@@ -1,0 +1,43 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "ctrl+meta+down",
+        "command": "editor.action.transformToLowercase"
+    },
+    {
+        "key": "ctrl+meta+up",
+        "command": "editor.action.transformToUppercase"
+    },
+    {
+        "key": "ctrl+meta+c",
+        "command": "editor.action.transformToCamelcase"
+    },
+    {
+        "key": "ctrl+meta+s",
+        "command": "editor.action.transformToSnakecase"
+    },
+    {
+        "key": "ctrl+meta+k",
+        "command": "editor.action.transformToKebabcase"
+    },
+    {
+        "key": "ctrl+shift+meta+down",
+        "command": "editor.action.copyLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+alt+down",
+        "command": "-editor.action.copyLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+meta+up",
+        "command": "editor.action.copyLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+alt+up",
+        "command": "-editor.action.copyLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
+    }
+]

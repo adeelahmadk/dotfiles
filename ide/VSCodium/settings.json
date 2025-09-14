@@ -1,0 +1,23 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.sideBar.location": "right",
+    "explorer.autoReveal": false,
+    "editor.formatOnType": true,
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on"
+    },
+    "editor.cursorBlinking": "phase",
+    "editor.cursorStyle": "line",
+    "editor.guides.bracketPairs": "active",
+    "editor.guides.indentation": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false,
+    "editor.lineHeight": 22,
+    "editor.fontFamily": "'FiraCode Nerd Font Mono', 'monospace', monospace",
+    "editor.fontLigatures": true,
+    "cSpell.userWords": [
+        "Adeel"
+    ]
+}
