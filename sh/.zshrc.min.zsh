@@ -2,7 +2,7 @@
 # Ensure 'path' array & 'PATH' var contain unique elements
 typeset -U path PATH
 
-#export PATH=/usr/sbin:$PATH
+# insert from head
 path=(/usr/sbin "$path[@]")
 
 ### ---- ZSH HOME -------------------------------------------

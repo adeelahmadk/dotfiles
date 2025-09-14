@@ -1,10 +1,9 @@
 ## ---- Append Paths ---------------------------------------
 
-#export PATH=$PATH:/usr/local/go/bin:$HOME/.cargo/bin
 path+=(/usr/local/go/bin $HOME/.cargo/bin)
 
-[ -d "$HOME/bin" ] && export PATH=$PATH:$HOME/bin
-[ -d "$HOME/.local/bin" ] && export PATH=$PATH:$HOME/.local/bin
+[ -d "$HOME/bin" ] && path+=($HOME/bin)
+[ -d "$HOME/.local/bin" ] && path+=($HOME/.local/bin)
 
 ## ---- setup env vars -------------------------------------
 export GOPATH="$HOME/.local/go"

@@ -208,18 +208,25 @@ function vwm() {
 #   None
 ###############################################
 function csvw() {
-  if [[ "$#" -lt 1 ]] || [[ "$#" -gt 2 ]]; then
+  if [[ ! -p /dev/stdin ]] && [[ "$#" -lt 1 ]] || [[ "$#" -gt 2 ]]; then
     echo "Uasage: ${0} [SEP] Row\n" >&2
     echo "    SEP  Field separator, defaults to ':'" >&2
     echo "    ROW  A row of CSV data" >&2
   fi
 
   _FS=":"
-  if [ "$#" -eq 1 ]; then
-    _LST="$1"
-  elif [ "$#" -eq 2 ]; then
-    _FS="$1"
-    _LST="$2"
+  if [[ -p /dev/stdin ]]; then
+    read -r _LST
+    if [ "$#" -eq 1 ]; then
+      _FS="$1"
+    fi
+  else
+    if [ "$#" -eq 1 ]; then
+      _LST="$1"
+    elif [ "$#" -eq 2 ]; then
+      _FS="$1"
+      _LST="$2"
+    fi
   fi
 
   echo "$_LST" | tr "$_FS" "\n"
