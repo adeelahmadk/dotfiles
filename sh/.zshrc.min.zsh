@@ -1,6 +1,9 @@
 ### ---- PATH init ------------------------------------------
-export PATH=/usr/sbin:$PATH
-#export PATH=$HOME/bin:$HOME/.local/bin:$PATH
+# Ensure 'path' array & 'PATH' var contain unique elements
+typeset -U path PATH
+
+#export PATH=/usr/sbin:$PATH
+path=(/usr/sbin "$path[@]")
 
 ### ---- ZSH HOME -------------------------------------------
 if [[ ! -d "$HOME/.config/zsh" ]]; then

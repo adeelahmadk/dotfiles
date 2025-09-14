@@ -197,6 +197,35 @@ function vwm() {
 }
 
 ###############################################
+# Lists CSV fileds in rows
+#
+# Globals:
+#   None
+# Arguments:
+#   An optional field separator
+#   A CSV row
+# Returns:
+#   None
+###############################################
+function csvw() {
+  if [[ "$#" -lt 1 ]] || [[ "$#" -gt 2 ]]; then
+    echo "Uasage: ${0} [SEP] Row\n" >&2
+    echo "    SEP  Field separator, defaults to ':'" >&2
+    echo "    ROW  A row of CSV data" >&2
+  fi
+
+  _FS=":"
+  if [ "$#" -eq 1 ]; then
+    _LST="$1"
+  elif [ "$#" -eq 2 ]; then
+    _FS="$1"
+    _LST="$2"
+  fi
+
+  echo "$_LST" | tr "$_FS" "\n"
+}
+
+###############################################
 # Search and print info about an apt package
 #
 # Globals:
@@ -214,6 +243,24 @@ function aptdesc() {
     __awk=$(which awk)
     $__aptcache show "$1" |
         $__awk '/Package:/ {print} /Version:/ {print} /Description.*:/ {p=1} /Description-md5/ {p=0;exit}p;'
+}
+
+fi
+
+###############################################
+# Search and print info about an apt package
+#
+# Globals:
+#   None
+# Arguments:
+#   A string keyword to search
+# Returns:
+#   None
+###############################################
+if command -v npm > /dev/null; then
+
+function ndesc() {
+
 }
 
 fi

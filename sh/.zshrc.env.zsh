@@ -1,6 +1,7 @@
 ## ---- Append Paths ---------------------------------------
 
-export PATH=$PATH:/usr/local/go/bin:$HOME/.cargo/bin
+#export PATH=$PATH:/usr/local/go/bin:$HOME/.cargo/bin
+path+=(/usr/local/go/bin $HOME/.cargo/bin)
 
 [ -d "$HOME/bin" ] && export PATH=$PATH:$HOME/bin
 [ -d "$HOME/.local/bin" ] && export PATH=$PATH:$HOME/.local/bin
