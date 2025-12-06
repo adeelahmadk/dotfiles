@@ -109,6 +109,10 @@ fi
 ## ---- custom application functions ----
 alias mergepdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged_file.pdf'
 
+alias ffmpeg='ffmpeg -hide_banner'
+alias ffplay='ffplay -hide_banner -autoexit'
+alias ffprobe='ffprobe -hide_banner'
+
 ## ---- system admin commands ----
 alias lsproc='ps -ef | grep'
 alias ldsk='mount|grep /dev/sd|cut -f1-3 -d" "|sort'
@@ -153,6 +157,9 @@ alias lzg="lazygit"
 alias nls="npm list -g --depth=0"
 alias nig="npm i -g"
 
+# web server
+alias srvit="python3 -m http.server"
+
 ## ---- vcs command aliases ----
 alias gits="git status"
 alias ga="git add ."
@@ -166,6 +173,11 @@ alias gcll="git config --list --local"
 alias gss="git log --stat --summary"
 alias gl1="git log --pretty=oneline"
 alias ggr="git rev-parse --show-toplevel>/dev/null 2>&1 && cd \$(git rev-parse --show-toplevel) || ( echo 'Not a git repo!'; exit 1; )"
+
+
+## ---- conda command aliases ----
+alias cact="conda activate"
+alias cdact="conda deactivate"
 
 ## dev env one-liners
 alias repos="find . -name .git -type d -prune -exec dirname {} \;"

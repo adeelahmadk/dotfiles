@@ -9,6 +9,7 @@ path+=(/usr/local/go/bin $HOME/.cargo/bin)
 export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
 export PATH=$PATH:$GOBIN
+export VENV="$HOME/.local/share/venvs"
 
 ## ---- initialize cli tools -------------------------------
 

@@ -14,7 +14,7 @@
   "theme": {
     "mode": "system",
     "light": "Quiet Light",
-    "dark": "Catppuccin Macchiato"
+    "dark": "Catppuccin Mocha"
   },
   "ui_font_size": 16,
   "buffer_font_size": 16,
@@ -22,5 +22,15 @@
   "buffer_font_features": {
     "calt": true,
     "liga": true
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "es5",
+    "printWidth": 120,
+    "tabWidth": 2,
+    "useTabs": false,
+    "bracketSpacing": true,
+    "arrowParens": "avoid"
   }
 }

@@ -1,0 +1,75 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-super-shift-down": "editor::DuplicateLineDown"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-super-shift-up": "editor::DuplicateLineUp"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-super-up": "editor::ConvertToUpperCase"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-super-down": "editor::ConvertToLowerCase"
+    }
+  },
+  {
+    "context": "Editor",
+      "bindings": {
+      "ctrl-super-c": "editor::ConvertToLowerCamelCase"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-super-s": "editor::ConvertToSnakeCase"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-super-k": "editor::ConvertToKebabCase"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-super-shift-t": "editor::ConvertToTitleCase"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-super-shift-c": "editor::ConvertToUpperCamelCase"
+    }
+  }
+]

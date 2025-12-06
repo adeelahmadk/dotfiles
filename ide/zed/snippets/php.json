@@ -1,0 +1,62 @@
+{
+  "If Selection": {
+    "prefix": "if",
+    "body": ["if ($1) {", "  $0", "}"],
+    "description": "If control structure"
+  },
+  "If-Else Selection": {
+    "prefix": "ife",
+    "body": ["if ($1) {", "  $2", "} else {", "  $0", "}"],
+    "description": "If-Else control structure"
+  },
+  "For-Each Loop": {
+    "prefix": "fore",
+    "body": ["foreach ($1 as $2) {", "  $0", "}"],
+    "description": "For-Each iteration structure"
+  },
+  "Anonymous Function": {
+    "prefix": "anf",
+    "body": ["function ($1) { $0 }"],
+    "description": "Anonymous function definition"
+  },
+  "Public Function": {
+    "prefix": "pubf",
+    "body": [
+      "public function $1($2): ${3:void}",
+      "{",
+      "  $0", // Final cursor position
+      "}"
+    ],
+    "description": "Public function definition"
+  },
+  "Public Static Function": {
+    "prefix": "pubsf",
+    "body": [
+      "public static function $1($2): ${3:void}",
+      "{",
+      "  $0", // Final cursor position
+      "}"
+    ],
+    "description": "Public static function definition"
+  },
+  "Protected Function": {
+    "prefix": "prtf",
+    "body": [
+      "protected function $1($2): ${3:void}",
+      "{",
+      "  $0", // Final cursor position
+      "}"
+    ],
+    "description": "Protected function definition"
+  },
+  "Private Function": {
+    "prefix": "prvf",
+    "body": [
+      "private function $1($2): ${3:void}",
+      "{",
+      "  $0", // Final cursor position
+      "}"
+    ],
+    "description": "Private function definition"
+  }
+}
