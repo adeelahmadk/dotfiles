@@ -1,6 +1,6 @@
 # zed Editor Settings
 
-Symlink the `settings.json` directory to `~/.config/zed/settings.json`
+Symlink the `settings.json` file to `~/.config/zed/settings.json`
 
 ## Extensions
 
