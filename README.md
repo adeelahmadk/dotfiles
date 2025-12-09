@@ -48,7 +48,7 @@ fi
 
 For changes to take effect either run `source ~/.bashrc` from terminal or logout and login.
 
-### `.bashrc.cpwd.sh`: Custom Prompt and Aliases
+### Custom Prompts
 
 Both files, in addition to custom aliases and functions, print a custom prompt and are differentiated as follows:
 
@@ -73,7 +73,7 @@ For detailed information on bash functions and aliases look at relavent [readme 
 The shell script directory also contains configuration files to setup a functional `zsh` environment.
 
 - `.zshrc.min.zsh`: minimal `zsh` configuration
-- `.zshrc.min.zsh`: a relatively robust `zsh` configuration using `zim` framework
+- `.zshrc.zim.zsh`: a relatively robust `zsh` configuration using `zim` framework
 - `.zshrc.env.sh`: paths and env vars
 - `.zshrc.aliases.sh`: aliases
 - `.zshrc.functions.sh`: functions and `zle` widgets for task automation

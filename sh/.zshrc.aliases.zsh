@@ -109,9 +109,9 @@ fi
 ## ---- custom application functions ----
 alias mergepdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged_file.pdf'
 
-alias ffmpeg='ffmpeg -hide_banner'
-alias ffplay='ffplay -hide_banner -autoexit'
-alias ffprobe='ffprobe -hide_banner'
+alias ffmp='ffmpeg -hide_banner'
+alias ffpl='ffplay -hide_banner -autoexit'
+alias ffpr='ffprobe -hide_banner'
 
 ## ---- system admin commands ----
 alias lsproc='ps -ef | grep'
