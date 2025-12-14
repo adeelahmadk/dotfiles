@@ -93,6 +93,13 @@ if command -v apt > /dev/null ;  then
   # apt update count
   alias upc='echo "$(apt-get -q -y --allow-change-held-packages --allow-unauthenticated -s dist-upgrade 2>/dev/null | grep ^Inst | wc -l) update(s) avaiable"'
 
+  # nala front-end
+  if command -v nala > /dev/null ;  then
+    alias nuls='nala list --upgradable'
+    alias nf='nala search'
+    alias nup='sudo sh -c "nala upgrade -y && nala autoremove -y"'
+  fi
+
   # package searching
   alias whatigot="dpkg --get-selections | grep install | cut -f1 | less"
   if command -v fzf >/dev/null; then
