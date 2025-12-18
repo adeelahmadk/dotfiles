@@ -39,6 +39,15 @@ insert_sudo() {
 zle -N insert_sudo
 bindkey '\es' insert_sudo # Bind ESC+S
 
+correct_command() {
+    local line="$BUFFER"
+    local arg_list="$(echo "$line" | head -n1 | awk '{$1="";print $0;}')"
+    BUFFER="$arg_list";
+    zle beginning-of-line;
+}
+zle -N correct_command
+bindkey '\ee' correct_command # Bind ESC+E
+
 bindkey '^[[H' beginning-of-line # Bind Home
 
 bindkey '^[[F' end-of-line # Bind END
@@ -354,5 +363,27 @@ function intip6() {
     | grep -E '^.*inet6' \
     | awk '{print $2}' \
     | cut -d/ -f1
+}
+
+###############################################
+# Search and print info about a remote flatpak
+# application or runtime.
+# Globals:
+#   None
+# Arguments:
+#   A string keyword to search
+# Returns:
+#   None
+###############################################
+function fpfind() {
+    [ "$#" -eq 0 ] && echo "Usage: fpfind APP" >&2 && return 2
+    __awk=$(which awk)
+    __grep=$(which grep)
+    __fpack=$(which flatpak)
+    echo "Searching for the app flatpak remotes..."
+    RES=$($__fpack search "$1" | $__grep -i "$1" | $__awk -F'\t' '{print $(NF-3) "-" $NF;}')
+    IFS=- read REF REMOTE <<<$RES
+    echo "Looking up REF:${REF} in REMOTE:${REMOTE}..."
+    $__fpack remote-info $REMOTE $REF || echo "flatpak remote-info failed!" >&2
 }
 
