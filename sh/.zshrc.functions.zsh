@@ -48,6 +48,11 @@ correct_command() {
 zle -N correct_command
 bindkey '\ee' correct_command # Bind ESC+E
 
+# open buffer line in editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
 bindkey '^[[H' beginning-of-line # Bind Home
 
 bindkey '^[[F' end-of-line # Bind END
@@ -383,6 +388,7 @@ function fpfind() {
     echo "Searching for the app flatpak remotes..."
     RES=$($__fpack search "$1" | $__grep -i "$1" | $__awk -F'\t' '{print $(NF-3) "-" $NF;}')
     IFS=- read REF REMOTE <<<$RES
+    [ "$REF" = "" -o "$REMOTE" = "" ] && { echo "$1: no match found!"; return 1; }
     echo "Looking up REF:${REF} in REMOTE:${REMOTE}..."
     $__fpack remote-info $REMOTE $REF || echo "flatpak remote-info failed!" >&2
 }

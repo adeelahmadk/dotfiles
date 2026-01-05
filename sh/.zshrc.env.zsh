@@ -10,7 +10,7 @@ export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
 export PATH=$PATH:$GOBIN
 export VENV="$HOME/.local/share/venvs"
-
+export LIBVIRT_DEFAULT_URI='qemu:///system'
 ## ---- initialize cli tools -------------------------------
 
 # source scripts: activate apps, aliases, functions
