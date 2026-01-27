@@ -132,13 +132,14 @@ alias fnorm='for f in *\ *; do mv "$f" "${f// /_}"; done'
 ## fuzzy find with file preview
 alias fzb='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
-# network admin commands
+## network admin commands
 alias pingg='ping 8.8.8.8 -c'
 alias wlsig="nmcli device wifi | awk -f $HOME/.config/scripts/wlsig.awk"
 alias wlpwr="nmcli device wifi | awk -f $HOME/.config/scripts/ssid_sig.awk"
 alias pubip='curl -s "https://api.ipify.org" ; echo'
 alias hdrchk='curl -o /dev/null --max-time 3 --silent --write-out "HTTP Status: %{http_code}\n"'
 #alias lslp='netstat -lntup'
+alias lsport="sudo lsof -i -P -n | grep LISTEN"
 
 # weather update
 alias weather="curl -i wttr.in"
