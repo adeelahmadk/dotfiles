@@ -486,4 +486,21 @@ function envls() {
         ls -lh --group-directories-first "$VENV/"
 }
 
+###############################################
+# Print colorized help via bat
+# home directory.
+# Globals:
+#   None
+# Arguments:
+#   Name of an executable
+# Returns:
+#   None
+###############################################
+function hlp() {
+  [ "$#" -ne 1 -o -z $(command -v bat) ] && return 1
+  [ -z $(command -v "$1") ] && { echo "$1: command not found"; return 1; }
+  _CMD=$(command -v "$1")
+  _PAGER=$(command -v bat)
+  $_CMD --help | $_PAGER -l help --style=-numbers
+}
 
