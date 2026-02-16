@@ -10,6 +10,7 @@ export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
 export PATH=$PATH:$GOBIN
 export VENV="$HOME/.local/share/venvs"
+export VENV0="$HOME/.local/share/venvs/py313"
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 [ -n $(command -v source-highlight) ] && {

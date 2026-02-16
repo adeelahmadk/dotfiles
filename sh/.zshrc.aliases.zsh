@@ -136,6 +136,9 @@ alias fzb='fzf --preview "bat --color=always --style=numbers --line-range=:500 {
 alias pingg='ping 8.8.8.8 -c'
 alias wlsig="nmcli device wifi | awk -f $HOME/.config/scripts/wlsig.awk"
 alias wlpwr="nmcli device wifi | awk -f $HOME/.config/scripts/ssid_sig.awk"
+# alias intip="ip -br a | grep -m1 'UP' | awk '{print \$3}' | sed 's|/[0-9]*||1'"
+alias defip="ip -br addr show $(ip route | awk '/default/ { print $5 }') | awk '{match(\$3, /^([0-9.]+)/, a); print a[0]}'"
+alias intip="hostname -I | awk '{print \$1}'"
 alias pubip='curl -s "https://api.ipify.org" ; echo'
 alias hdrchk='curl -o /dev/null --max-time 3 --silent --write-out "HTTP Status: %{http_code}\n"'
 #alias lslp='netstat -lntup'

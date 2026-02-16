@@ -425,3 +425,65 @@ function fpfind() {
     $__fpack remote-info $REMOTE $REF || echo "flatpak remote-info failed!" >&2
 }
 
+###############################################
+# Activate a python venv saved in a default
+# home directory.
+# Globals:
+#   VENV  Path to the venv home directory.
+# Arguments:
+#   Name of a directory containing a venv
+# Returns:
+#   None
+###############################################
+function envon() {
+    [ -z "$VENV" ] && {
+        echo "Default path to the venv direvtory not defined!"
+        return 1
+    }
+    [ "$#" -ne 1 -a ! -d "$VENV0" ] && {
+        echo "usage: envon <venv-name>"
+        return 1
+    }
+
+    [ "$#" -eq 0 ] && {
+    	source $VENV0"/bin/activate"
+    	return 0
+    }
+    
+    envdir="$VENV/$1"
+    [ ! -d "$envdir" ] &&
+        {
+            echo "$envdir: no such virtual env found!"
+            return 1
+        }
+    [ ! -f "$envdir/bin/activate" ] &&
+        {
+            echo "$1: virtual env missing activation script!"
+            return 1
+        }
+
+    source $envdir"/bin/activate"
+}
+
+###############################################
+# List all python venv's saved in a default
+# home directory.
+# Globals:
+#   $VENV  Path to the venv home directory.
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################
+function envls() {
+    [ -z "$VENV" ] && {
+        echo "Default path to the venv direvtory not defined!"
+        return 1
+    }
+    echo "venv(s) defined at the default path:"
+    [ -n $(command -v eza) ] && \
+        eza --color=always --group-directories-first --long --git --icons=always --header "$VENV/" || \
+        ls -lh --group-directories-first "$VENV/"
+}
+
+
