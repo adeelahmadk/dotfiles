@@ -7,21 +7,27 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "ollama": {
+      "model": "qwen2.5-coder:7b-base",
+    },
+    "provider": "zed",
+  },
   "icon_theme": "Catppuccin Mocha",
   "project_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "theme": {
     "mode": "system",
     "light": "Quiet Light",
-    "dark": "Catppuccin Mocha"
+    "dark": "Catppuccin Mocha",
   },
   "ui_font_size": 16,
   "buffer_font_size": 16,
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "buffer_font_features": {
     "calt": true,
-    "liga": true
+    "liga": true,
   },
   "prettier": {
     "singleQuote": true,
@@ -31,6 +37,6 @@
     "tabWidth": 2,
     "useTabs": false,
     "bracketSpacing": true,
-    "arrowParens": "avoid"
-  }
+    "arrowParens": "avoid",
+  },
 }
