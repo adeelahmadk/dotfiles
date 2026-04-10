@@ -181,8 +181,9 @@ function fzz() {
 }
 
 function fzp() {
+    [ -n "$1" ] && dir="$1" || dir="."
     # fuzzy find files in dir tree with highlighted preview (bat).
-    find "$1" -type f 2>/dev/null | fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"
+    find "$dir" -type f 2>/dev/null | fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"
 }
 
 function fzd() {
@@ -497,14 +498,18 @@ function envls() {
 #   None
 ###############################################
 function hlp() {
-	[ "$#" -ne 1 ] && return 1
+	[ "$#" -lt 1 ] && {
+    echo "usage: hlp CMD"
+    return 1
+  }
 
   # check if command exists
-	_CMD=$(command -v "$1")
-	[ -z "$_CMD" ] && {
+	[ ! $(command -v "$1") ] && {
 		echo "$1: command not found"
 		return 1
 	}
+  _CMD="$(command -v "$1")"
+  _ARG="${@:2}"
 
   # select pager
 	_PAGER=_
@@ -516,6 +521,6 @@ function hlp() {
 		return 1
 	fi
 
-	$_CMD --help | "$_PAGER[@]"
+	$_CMD $_ARG --help | "${_PAGER[@]}"
 }
 

@@ -58,7 +58,6 @@ if [[ -f "$ZSH/.zshrc_funcs" ]]; then
     . "$ZSH/.zshrc_funcs"
 fi
 
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/adeel/miniconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"

@@ -459,14 +459,26 @@ function shdoc() {
 #   None
 ###############################################
 function hlp() {
-  [ "$#" -ne 1 -o -z $(command -v bat) ] && return 1
-  [ -z $(command -v "$1") ] && {
+  [ "$#" -lt 1 ] && {
+    echo "usage: hlp CMD"
+    return 1
+  }
+  [ ! $(command -v "$1") ] && {
     echo "$1: command not found"
     return 1
   }
-  _CMD=$(command -v "$1")
-  _PAGER=$(command -v bat)
-  $_CMD --help | $_PAGER -l help --style=-numbers
+
+  _CMD="$(command -v "$1") ${@:2}"
+  _PAGER=_
+  if [ -n $(command -v bat) ]; then
+    _PAGER=($(command -v bat) "-lhelp" "--style=-numbers")
+  elif [ -z $(command -v less) ]; then
+    _PAGER=($(command -v less))
+  else
+    return 1
+  fi
+
+  $_CMD --help | "${_PAGER[@]}"
 }
 
 ###############################################

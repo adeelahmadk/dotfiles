@@ -120,6 +120,10 @@ alias ffmp='ffmpeg -hide_banner'
 alias ffpl='ffplay -hide_banner -autoexit'
 alias ffpr='ffprobe -hide_banner'
 
+if command -v rkhunter >/dev/null; then
+  alias rkhup='sudo rkhunter --update && sudo rkhunter --propupd'
+fi
+
 ## ---- system admin commands ----
 alias lsproc='ps -ef | grep'
 alias ldsk='mount|grep /dev/sd|cut -f1-3 -d" "|sort'
