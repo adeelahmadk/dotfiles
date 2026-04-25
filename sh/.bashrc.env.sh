@@ -1,7 +1,15 @@
-## ---- setup env vars -------------------------------------
+################################################################
+#  Define Env Vars
+#  for dev tools and frequently used paths etc.
+################################################################
 export BASH_COMPLETION_USER_DIR="$HOME/.local/share/bash-completion/completions"
 export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
+# virtual envs
+export VENV=$HOME/.local/share/venvs
+export VENV0=$HOME/.local/share/venvs/py313
+
+export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 ## ---- Append Paths ---------------------------------------
 export PATH=$PATH:/usr/local/go/bin:$GOBIN:$HOME/.cargo/bin

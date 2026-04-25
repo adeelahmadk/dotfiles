@@ -426,6 +426,65 @@ function fpfind() {
     $__fpack remote-info $REMOTE $REF || echo "flatpak remote-info failed!" >&2
 }
 
+###################################################
+# Create a python venv in a default home directory.
+# Globals:
+#   VENV  Path to the venv in home directory.
+# Arguments:
+#   Name of a directory to create a venv
+# Returns:
+#   None
+####################################################
+
+function envmk() {
+    [ -z "$VENV" ] && {
+        echo "Default path to the venv directory not defined!"
+        return 1
+    }
+    [ "$#" -ne 1 ] && {
+        echo "usage: envmk <venv-name>"
+        return 1
+    }
+    envdir="$VENV/$1"
+    [ -d "$envdir" ] &&
+        {
+            echo "$1: virtual env already exists."
+            echo "Choose a different name!"
+            return 1
+        }
+    python3 -m venv "$envdir" && \
+      echo "$1: venv successfully created!"
+}
+
+###################################################
+# Delete a python venv from default home directory.
+# Globals:
+#   VENV  Path to the venv in home directory.
+# Arguments:
+#   Name of a venv to delete
+# Returns:
+#   None
+####################################################
+
+function envrm() {
+    [ -z "$VENV" ] && {
+        echo "Default path to the venv directory not defined!"
+        return 1
+    }
+    [ "$#" -ne 1 ] && {
+        echo "usage: envrm <venv-name>"
+        return 1
+    }
+    envdir="$VENV/$1"
+    [ ! -d "$envdir" ] &&
+        {
+            echo "$1: virtual env doesn't exist!"
+            return 1
+        }
+    rm -rf "$envdir/" && \
+      echo "$1: venv successfully deleted!"
+}
+
 ###############################################
 # Activate a python venv saved in a default
 # home directory.
@@ -438,7 +497,7 @@ function fpfind() {
 ###############################################
 function envon() {
     [ -z "$VENV" ] && {
-        echo "Default path to the venv direvtory not defined!"
+        echo "Default path to the venv directory not defined!"
         return 1
     }
     [ "$#" -ne 1 -a ! -d "$VENV0" ] && {
@@ -478,7 +537,7 @@ function envon() {
 ###############################################
 function envls() {
     [ -z "$VENV" ] && {
-        echo "Default path to the venv direvtory not defined!"
+        echo "Default path to the venv directory not defined!"
         return 1
     }
     echo "venv(s) defined at the default path:"

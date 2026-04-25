@@ -322,13 +322,64 @@ function vwm() {
   nvim +$(grep -in -m1 "$1" "$2" | awk -F':' '{print $1}') -c 'execute "normal zz"' "$2"
 }
 
-################################################################
-#  Define Env Vars
-#  for frequently used paths etc.
-################################################################
-# set env vars for virtualenv
-export VENV=$HOME/.local/share/venvs
-export VENV0=$HOME/.local/share/venvs/py313
+###################################################
+# Create a python venv in a default home directory.
+# Globals:
+#   VENV  Path to the venv home directory.
+# Arguments:
+#   Name of a directory to create a venv
+# Returns:
+#   None
+####################################################
+
+function envmk() {
+  [ -z "$VENV" ] && {
+    echo "Default path to the venv direvtory not defined!"
+    return 1
+  }
+  [ "$#" -ne 1 ] && {
+    echo "usage: envmk <venv-name>"
+    return 1
+  }
+  envdir="$VENV/$1"
+  [ -d "$envdir" ] &&
+    {
+      echo "$envdir: virtual env already exists."
+      echo "Choose a different name!"
+      return 1
+    }
+  python3 -m venv "$envdir" &&
+    echo "$1: venv successfully created!"
+}
+
+###################################################
+# Delete a python venv from default home directory.
+# Globals:
+#   VENV  Path to the venv in home directory.
+# Arguments:
+#   Name of a venv to delete
+# Returns:
+#   None
+####################################################
+
+function envrm() {
+  [ -z "$VENV" ] && {
+    echo "Default path to the venv directory not defined!"
+    return 1
+  }
+  [ "$#" -ne 1 ] && {
+    echo "usage: envrm <venv-name>"
+    return 1
+  }
+  envdir="$VENV/$1"
+  [ ! -d "$envdir" ] &&
+    {
+      echo "$1: virtual env doesn't exist!"
+      return 1
+    }
+  rm -rf "$envdir/" &&
+    echo "$1: venv successfully deleted!"
+}
 
 ###############################################
 # Activate a python venv saved in a default
