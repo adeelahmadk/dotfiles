@@ -554,3 +554,28 @@ function intip6() {
     awk '{print $2}' |
     cut -d/ -f1
 }
+
+###############################################
+# Copy to clipboard in title case
+# Globals:
+#   None
+# Arguments:
+#   A punctuation separated string
+# Returns:
+#   None
+###############################################
+function cpt() {
+  [ "$#" -lt 1 -o "${#1}" -eq 0 ] && {
+    echo "usage: cpt STR"
+    return 1
+  }
+
+  input="$1"
+  temp=$(echo $input | sed -E 's/[-_]/ /g')
+  temp2="${temp,,}"
+  if [[ $XDG_SESSION_TYPE = "wayland" ]]; then
+    echo "$temp2" | sed -E 's/\b(.)/\u\1/g' | wl-copy -n
+  else
+    echo "$temp2" | sed -E 's/\b(.)/\u\1/g' | xsel -bi
+  fi
+}

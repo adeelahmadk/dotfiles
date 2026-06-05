@@ -583,3 +583,27 @@ function hlp() {
 	$_CMD $_ARG --help | "${_PAGER[@]}"
 }
 
+###############################################
+# Copy to clipboard in title case
+# Globals:
+#   None
+# Arguments:
+#   A punctuation separated string
+# Returns:
+#   None
+###############################################
+function cpt() {
+	[ "$#" -lt 1 -o "${#1}" -eq 0 ] && {
+    echo "usage: cpt STR"
+    return 1
+  }
+
+  input="$1"
+  temp=`echo $input | sed -r 's/[-_]/ /g'`
+  if [[ $XDG_SESSION_TYPE = "wayland" ]]; then
+    echo "${(C)temp}" | wl-copy -n
+  else
+    echo "${(C)temp}" | xsel -bi
+  fi
+}
+

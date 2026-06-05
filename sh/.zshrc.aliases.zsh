@@ -135,6 +135,7 @@ alias fnorm='for f in *\ *; do mv "$f" "${f// /_}"; done'
 
 ## fuzzy find with file preview
 alias fzb='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+alias bats='bat --style=-numbers --style=plain'
 
 ## network admin commands
 alias pingg='ping 8.8.8.8 -c'

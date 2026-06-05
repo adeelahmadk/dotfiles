@@ -7,11 +7,50 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "agent": {
+    "default_model": {
+      "provider": "openrouter",
+      "model": "qwen/qwen3-next-80b-a3b-instruct:free",
+      "enable_thinking": false,
+    },
+    "dock": "right",
+    "favorite_models": [
+      {
+        "provider": "openrouter",
+        "model": "qwen/qwen3-next-80b-a3b-instruct:free",
+        "enable_thinking": false,
+      },
+      {
+        "provider": "openrouter",
+        "model": "google/gemma-4-31b-it:free",
+        "enable_thinking": true,
+      },
+    ],
+    "model_parameters": [],
+  },
+  "git_panel": {
+    "dock": "left",
+  },
   "edit_predictions": {
+    "disabled_globs": [],
+    "mode": "eager",
+    "open_ai_compatible_api": {
+      "max_output_tokens": 512,
+      "model": "openrouter/auto",
+      "prompt_format": "zeta",
+      "api_url": "https://openrouter.ai",
+    },
     "ollama": {
+      "api_url": "http://localhost:11434",
       "model": "qwen2.5-coder:7b-base",
     },
-    "provider": "zed",
+    "provider": "open_ai_compatible_api",
   },
   "icon_theme": "Catppuccin Mocha",
   "project_panel": {
@@ -20,7 +59,7 @@
   "theme": {
     "mode": "system",
     "light": "Quiet Light",
-    "dark": "Catppuccin Mocha",
+    "dark": "Catppuccin Espresso (Blur)",
   },
   "ui_font_size": 16,
   "buffer_font_size": 16,
@@ -38,5 +77,15 @@
     "useTabs": false,
     "bracketSpacing": true,
     "arrowParens": "avoid",
+  },
+  "languages": {
+    "PHP": {
+      "language_servers": ["intelephense", "phpcs", "!phpactor"],
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.fixAll.phpcs": true,
+      },
+      "formatter": [],
+    },
   },
 }
