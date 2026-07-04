@@ -14,9 +14,10 @@
     "dock": "left",
   },
   "agent": {
+    "default_profile": "write",
     "default_model": {
       "provider": "openrouter",
-      "model": "qwen/qwen3-next-80b-a3b-instruct:free",
+      "model": "google/gemma-4-31b-it:free",
       "enable_thinking": false,
     },
     "dock": "right",
@@ -24,13 +25,18 @@
       {
         "provider": "openrouter",
         "model": "qwen/qwen3-next-80b-a3b-instruct:free",
-        "enable_thinking": false,
+        "enable_thinking": false
       },
       {
         "provider": "openrouter",
         "model": "google/gemma-4-31b-it:free",
-        "enable_thinking": true,
+        "enable_thinking": false
       },
+      {
+        "provider": "openrouter",
+        "model": "google/gemma-4-26b-a4b-it:free",
+        "enable_thinking": true
+      }
     ],
     "model_parameters": [],
   },
@@ -42,7 +48,7 @@
     "mode": "eager",
     "open_ai_compatible_api": {
       "max_output_tokens": 512,
-      "model": "openrouter/auto",
+      "model": "google/gemma-4-26b-a4b-it:free",
       "prompt_format": "zeta",
       "api_url": "https://openrouter.ai",
     },
@@ -80,12 +86,17 @@
   },
   "languages": {
     "PHP": {
-      "language_servers": ["intelephense", "phpcs", "!phpactor"],
+      "language_servers": ["intelephense", "phpcs", "emmet-language-server", "!phpactor"],
       "format_on_save": "on",
-      "code_actions_on_format": {
-        "source.fixAll.phpcs": true,
+      // remove phpcs from running code actions
+      "code_actions_on_format": {},
+      // Use Pint explicitly as the external formatting command
+      "formatter": {
+        "external": {
+          "command": "bash",
+          "arguments": ["-c", "cat > {buffer_path} && pint --quiet {buffer_path} && cat {buffer_path}"],
+        },
       },
-      "formatter": [],
     },
   },
 }
