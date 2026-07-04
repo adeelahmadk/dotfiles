@@ -116,10 +116,15 @@ fi
 ## ---- custom application functions ----
 alias mergepdf='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged_file.pdf'
 
+# frequently used ffmpeg commands
+# suppress notices, versions, etc.
 alias ffmp='ffmpeg -hide_banner'
+# play media headless
 alias ffpl='ffplay -hide_banner -autoexit'
-alias ffpr='ffprobe -hide_banner'
+# dump media file properties
+alias ffpr='ffprobe -v error -show_format -show_streams'
 
+# update rootkit defs
 if command -v rkhunter >/dev/null; then
   alias rkhup='sudo rkhunter --update && sudo rkhunter --propupd'
 fi
@@ -168,6 +173,7 @@ alias asin="as -msyntax=intel -mnaked-reg"
 # aliases for misc. dev tools
 alias lzd="lazydocker"
 alias lzg="lazygit"
+alias dmr="docker model"
 
 # node & npm
 alias nls="npm list -g --depth=0"
