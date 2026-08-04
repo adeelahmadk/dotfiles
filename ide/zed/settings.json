@@ -7,6 +7,11 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "language_models": {
+    "llama.cpp": {
+      "api_url": "http://localhost:8099"
+    }
+  },
   "outline_panel": {
     "dock": "left",
   },
@@ -17,16 +22,11 @@
     "default_profile": "write",
     "default_model": {
       "provider": "openrouter",
-      "model": "google/gemma-4-31b-it:free",
-      "enable_thinking": false,
+      "model": "openai/gpt-oss-20b:free",
+      "enable_thinking": true,
     },
     "dock": "right",
     "favorite_models": [
-      {
-        "provider": "openrouter",
-        "model": "qwen/qwen3-next-80b-a3b-instruct:free",
-        "enable_thinking": false
-      },
       {
         "provider": "openrouter",
         "model": "google/gemma-4-31b-it:free",
@@ -35,6 +35,11 @@
       {
         "provider": "openrouter",
         "model": "google/gemma-4-26b-a4b-it:free",
+        "enable_thinking": true
+      },
+      {
+        "provider": "openrouter",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
         "enable_thinking": true
       }
     ],
@@ -63,9 +68,9 @@
     "dock": "right",
   },
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "Quiet Light",
-    "dark": "Catppuccin Espresso (Blur)",
+    "dark": "Catppuccin Mocha (Blur)",
   },
   "ui_font_size": 16,
   "buffer_font_size": 16,
