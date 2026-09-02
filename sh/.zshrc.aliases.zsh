@@ -176,7 +176,7 @@ alias lzg="lazygit"
 alias dmr="docker model"
 
 # node & npm
-alias nls="npm list -g --depth=0"
+alias nls="npm list -g --depth=0 --json | jq -r '.dependencies | del(.npm) | to_entries[] | \"\(.key)\"'"
 alias nig="npm i -g"
 
 # web server

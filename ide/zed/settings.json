@@ -19,10 +19,10 @@
     "dock": "left",
   },
   "agent": {
-    "default_profile": "write",
+    "default_profile": "ask",
     "default_model": {
       "provider": "openrouter",
-      "model": "openai/gpt-oss-20b:free",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
       "enable_thinking": true,
     },
     "dock": "right",

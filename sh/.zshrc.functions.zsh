@@ -191,6 +191,23 @@ function fzd() {
     find "$1" -type d 2>/dev/null | fzf
 }
 
+###############################################
+# Fuzzy find and open system man pages
+# Globals:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################
+fman() {
+    man -k . | fzf \
+        --prompt="Man Pages> " \
+        --preview="echo {} | awk '{print \$1}' | xargs man | bat --color=always --style=plain --language=man" \
+        --preview-window=right,65%,wrap \
+        --bind="enter:execute(echo {} | awk '{print \$1}' | xargs man)"
+}
+
 ###################################################
 # Open a file at the first appearance of a keyword
 # and align it at the top of the buffer
