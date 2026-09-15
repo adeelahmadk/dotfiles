@@ -177,7 +177,10 @@ alias dmr="docker model"
 
 # node & npm
 alias nls="npm list -g --depth=0 --json | jq -r '.dependencies | del(.npm) | to_entries[] | \"\(.key)\"'"
+alias nlsv="npm list -g --depth=0 --json | jq -r '.dependencies | del(.npm) | to_entries[] | \"\(.key) \(.value.version)\"' | column -t -N PACKAGE,VERSION"
 alias nig="npm i -g"
+alias nog="npm outdated -g --depth=0"
+alias nug="npm update -g"
 
 # web server
 alias srvit="python3 -m http.server"

@@ -201,6 +201,7 @@ function fzd() {
 #   None
 ###############################################
 fman() {
+  # fuzzy find in the keyword search for regex '.'
     man -k . | fzf \
         --prompt="Man Pages> " \
         --preview="echo {} | awk '{print \$1}' | xargs man | bat --color=always --style=plain --language=man" \
