@@ -19,27 +19,35 @@
     "dock": "left",
   },
   "agent": {
-    "default_profile": "ask",
+    "terminal_init_command": "",
+    "default_profile": "write",
     "default_model": {
+      "effort": "medium",
       "provider": "openrouter",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "model": "thinkingmachines/inkling:free",
       "enable_thinking": true,
     },
     "dock": "right",
     "favorite_models": [
       {
         "provider": "openrouter",
-        "model": "google/gemma-4-31b-it:free",
-        "enable_thinking": false
-      },
-      {
-        "provider": "openrouter",
-        "model": "google/gemma-4-26b-a4b-it:free",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
         "enable_thinking": true
       },
       {
         "provider": "openrouter",
-        "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "model": "google/gemma-4-31b-it:free",
+        "enable_thinking": true
+      },
+      {
+        "provider": "openrouter",
+        "model": "thinkingmachines/inkling:free",
+        "enable_thinking": true,
+        "effort": "medium"
+      },
+      {
+        "provider": "openrouter",
+        "model": "inclusionai/ling-3.0-flash-vl:free",
         "enable_thinking": true
       }
     ],
@@ -79,6 +87,8 @@
     "calt": true,
     "liga": true,
   },
+  // Enable native Podman engine bindings for dev containers
+  "use_podman": true,
   "prettier": {
     "singleQuote": true,
     "semi": false,

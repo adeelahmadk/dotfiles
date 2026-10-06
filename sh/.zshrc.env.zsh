@@ -5,6 +5,7 @@ path+=(/usr/local/go/bin $HOME/.cargo/bin)
 [ -d "$HOME/bin" ] && path+=($HOME/bin)
 [ -d "$HOME/.local/bin" ] && path+=($HOME/.local/bin)
 [ -d "$HOME/.config/composer/vendor/bin" ] && path+=($HOME/.config/composer/vendor/bin)
+[ -d "$HOME/.luarocks/bin" ] && path+=($HOME/.luarocks/bin)
 
 ## ---- setup env vars -------------------------------------
 export GOPATH="$HOME/.local/go"

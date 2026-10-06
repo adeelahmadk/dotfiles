@@ -155,7 +155,7 @@ alias hdrchk='curl -o /dev/null --max-time 3 --silent --write-out "HTTP Status: 
 alias lsport="sudo lsof -i -P -n | grep LISTEN"
 
 # weather update
-alias weather="curl -i wttr.in"
+alias weather="curl -s 'wttr.in/?0'"
 
 # #################
 # dev env commands
